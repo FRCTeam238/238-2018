@@ -61,11 +61,12 @@ public class CommandDriveForward extends AbstractCommand {
   }
 
   public void execute() {
-
+    
+      SmartDashboard.putNumber("TARGET VALUE = ", targetValue);
     myRobotDrive.shiftLow();
     
-    //motorValue = pidCalc(CrusaderCommon.STRAIGHT_P_VALUE, CrusaderCommon.STRAIGHT_DEAD_STOP,
-    //targetValue, CrusaderCommon.STRAIGHT_MAX_ERROR, CrusaderCommon.STRAIGHT_MAX_MOTOR_VALUE, CrusaderCommon.STRAIGHT_I_VALUE);
+    motorValue = pidCalc(CrusaderCommon.STRAIGHT_P_VALUE, CrusaderCommon.STRAIGHT_DEAD_STOP,
+    targetValue, CrusaderCommon.STRAIGHT_MAX_ERROR, CrusaderCommon.STRAIGHT_MAX_MOTOR_VALUE, CrusaderCommon.STRAIGHT_I_VALUE);
     
     double convert = CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH;
     double currentYaw = myNavigation.getYaw();
@@ -75,7 +76,7 @@ public class CommandDriveForward extends AbstractCommand {
     Logger.Log("YAW_ERROR = " + yawError);
     Logger.Log("YAW_CORRECTION = " + yawCorrection);
     
-    //yawCorrection = Math.min(yawCorrection, yawCorrectionMaxPercent * motorValue); 
+    yawCorrection = Math.min(yawCorrection, yawCorrectionMaxPercent * motorValue); 
 
     double finalMotorValueLeft = motorValue - yawCorrection;
     double finalMotorValueRight = motorValue + yawCorrection;
@@ -109,7 +110,7 @@ public class CommandDriveForward extends AbstractCommand {
   public void setParams(String params[]) {
 
     if ((params[0] != null) || (!params[0].isEmpty())) {
-      targetValue = Double.parseDouble(params[0]) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH; //4560;
+      targetValue = Double.parseDouble(params[0]) * (SmartDashboard.getNumber("TICKS PER INCH", 1627));//CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH; //4560;
     } else {
       targetValue = 0;
     }

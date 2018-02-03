@@ -73,8 +73,8 @@ public class Drivetrain {
 		leftFrontDrive.configClosedloopRamp(0.1, 100);
 		rightFrontDrive.configClosedloopRamp(0.1, 100);
 		
-		leftFrontDrive.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		rightFrontDrive.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		leftFrontDrive.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		rightFrontDrive.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 
     
 		configTalon(leftFrontDrive);
@@ -136,11 +136,11 @@ public class Drivetrain {
 	 */
 	public void resetEncoders(){
 		
-	  /*leftFrontDrive.setSelectedSensorPosition(0,0,0);
+	  leftFrontDrive.setSelectedSensorPosition(0,0,0);
 	  rightFrontDrive.setSelectedSensorPosition(0,0,0);
     
 	  encoderLeft = leftFrontDrive.getSelectedSensorPosition(0);
-	  encoderRight = rightFrontDrive.getSelectedSensorPosition(0);*/
+	  encoderRight = rightFrontDrive.getSelectedSensorPosition(0);
 		
 	}
 	
@@ -187,8 +187,11 @@ public class Drivetrain {
 		
 	  /*the joystick value is multiplied by a target RPM so the 
 	  *robot works with the velocity tuning code*/
-		leftFrontDrive.set(ControlMode.PercentOutput, leftMotorValue);
-		rightFrontDrive.set(ControlMode.PercentOutput, rightMotorValue);
+		leftFrontDrive.set(ControlMode.PercentOutput, -leftMotorValue);
+		rightFrontDrive.set(ControlMode.PercentOutput, -rightMotorValue);
+		Logger.Log("LEFT ENCODER === " + leftFrontDrive.getSelectedSensorPosition(0));
+		Logger.Log("RIGHT ENCODER === " + rightFrontDrive.getSelectedSensorPosition(0));
+		SmartDashboard.putNumber("ENCODER DISTANCE = ", rightFrontDrive.getSelectedSensorPosition(0));
 	}
 	
 	public void driveSpeed(double leftSpeed, double rightSpeed) {

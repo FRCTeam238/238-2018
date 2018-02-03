@@ -82,6 +82,13 @@ public class CrusaderCommon {
 	public static final int DRIVE_TRAIN_LEFT_SLAVE1 = 14;
 	public static final int DRIVE_TRAIN_LEFT_SLAVE2 = 13;
 	
+	public static final int ELEVATOR_MASTER = 11;
+	public static final int ELEVAOR_SLAVE_SRX = 8;
+	public static final int ELEVATOR_SLAVE_SPX = 10;
+	public static final int INTAKE_MASTER_SRX = 4;
+	public final static int INTAKE_SLAVE = 5;
+	public final static int INTAKE_WRIST = 7;
+	
 	
 	public static final double ELEVATOR_CUBE_SPEED = 0.8;
 	public static final double ELEVATOR_CLIMB_SPEED = 0.5;
@@ -112,7 +119,7 @@ public class CrusaderCommon {
 
 	// SETERMINE THIS EXACT NUMBER FOR NEW ROBOT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	// //325 = 1 inch 3900 = 1 foot
-	public final static int DRIVE_FORWARD_ENCODER_TICKS_PER_INCH = 280;//252;//323;// 4983;//3900;
+	public final static int DRIVE_FORWARD_ENCODER_TICKS_PER_INCH = 1630;//252;//323;// 4983;//3900;
 
 	// TURNING AND DRIVING PID VALUES
 	public final static double TURN_P_VALUE = 0.0007;// 0.003;//SmartDashboard.getNumber("Turn

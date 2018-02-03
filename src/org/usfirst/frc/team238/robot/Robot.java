@@ -187,6 +187,8 @@ public class Robot extends IterativeRobot
 		  autonomousSaveChooser.addObject("Save", "1");
 		  autonomousSaveChooser.addObject("Read", "2");
 		  
+		  SmartDashboard.putNumber("TICKS PER INCH", 1627);
+		  
 		  //RM SmartDashboard.putData("Edit State Params", autonomousStateParamsUpdate);
 		  //RM SmartDashboard.putData("Save Changes", autonomousSaveChooser);
 		  

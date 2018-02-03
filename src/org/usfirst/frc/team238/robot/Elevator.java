@@ -33,11 +33,11 @@ public class Elevator
     public void init()
     {
         
-        elevatorMasterTalon = new TalonSRX(8);
-        elevatorSlaveTalon = new TalonSRX(11);
-        elevatorSlaveVictor = new VictorSPX(10);
+        elevatorMasterTalon = new TalonSRX(CrusaderCommon.ELEVATOR_MASTER);
+        elevatorSlaveTalon = new TalonSRX(CrusaderCommon.ELEVAOR_SLAVE_SRX);
+        elevatorSlaveVictor = new VictorSPX(CrusaderCommon.ELEVATOR_SLAVE_SPX);
         
-        elevatorSlaveTalon.follow(elevatorMasterTalon);
+        elevatorSlaveTalon.set(ControlMode.Follower, CrusaderCommon.ELEVATOR_MASTER);//follow(elevatorMasterTalon);
         elevatorSlaveVictor.follow(elevatorMasterTalon);
         
         elevatorMasterTalon.setNeutralMode(NeutralMode.Brake);
@@ -45,8 +45,6 @@ public class Elevator
         elevatorSlaveVictor.setNeutralMode(NeutralMode.Brake);
         
         elevatorMasterTalon.set(ControlMode.PercentOutput, 0);
-        elevatorSlaveTalon.set(ControlMode.PercentOutput, 0);
-        elevatorSlaveVictor.set(ControlMode.PercentOutput, 0);
         
         highSolenoid = new Solenoid(4);
         lowSolenoid = new Solenoid(5);

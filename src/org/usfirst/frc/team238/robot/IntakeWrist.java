@@ -1,5 +1,7 @@
 package org.usfirst.frc.team238.robot;
 
+import org.usfirst.frc.team238.core.Logger;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -20,9 +22,9 @@ public class IntakeWrist
     public void init()
     {
         
-        wristTalon = new TalonSRX(7);
-        intakeMaster = new TalonSRX(4);
-        intakeSlave = new VictorSPX(5);
+        wristTalon = new TalonSRX(CrusaderCommon.INTAKE_WRIST);
+        intakeMaster = new TalonSRX(CrusaderCommon.INTAKE_MASTER_SRX);
+        intakeSlave = new VictorSPX(CrusaderCommon.INTAKE_SLAVE);
         
         intakeSlave.follow(intakeMaster);
         
@@ -30,9 +32,8 @@ public class IntakeWrist
         intakeMaster.setNeutralMode(NeutralMode.Brake);
         intakeSlave.setNeutralMode(NeutralMode.Brake);
         
-        intakeSlave.set(ControlMode.PercentOutput, 0);
+        wristTalon.set(ControlMode.PercentOutput, 0);
         intakeMaster.set(ControlMode.PercentOutput, 0);
-        intakeSlave.set(ControlMode.PercentOutput, 0);
         
     }
     
@@ -63,7 +64,6 @@ public class IntakeWrist
     {
      
         intakeMaster.set(ControlMode.PercentOutput, CrusaderCommon.INTAKE_SPEED);
-        
     }
     
     /**
