@@ -17,7 +17,7 @@ public class Elevator
     Solenoid highSolenoid;
     Solenoid lowSolenoid;
     
-    boolean climbMode;
+    public boolean climbMode;
     
     /**
      * Constructor

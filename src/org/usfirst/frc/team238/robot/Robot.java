@@ -34,6 +34,8 @@ import org.usfirst.frc.team238.robot.Drivetrain;
 import RealBot.TrajectoryIntepreter;
 import RealBot.TrajectoryFactory;
 import RealBot.Trajectory;
+import org.usfirst.frc.team238.robot.Elevator;
+import org.usfirst.frc.team238.robot.IntakeWrist;
 
 import org.usfirst.frc.team238.lalaPaths.goStraight;
 import org.usfirst.frc.team238.lalaPaths.leftSwitch;
@@ -71,6 +73,8 @@ public class Robot extends IterativeRobot
 	Logger myLogger;
 	DriverStation myDriverStation;
 	TrajectoryIntepreter theTrajectoryIntepreter;
+	Elevator theElevator;
+	IntakeWrist theIntake;
 	
 	//There shouldn't be two of these
 	Alliance myAllianceTeam;
@@ -362,6 +366,12 @@ public class Robot extends IterativeRobot
 		myControlBoard = new ControlBoard();
 		myControlBoard.controlBoardInit();
 		
+		theIntake = new IntakeWrist();
+		theIntake.init();
+		
+		theElevator = new Elevator();
+		theElevator.init();
+		
 		myDriveTrain.resetEncoders();
 		
 		Logger.Log("initRobotObjects Is Sucessful!");	
@@ -382,7 +392,7 @@ public class Robot extends IterativeRobot
 		trajectories.add(TrajectoryFactory.getTrajectory(goStraight.objects));
 		HashMap<String, Runnable> markers = new HashMap<>();
 		theTrajectoryIntepreter = new TrajectoryIntepreter(myDriveTrain, trajectories, markers);
-		theMCP.init(myDriveTrain, myNavigation, myRobot, theTrajectoryIntepreter);
+		theMCP.init(myDriveTrain, myNavigation, myRobot, theTrajectoryIntepreter, theElevator, theIntake);
 		
 		
 		//The handler that handles everything JSON related 

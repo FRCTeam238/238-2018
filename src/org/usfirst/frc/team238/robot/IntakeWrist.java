@@ -7,7 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 public class IntakeWrist
 {
-    
+
     TalonSRX wristTalon;
     TalonSRX intakeMaster;
     VictorSPX intakeSlave;

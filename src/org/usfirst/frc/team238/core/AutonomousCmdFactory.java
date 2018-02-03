@@ -5,6 +5,8 @@ import java.util.HashMap;
 import org.usfirst.frc.team238.robot.Drivetrain;
 import org.usfirst.frc.team238.robot.Navigation;
 import org.usfirst.frc.team238.robot.Robot;
+import org.usfirst.frc.team238.robot.Elevator;
+import org.usfirst.frc.team238.robot.IntakeWrist;
 
 import RealBot.TrajectoryFactory;
 import RealBot.TrajectoryIntepreter;
@@ -18,6 +20,13 @@ import org.usfirst.frc.team238.commands.CommandCurlForward;
 import org.usfirst.frc.team238.commands.CommandDelay;
 import org.usfirst.frc.team238.commands.CommandRunTrajectory;
 import org.usfirst.frc.team238.lalaPaths.leftSwitch;
+import org.usfirst.frc.team238.commands.CommandRetractWrist;
+import org.usfirst.frc.team238.commands.CommandShiftClimb;
+import org.usfirst.frc.team238.commands.CommandElevatorUp;
+import org.usfirst.frc.team238.commands.CommandElevatorDown;
+import org.usfirst.frc.team238.commands.CommandExtendWrist;
+import org.usfirst.frc.team238.commands.CommandIntakeOut;
+import org.usfirst.frc.team238.commands.CommandIntakeIn;
 
 public class AutonomousCmdFactory {
 	
@@ -37,7 +46,7 @@ public class AutonomousCmdFactory {
 	
 	
 	public HashMap<String, Command> createAutonomousCommands(Drivetrain robotDrive,
-			Navigation myNavigation, Robot myRobot){
+			Navigation myNavigation, Robot myRobot,Elevator elevator,IntakeWrist intake){
 	    AbstractCommand cmd;
 	    
 	    cmd  = new CommandDriveForward(robotDrive, myNavigation);
@@ -63,6 +72,27 @@ public class AutonomousCmdFactory {
     
 		cmd = new CommandRunTrajectory(robotDrive, leftSwitch.objects );
         autonomousCommands.put("CommandRunLeftSwitchTrajectory", cmd);
+        
+        cmd = new CommandExtendWrist(intake);
+        autonomousCommands.put("CommandExtendWrist",cmd);
+        
+        cmd = new CommandRetractWrist(intake);
+        autonomousCommands.put("CommandRetractWrist",cmd);
+        
+        cmd = new CommandElevatorUp(elevator);
+        autonomousCommands.put("CommandElevatorUp",cmd);
+        
+        cmd = new CommandElevatorDown(elevator);
+        autonomousCommands.put("CommandElevatorDown",cmd);
+        
+        cmd = new CommandIntakeIn(intake);
+        autonomousCommands.put("CommandIntakeIn",cmd);
+        
+        cmd = new CommandIntakeOut(intake);
+        autonomousCommands.put("CommandIntakeOut",cmd);
+        
+        cmd = new CommandShiftClimb(elevator);
+        autonomousCommands.put("CommandShiftClimb",cmd);
         
 		return autonomousCommands;
 		

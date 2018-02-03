@@ -8,6 +8,9 @@ import org.usfirst.frc.team238.robot.Navigation;
 import org.usfirst.frc.team238.robot.Robot;
 import RealBot.TrajectoryIntepreter;
 
+import org.usfirst.frc.team238.robot.Elevator;
+import org.usfirst.frc.team238.robot.IntakeWrist;
+
 public class CommandController 
 {
   //Command factories
@@ -36,12 +39,13 @@ public class CommandController
 	 * @param myRobot
 	 */
 	public void  init(Drivetrain driveTrain,
-	    Navigation myNavigation, Robot myRobot, TrajectoryIntepreter theIntepreter)
+	    Navigation myNavigation, Robot myRobot,
+	    TrajectoryIntepreter theIntepreter, Elevator elevator, IntakeWrist intake)
 	{
 
-		setupOperatorCommands(myNavigation, driveTrain,myRobot,theIntepreter);
+		setupOperatorCommands(myNavigation, driveTrain,myRobot,theIntepreter, elevator, intake);
 		setupDriverCommands(driveTrain, myNavigation);
-		setupAutonomousCommands(driveTrain, myNavigation, myRobot);
+		setupAutonomousCommands(driveTrain, myNavigation, myRobot,elevator,intake);
 		
 		//Doesn't get used
 		//commandValue = new HashMap<Integer, Command>(8);
@@ -67,11 +71,11 @@ public class CommandController
 	 * @param theFuelHandler
 	 */
 	private void setupAutonomousCommands(Drivetrain driveTrain, Navigation myNavigation,
-	    Robot myRobot)
+	    Robot myRobot, Elevator elevator, IntakeWrist intake)
 	{
 		theRouge = new AutonomousCmdFactory();
 		theRouge.init();
-		autoCmdList = theRouge.createAutonomousCommands(driveTrain, myNavigation,myRobot);
+		autoCmdList = theRouge.createAutonomousCommands(driveTrain, myNavigation,myRobot,elevator,intake);
 		
 	}
 	
@@ -118,12 +122,13 @@ public class CommandController
 	 * @param myRobot
 	 */
 	private void setupOperatorCommands(Navigation myNavigation, Drivetrain driveTrain, 
-			 Robot myRobot, TrajectoryIntepreter theIntepreter)
+			 Robot myRobot, TrajectoryIntepreter theIntepreter, Elevator elevator, IntakeWrist intake)
 	{
 		theOperatorCmdFactory = new OperatorCmdFactory();
 		theOperatorCmdFactory.init();
 		
-		operatorCmdList = theOperatorCmdFactory.createOperatorCommands(driveTrain, myNavigation,myRobot, theIntepreter);
+		operatorCmdList = theOperatorCmdFactory.createOperatorCommands(driveTrain, 
+		        myNavigation,myRobot, theIntepreter,elevator,intake);
 	}
 
 	/*

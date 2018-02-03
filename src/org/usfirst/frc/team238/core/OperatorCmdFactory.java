@@ -8,17 +8,20 @@ import org.usfirst.frc.team238.robot.Drivetrain;
 import org.usfirst.frc.team238.robot.Navigation;
 import org.usfirst.frc.team238.robot.Robot;
 
+import org.usfirst.frc.team238.robot.Elevator;
+import org.usfirst.frc.team238.robot.IntakeWrist;
+
 import RealBot.TrajectoryIntepreter;
 
 import org.usfirst.frc.team238.commands.CommandStopEverything;
-import org.usfirst.frc.team238.commands.CommandRunTrajectoryX;
+import org.usfirst.frc.team238.commands.CommandRunTrajectoryOLD;
 
 public class OperatorCmdFactory {
 
 	
 	CommandStopEverything commandStopEverything;
 
-	CommandRunTrajectoryX commadRunTrajectory;
+	CommandRunTrajectoryOLD commadRunTrajectory;
 	
 	HashMap<Integer, Command> operatorCommands;
 	
@@ -41,14 +44,15 @@ public class OperatorCmdFactory {
 	 * @return
 	 */
 	public HashMap<Integer, Command> createOperatorCommands(Drivetrain driveTrain,
-	    Navigation theNavigation, Robot theRobot, TrajectoryIntepreter theIntepreter)
+	    Navigation theNavigation, Robot theRobot,
+	    TrajectoryIntepreter theIntepreter, Elevator elevator, IntakeWrist intake)
 	{
 	  //Inputs get defined in CrusaderCommon
 	  Integer[] multiButtonTestInput = {1,2,3,4,5}; //Test : Button input
 	  
 	  //Create command objects, passing objects into each of them
-	  commandStopEverything = new CommandStopEverything();     //<-------------------------------- EXAMPLE
-	  commadRunTrajectory = new CommandRunTrajectoryX(theIntepreter);
+	  commandStopEverything = new CommandStopEverything(intake, elevator);     //<-------------------------------- EXAMPLE
+	  commadRunTrajectory = new CommandRunTrajectoryOLD(theIntepreter);
 	  
 	  //Assigns all command arrays and their specific inputs to the HashMap
 	  operatorCommands.put(CrusaderCommon.stopEverythingInput, commandStopEverything); // <------- EXAMPLE
