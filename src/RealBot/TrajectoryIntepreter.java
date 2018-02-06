@@ -67,6 +67,8 @@ public class TrajectoryIntepreter implements Runnable{
             for(Trajectory t:trajectories){
                 int index=0;
                 //delT is in millis
+                ArrayList<Moment> thisMoment = trajectories.get(0).getMoments();
+                 
                 double dt = ( trajectories.get(0).getMoments().get(1).timeStamp-
                         trajectories.get(0).getMoments().get(0).timeStamp);
                 long delT = (long) (1000*( trajectories.get(0).getMoments().get(1).timeStamp-
@@ -135,5 +137,67 @@ public class TrajectoryIntepreter implements Runnable{
         return 0;
     }
 
+    private void createLoopEx(){
+        loop = () ->{
+            playing=true;
+            double wholeStartTime = System.currentTimeMillis();
+
+            //will throw error if there is not atleast 2 moments in trajcetory, but there should always be more than 2
+            
+            double pastLeftVelocity = 0;
+            double pastRightVelocity = 0;
+            
+            
+            for(Trajectory t:trajectories){
+                int index=0;
+                //delT is in millis
+                ArrayList<Moment> theseMoments = t.getMoments();
+                double timeStamp_1 =  theseMoments.get(1).timeStamp;
+                double timeStamp_2 =  theseMoments.get(0).timeStamp;
+                double dt = timeStamp_1 - timeStamp_2;
+                long delT = (long) (1000*( dt));
+                
+                double trajectoryStartTime = System.currentTimeMillis();
+                double pausedTime = 0;
+                
+                for(Moment currentMoment:t.getMoments()){
+                    //check if you are in a marker that has an action, if so, compute the action -
+                    // it could mess things up if your velocity is not 0, and
+                    // your marker action runs for more than around 10-50 milliseconds
+                    if(markerPoints.containsKey(currentMoment.marker)){
+                        double markerStartTime = System.currentTimeMillis();
+                        markerPoints.get(currentMoment.marker).run();
+                        double marketStopTime = System.currentTimeMillis();
+                        pausedTime+= marketStopTime-markerStartTime;
+                    }
+                    System.out.println(currentMoment.lVel);
+                    leftVelocity = currentMoment.lVel;
+                    rightVelocity = currentMoment.rVel;
+                    System.out.println("RIGHT TARGET IS ="+rightVelocity);
+                    angle = currentMoment.angle;
+                    double leftAcceleration = (leftVelocity - pastLeftVelocity) / dt;
+                    double rightAcceleration = (rightVelocity - pastRightVelocity) / dt;
+                    pastLeftVelocity = leftVelocity;
+                    pastRightVelocity = rightVelocity;
+                    double leftAddIn = leftAcceleration * 0.05;
+                    double rightAddIn = rightAcceleration * 0.05;
+                    System.out.println("Right Accleration" +rightAcceleration);
+                    driveTrain.driveSpeed(leftVelocity + leftAddIn,rightVelocity + rightAddIn);
+
+                    //delay is (elapsedTime-pausedtime) - timeStamp
+                    long delay = (long) ((System.currentTimeMillis() - trajectoryStartTime - pausedTime) - currentMoment.timeStamp*1000);
+                    try {
+                        Thread.sleep(Math.max(1,delT - delay));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    index++;
+                }
+
+
+            }
+            playing = false;
+        };
+    }
 
 }
