@@ -82,8 +82,8 @@ public class CrusaderCommon {
 	public static final int DRIVE_TRAIN_LEFT_SLAVE1 = 14;
 	public static final int DRIVE_TRAIN_LEFT_SLAVE2 = 13;
 	
-	public static final int ELEVATOR_MASTER = 11;
-	public static final int ELEVAOR_SLAVE_SRX = 8;
+	public static final int ELEVATOR_MASTER = 8;
+	public static final int ELEVAOR_SLAVE_SRX = 11;
 	public static final int ELEVATOR_SLAVE_SPX = 10;
 	public static final int INTAKE_MASTER_SRX = 4;
 	public final static int INTAKE_SLAVE = 5;
@@ -92,6 +92,8 @@ public class CrusaderCommon {
 	
 	public static final double ELEVATOR_CUBE_SPEED = 0.8;
 	public static final double ELEVATOR_CLIMB_SPEED = 0.5;
+	public static final double ELEVATOR_BOTTOM_SOFT_STOP = 6000;
+	public static final double ELEVATOR_TOP_SOFT_STOP = 600000;
 	
 	public static final double INTAKE_WRIST_SPEED = 0.7;
 	public static final double INTAKE_SPEED = 0.8;

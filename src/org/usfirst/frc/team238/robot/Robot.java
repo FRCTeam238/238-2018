@@ -119,6 +119,7 @@ public class Robot extends IterativeRobot
 				count = 0;
 
 				myDriveTrain.resetEncoders();
+				theElevator.getEncoderTicks();
 				
 				autoModeUpdateAndRead();
 			}
@@ -291,6 +292,15 @@ public class Robot extends IterativeRobot
 		
 		SmartDashboard.putNumber("Left Encoder", leftMasterDrive.getSelectedSensorPosition(0));
 		SmartDashboard.putNumber("Right Encoder", rightMasterDrive.getSelectedSensorPosition(0));
+		theElevator.getEncoderTicks();
+		
+		int speedLeft = leftMasterDrive.getSelectedSensorVelocity(0);
+		int speedRight = rightMasterDrive.getSelectedSensorVelocity(0);
+		
+		System.out.println("Speed: " + speedLeft + " " + speedRight);
+		
+		SmartDashboard.putNumber("Left Speed", speedLeft);
+		SmartDashboard.putNumber("Right Speed", speedRight);
 		
 		try 
 		{
@@ -329,6 +339,11 @@ public class Robot extends IterativeRobot
 		leftDriveFollower1 = new VictorSPX(14);  
 		leftDriveFollower2 = new VictorSPX(13);
 		
+		leftMasterDrive.setInverted(true);
+        leftDriveFollower1.setInverted(true);
+        leftDriveFollower2.setInverted(true);
+		
+		
 		leftDriveFollower1.follow(leftMasterDrive);  // .set(ControlMode.Follower,CrusaderCommon.DRIVE_TRAIN_LEFT_MASTER);
         leftDriveFollower2.follow(leftMasterDrive); //set(ControlMode.Follower,CrusaderCommon.DRIVE_TRAIN_LEFT_MASTER);       
        
@@ -340,9 +355,9 @@ public class Robot extends IterativeRobot
 		rightDriveFollower1 = new VictorSPX(1);
 		rightDriveFollower2 = new VictorSPX(2);		
 		
-		rightMasterDrive.setInverted(true);
-		rightDriveFollower1.setInverted(true);
-		rightDriveFollower2.setInverted(true);
+		//rightMasterDrive.setInverted(true);
+		//rightDriveFollower1.setInverted(true);
+		//rightDriveFollower2.setInverted(true);
 		
 		rightDriveFollower1.follow(rightMasterDrive); //set(ControlMode.Follower, CrusaderCommon.DRIVE_TRAIN_RIGHT_MASTER);
 		rightDriveFollower2.follow(rightMasterDrive); //set(ControlMode.Follower, CrusaderCommon.DRIVE_TRAIN_RIGHT_MASTER);

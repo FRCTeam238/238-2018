@@ -1,11 +1,15 @@
 package org.usfirst.frc.team238.robot;
 
+import org.usfirst.frc.team238.core.Logger;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Elevator
 {
@@ -16,6 +20,7 @@ public class Elevator
     
     Solenoid highSolenoid;
     Solenoid lowSolenoid;
+    int liftEncoder;
     
     public boolean climbMode;
     
@@ -45,12 +50,46 @@ public class Elevator
         elevatorSlaveVictor.setNeutralMode(NeutralMode.Brake);
         
         elevatorMasterTalon.set(ControlMode.PercentOutput, 0);
+        elevatorMasterTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+        elevatorMasterTalon.setSensorPhase(true);
         
         highSolenoid = new Solenoid(4);
         lowSolenoid = new Solenoid(5);
         
         climbMode = false;
+        
+        resetEncoders();
     }
+    
+    public int getEncoderTicks()
+    {
+
+        
+        //What if we're going backwards?
+        //What if an encoder is not 0 but hasn't changed?
+        
+          int encoderNumber=0;
+          int encoderAverage=0;
+          
+          liftEncoder = elevatorMasterTalon.getSelectedSensorPosition(0);
+          
+          liftEncoder = Math.abs(liftEncoder);
+          
+          Logger.Log("Elevator: Lift Encoder = " + liftEncoder);
+          
+          SmartDashboard.putNumber("Lift Encoder", liftEncoder);
+
+          
+          return liftEncoder;
+    }
+    
+    public void resetEncoders(){
+        
+        elevatorMasterTalon.setSelectedSensorPosition(0,0,0);
+      
+        liftEncoder = elevatorMasterTalon.getSelectedSensorPosition(0);
+          
+      }
     
     /**
      * Sends the elevator up at the speed used for cubes
@@ -59,9 +98,15 @@ public class Elevator
     
     public void elevatorUp()
     {
+        //get encoder ticks
+        int whereAmI = getEncoderTicks();
         
-        elevatorMasterTalon.set(ControlMode.PercentOutput, CrusaderCommon.ELEVATOR_CUBE_SPEED);
-        
+        if (whereAmI < CrusaderCommon.ELEVATOR_TOP_SOFT_STOP) {
+            elevatorMasterTalon.set(ControlMode.PercentOutput, CrusaderCommon.ELEVATOR_CUBE_SPEED);
+        }else
+        {
+            elevatorMasterTalon.set(ControlMode.PercentOutput, 0.0);
+        }
     }
     
     /**
@@ -69,8 +114,19 @@ public class Elevator
      */
     public void elevatorDown()
     {
-        
-        elevatorMasterTalon.set(ControlMode.PercentOutput, -CrusaderCommon.ELEVATOR_CUBE_SPEED);
+        {
+            //get encoder ticks
+            int whereAmI = getEncoderTicks();
+            
+            if (whereAmI > CrusaderCommon.ELEVATOR_BOTTOM_SOFT_STOP) {
+                elevatorMasterTalon.set(ControlMode.PercentOutput, -CrusaderCommon.ELEVATOR_CUBE_SPEED);
+            } else
+            {
+                elevatorMasterTalon.set(ControlMode.PercentOutput, 0.0);
+            }
+           
+        }   
+       
         
     }
     
