@@ -64,12 +64,6 @@ public class Elevator
     public int getEncoderTicks()
     {
 
-        
-        //What if we're going backwards?
-        //What if an encoder is not 0 but hasn't changed?
-        
-          int encoderNumber=0;
-          int encoderAverage=0;
           
           liftEncoder = elevatorMasterTalon.getSelectedSensorPosition(0);
           

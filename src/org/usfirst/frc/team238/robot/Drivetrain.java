@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -19,9 +20,12 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;*/
 public class Drivetrain {
 
 	Solenoid shifterSolenoid;
+	Solenoid lowShiftSolenoid;
 	DifferentialDrive robotMotors;
 	
 	ControlBoard theControlBoard;
+	
+	DoubleSolenoid theShiftSolenoid;
 	
 	TalonSRX leftFrontDrive;
 	TalonSRX rightFrontDrive;
@@ -56,8 +60,12 @@ public class Drivetrain {
 
 		leftFrontDrive = leftFrontDriveTalon;
 		rightFrontDrive = rightFrontDriveTalon;
-		shifterSolenoid = new Solenoid (0);
+		//shifterSolenoid = new Solenoid (0);
+		//lowShiftSolenoid = new Solenoid (1);
+		theShiftSolenoid = new DoubleSolenoid(0,1);
 		
+		leftFrontDrive.config_kF(0, CrusaderCommon.TALON_F_VALUE_LEFT, 0);
+		rightFrontDrive.config_kF(0, CrusaderCommon.TALON_F_VALUE_RIGHT, 0);
 		/*It Appears we cant do this anymore, we get what we get*/
 		//leftFrontDrive.configEncoderCodesPerRev(256);
 		//rightFrontDrive.configEncoderCodesPerRev(256);
@@ -160,7 +168,7 @@ public class Drivetrain {
 	public void shiftHigh()
 	{
 	  
-		shifterSolenoid.set(CrusaderCommon.SHIFTER_HIGH_GEAR);
+	    theShiftSolenoid.set(DoubleSolenoid.Value.kReverse);
 		
 	}
 	
@@ -171,7 +179,7 @@ public class Drivetrain {
 	public void shiftLow()
 	{
 	  
-		shifterSolenoid.set(CrusaderCommon.SHIFTER_LOW_GEAR);
+	    theShiftSolenoid.set(DoubleSolenoid.Value.kForward);
 		
 	}
 	
@@ -198,7 +206,7 @@ public class Drivetrain {
 		
 		  /*the joystick value is multiplied by a target RPM so the 
 		  *robot works with the velocity tuning code*/
-	        leftFrontDrive.set(ControlMode.Velocity, -(leftSpeed/10) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH);
+	        leftFrontDrive.set(ControlMode.Velocity, (leftSpeed/10) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH);
 			rightFrontDrive.set(ControlMode.Velocity, (rightSpeed/10) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH);
 			
 			 //convert to inches/second
@@ -264,7 +272,7 @@ public class Drivetrain {
     /*This sets the FPID values to correct error in the motor's velocity
      * */
 	//talon.setProfile(CrusaderCommon.TALON_NO_VALUE);
-    talon.config_kF(0, CrusaderCommon.TALON_F_VALUE, 0); //.3113);
+     //.3113);
     talon.config_kP(0, CrusaderCommon.TALON_P_VALUE, 0); //.8);//064543);
     talon.config_kI(0, CrusaderCommon.TALON_NO_VALUE, 0); 
     talon.config_kD(0, CrusaderCommon.TALON_D_VALUE, 0);
@@ -443,7 +451,7 @@ public class Drivetrain {
 	public void nobtnPressed()
 	{
 		lastBtnPressed = 1;
-		shiftLow();
+		//shiftLow();
 		//Logger.logDouble("Reset", lastBtnPressed);
 	}
 	

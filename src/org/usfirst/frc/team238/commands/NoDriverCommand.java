@@ -20,7 +20,7 @@ public class NoDriverCommand extends AbstractCommand {
 	
 	public void execute() {
 		myRobotDrive.nobtnPressed();
-		myRobotDrive.shiftLow();
+		//myRobotDrive.shiftLow();
 	}
 
 	

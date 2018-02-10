@@ -67,9 +67,10 @@ public class CrusaderCommon {
 
 	public final static double TRACKING_MOTOR_VALUE = 1;
 
-	public final static double TALON_F_VALUE = 0.21;
-	public final static double TALON_P_VALUE = 0.5;//0.5
-	public final static double TALON_D_VALUE = 11;
+	public final static double TALON_F_VALUE_LEFT = 0.0725;
+	public final static double TALON_F_VALUE_RIGHT = 0.0735;
+	public final static double TALON_P_VALUE = 0;//0.5
+	public final static double TALON_D_VALUE = 0;
 	public final static int TALON_NO_VALUE = 0;
 
 	/* THESE ARE THE ALL THE TALON IDS FOR THE 2018 ROBOT */

@@ -17,6 +17,7 @@ import org.usfirst.frc.team238.robot.IntakeWrist;
 import RealBot.TrajectoryIntepreter;
 
 import org.usfirst.frc.team238.commands.CommandStopEverything;
+import org.usfirst.frc.team238.lalaPaths.goStraight;
 import org.usfirst.frc.team238.commands.CommandRunTrajectoryOLD;
 import org.usfirst.frc.team238.commands.CommandIntakeIn;
 import org.usfirst.frc.team238.commands.CommandIntakeOut;
@@ -24,6 +25,7 @@ import org.usfirst.frc.team238.commands.CommandElevatorDown;
 import org.usfirst.frc.team238.commands.CommandElevatorUp;
 import org.usfirst.frc.team238.commands.CommandExtendWrist;
 import org.usfirst.frc.team238.commands.CommandRetractWrist;
+import org.usfirst.frc.team238.commands.CommandRunTrajectory;
 import org.usfirst.frc.team238.commands.CommandShiftClimb;
 
 
@@ -34,7 +36,7 @@ public class OperatorCmdFactory {
 	
 	CommandStopEverything commandStopEverything;
 
-	CommandRunTrajectoryOLD commadRunTrajectory;
+	CommandRunTrajectory commadRunTrajectory;
 	
 	CommandShiftClimb commandShiftClimb;
 	
@@ -79,7 +81,7 @@ public class OperatorCmdFactory {
 	  
 	  //Create command objects, passing objects into each of them
 	  commandStopEverything = new CommandStopEverything(intake, elevator);     //<-------------------------------- EXAMPLE
-	  commadRunTrajectory = new CommandRunTrajectoryOLD(theIntepreter);
+	  commadRunTrajectory = new CommandRunTrajectory(driveTrain, goStraight.objects );
 	  commandShiftClimb = new CommandShiftClimb(elevator);
 	  commandIntakeIn = new CommandIntakeIn(intake);
 	  commandIntakeOut = new CommandIntakeOut(intake);
