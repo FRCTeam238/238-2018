@@ -41,13 +41,13 @@ public class DriverCommandFactory
 			Navigation myNavigation)
 	{
 		
-		NoDriveCommand = new NoDriverCommand(driveTrain);
+		NoDriveCommand = new NoDriverCommand(driveTrain, true);
 		
 		driverLeftCommands.put(0, NoDriveCommand);
 		
-		commandShiftLow = new CommandShiftLow(driveTrain);
+		commandShiftHigh = new CommandShiftHigh(driveTrain);
 		
-		driverLeftCommands.put(1, commandShiftLow);
+		driverLeftCommands.put(1, commandShiftHigh);
 
 		
 		//cmdReverseClimb = new CommandReverseClimber(theClimber);
@@ -70,11 +70,11 @@ public class DriverCommandFactory
 			Navigation myNavigation)
 	{
 	  
-		NoDriveCommand  = new NoDriverCommand(driveTrain);
+		NoDriveCommand  = new NoDriverCommand(driveTrain, false);
 		driverRightCommands.put(0, NoDriveCommand);
 		
-		commandShiftHigh = new CommandShiftHigh(driveTrain);
-		driverRightCommands.put(1, commandShiftHigh);
+		//commandShiftLow = new CommandShiftLow(driveTrain);
+		//driverRightCommands.put(1, commandShiftLow);
 
 		return driverRightCommands;
 		

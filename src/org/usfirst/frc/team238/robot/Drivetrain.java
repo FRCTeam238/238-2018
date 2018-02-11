@@ -126,7 +126,7 @@ public class Drivetrain {
 		//RM SmartDashboard.putNumber("DriveTrain: EncoderAverage", encoderRight);
 
 		
-		return encoderRight;
+		return encoderLeft;
 	}
 	//
 	
@@ -135,7 +135,7 @@ public class Drivetrain {
 		//TOP SPEED IN HIGH IS 195 INCHES ON BLOCKS
 		leftFrontDrive.set(ControlMode.PercentOutput, leftVal);
 		rightFrontDrive.set(ControlMode.PercentOutput, -rightVal); //convert to inches/second
-		System.out.println("RIGHT SPEED IS =" + leftFrontDrive.getSelectedSensorVelocity(0)/32.5);
+		//System.out.println("RIGHT SPEED IS =" + leftFrontDrive.getSelectedSensorVelocity(0));
 	}
 	
 	
@@ -167,7 +167,7 @@ public class Drivetrain {
 	 */
 	public void shiftHigh()
 	{
-	  
+	    //Logger.Log("SHIFTHIGH ");
 	    theShiftSolenoid.set(DoubleSolenoid.Value.kReverse);
 		
 	}
@@ -178,7 +178,7 @@ public class Drivetrain {
 	 */
 	public void shiftLow()
 	{
-	  
+	    //Logger.Log("SHIFTLOW ");
 	    theShiftSolenoid.set(DoubleSolenoid.Value.kForward);
 		
 	}
@@ -199,15 +199,23 @@ public class Drivetrain {
 		rightFrontDrive.set(ControlMode.PercentOutput, -rightMotorValue);
 		Logger.Log("LEFT ENCODER === " + leftFrontDrive.getSelectedSensorPosition(0));
 		Logger.Log("RIGHT ENCODER === " + rightFrontDrive.getSelectedSensorPosition(0));
-		SmartDashboard.putNumber("ENCODER DISTANCE = ", rightFrontDrive.getSelectedSensorPosition(0));
+		//SmartDashboard.putNumber("ENCODER DISTANCE = ", rightFrontDrive.getSelectedSensorPosition(0));
+	}
+	
+	public void magicDrive(double target)
+	{
+	    
+	    leftFrontDrive.set(ControlMode.MotionMagic, target);
+        rightFrontDrive.set(ControlMode.MotionMagic, target);
+	    
 	}
 	
 	public void driveSpeed(double leftSpeed, double rightSpeed) {
 		
 		  /*the joystick value is multiplied by a target RPM so the 
 		  *robot works with the velocity tuning code*/
-	        leftFrontDrive.set(ControlMode.Velocity, (leftSpeed/10) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH);
-			rightFrontDrive.set(ControlMode.Velocity, (rightSpeed/10) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH);
+	        leftFrontDrive.set(ControlMode.Velocity, (leftSpeed) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH);
+			rightFrontDrive.set(ControlMode.Velocity, (rightSpeed) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH);
 			
 			 //convert to inches/second
 			Logger.Log("DriveTrain() : driveSpeed() : RIGHT SPEED IS =" + rightFrontDrive.getSelectedSensorVelocity(0)/28.0);
@@ -448,10 +456,14 @@ public class Drivetrain {
    * Motor Test function
    * @param currentBtn
    */
-	public void nobtnPressed()
+	public void nobtnPressed(boolean shifter)
 	{
 		lastBtnPressed = 1;
-		//shiftLow();
+		if(shifter) {
+		   //Logger.Log("inside nobtnpressed");
+		  shiftLow(); 
+		}
+		
 		//Logger.logDouble("Reset", lastBtnPressed);
 	}
 	

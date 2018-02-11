@@ -34,7 +34,7 @@ public class IntakeWrist
         
         wristTalon.set(ControlMode.PercentOutput, 0);
         intakeMaster.set(ControlMode.PercentOutput, 0);
-        
+        intakeSlave.setInverted(true);
     }
     
     /**

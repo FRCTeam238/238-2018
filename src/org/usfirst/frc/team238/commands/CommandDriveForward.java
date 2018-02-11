@@ -55,26 +55,42 @@ public class CommandDriveForward extends AbstractCommand {
     yawValue = myNavigation.getYaw();
     previousEncoderTicks = 0;
     delayCount = 0;
+    resetVals();
     
     //Logger.Log("CommandDriveForward.prepare");
 
   }
-
+  
+  /*public void execute()
+  {
+      
+      myRobotDrive.magicDrive(targetValue);
+      
+  }*/
+  
   public void execute() {
     
       SmartDashboard.putNumber("TARGET VALUE = ", targetValue);
     myRobotDrive.shiftLow();
     
-    motorValue = pidCalc(CrusaderCommon.STRAIGHT_P_VALUE, CrusaderCommon.STRAIGHT_DEAD_STOP,
-    targetValue, CrusaderCommon.STRAIGHT_MAX_ERROR, CrusaderCommon.STRAIGHT_MAX_MOTOR_VALUE, CrusaderCommon.STRAIGHT_I_VALUE);
+    double theError = targetValue - myRobotDrive.getEncoderTicks(); 
+    
+    
+    motorValue = pidCalc(CrusaderCommon.STRAIGHT_P_VALUE, 
+                         targetValue,
+                         theError,
+                         CrusaderCommon.STRAIGHT_MAX_ERROR,
+                         CrusaderCommon.STRAIGHT_MAX_MOTOR_VALUE,
+                         CrusaderCommon.STRAIGHT_I_VALUE);
+                        
     
     double convert = CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH;
     double currentYaw = myNavigation.getYaw();
     double yawError = currentYaw - yawValue; // Positive yaw is right turn so positive error is right turn
     double yawCorrection = yawPConstant * yawError * motorValue;
     
-    Logger.Log("YAW_ERROR = " + yawError);
-    Logger.Log("YAW_CORRECTION = " + yawCorrection);
+    //Logger.Log("YAW_ERROR = " + yawError);
+    //Logger.Log("YAW_CORRECTION = " + yawCorrection);
     
     yawCorrection = Math.min(yawCorrection, yawCorrectionMaxPercent * motorValue); 
 
@@ -85,11 +101,11 @@ public class CommandDriveForward extends AbstractCommand {
     //RM SmartDashboard.putNumber("LEFT_MOTOR", finalMotorValueLeft);
     //RM SmartDashboard.putNumber("RIGT_MOTOR", finalMotorValueRight);
     
-    Logger.Log("CommandDriveForward(): LeftMotorValue = "+ finalMotorValueLeft); 
-    Logger.Log("CommandDriveForward(): RightMotorValue = " + finalMotorValueRight);
-    Logger.Log("CommandDriveForward(): CurrentYaw: "+ currentYaw+ "  YawError: "+ yawError+ "  YawCorrection: "+ yawCorrection);
+    //Logger.Log("CommandDriveForward(): LeftMotorValue = "+ finalMotorValueLeft); 
+    //Logger.Log("CommandDriveForward(): RightMotorValue = " + finalMotorValueRight);
+    //Logger.Log("CommandDriveForward(): CurrentYaw: "+ currentYaw+ "  YawError: "+ yawError+ "  YawCorrection: "+ yawCorrection);
     
-    myRobotDrive.drive(finalMotorValueLeft, finalMotorValueRight);
+    myRobotDrive.drive(-finalMotorValueLeft, -finalMotorValueRight);
     
     /*
      * SmartDashboard.putNumber("YawError", yawError);
@@ -110,7 +126,7 @@ public class CommandDriveForward extends AbstractCommand {
   public void setParams(String params[]) {
 
     if ((params[0] != null) || (!params[0].isEmpty())) {
-      targetValue = Double.parseDouble(params[0]) * (SmartDashboard.getNumber("TICKS PER INCH", 1627));//CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH; //4560;
+      targetValue = Double.parseDouble(params[0]) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH;//CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH; //4560;
     } else {
       targetValue = 0;
     }
@@ -151,7 +167,7 @@ public class CommandDriveForward extends AbstractCommand {
     if (areWeDone) 
     {
       myRobotDrive.drive(0, 0);
-      //RM SmartDashboard.putNumber("WE STOPPED AT", amountOfTicks);
+      SmartDashboard.putNumber("WE STOPPED AT", amountOfTicks);
     }
     
       

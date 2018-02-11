@@ -97,7 +97,7 @@ public class TrajectoryIntepreter implements Runnable{
                     double leftAddIn = leftAcceleration * 0.05;
                     double rightAddIn = rightAcceleration * 0.05;
                     System.out.println("Right Accleration" +rightAcceleration);
-                    driveTrain.driveSpeed(leftVelocity + leftAddIn,rightVelocity + rightAddIn);
+                    driveTrain.driveSpeed(leftVelocity ,rightVelocity );
 
                     //delay is (elapsedTime-pausedtime) - timeStamp
                     long delay = (long) ((System.currentTimeMillis() - trajectoryStartTime - pausedTime) - m.timeStamp*1000);

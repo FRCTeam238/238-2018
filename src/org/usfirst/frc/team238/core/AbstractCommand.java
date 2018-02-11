@@ -48,11 +48,10 @@ public class AbstractCommand implements Command
         return false;
     }
 
-    public double pidCalc(double pValue, double deadStop, double targetValue, double maxError, double maxMotorValue,
+    public double pidCalc(double pValue, double targetValue, double error, double maxError, double maxMotorValue,
             double iValue)
     {
         double motorValue = 0;
-        double error;
 
         if (theCount == 0)
         {
@@ -69,22 +68,29 @@ public class AbstractCommand implements Command
                                                     // SECONDS
         // double currentTime = System.currentTimeMillis() * 1000; // make this
         // seconds
-        error = getError();
+        
         if (error < maxError)
         {
             Logger.Log("AbstractCommand(): pidCalc(): We Are Using motorValue");
             motorValue = (error * pValue) + (iValue * integrate(0, theElapsed) * error);// deadStop;
-
+            double intergratevalue = (iValue * integrate(0, theElapsed) * error);
+            Logger.Log("INTERGRATE VALUE ===" +intergratevalue);
         }
         else
         {
             Logger.Log("AbstractCommand(): pidCalc(): We Are Using maxMotorValue!");
             motorValue = maxMotorValue; // .7;
         }
-
+        
+        if(motorValue <= 0.04)
+        {
+            motorValue = 0.04;
+        }
+        
         Logger.Log("ERROR = " + error);
         Logger.Log("PVALUE = " + pValue);
         Logger.Log("IVALUE = " + iValue);
+        Logger.Log("**********MOTR VALUE = " + motorValue);
         Logger.Log("INTEGRATE VALUE = " + integrate(0, theElapsed));
 
         /*

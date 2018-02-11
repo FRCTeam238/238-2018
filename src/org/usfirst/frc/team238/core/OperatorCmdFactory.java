@@ -18,6 +18,7 @@ import RealBot.TrajectoryIntepreter;
 
 import org.usfirst.frc.team238.commands.CommandStopEverything;
 import org.usfirst.frc.team238.lalaPaths.goStraight;
+import org.usfirst.frc.team238.lalaPaths.leftSwitch;
 import org.usfirst.frc.team238.commands.CommandRunTrajectoryOLD;
 import org.usfirst.frc.team238.commands.CommandIntakeIn;
 import org.usfirst.frc.team238.commands.CommandIntakeOut;
@@ -81,7 +82,7 @@ public class OperatorCmdFactory {
 	  
 	  //Create command objects, passing objects into each of them
 	  commandStopEverything = new CommandStopEverything(intake, elevator);     //<-------------------------------- EXAMPLE
-	  commadRunTrajectory = new CommandRunTrajectory(driveTrain, goStraight.objects );
+	  commadRunTrajectory = new CommandRunTrajectory(driveTrain, leftSwitch.objects );
 	  commandShiftClimb = new CommandShiftClimb(elevator);
 	  commandIntakeIn = new CommandIntakeIn(intake);
 	  commandIntakeOut = new CommandIntakeOut(intake);

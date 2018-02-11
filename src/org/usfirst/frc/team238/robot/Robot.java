@@ -11,6 +11,8 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import java.util.ArrayList;
@@ -171,7 +173,7 @@ public class Robot extends IterativeRobot
 	
 	public void initSmartDashboardObjects()
 	{
-		  //RM SmartDashboard.putNumber("Chosen Auto Mode", 0);
+		  SmartDashboard.putNumber("Chosen Auto Mode", 0);
 	  
 		  //RM SmartDashboard.putBoolean("Match Time Flag", false);
 	  
@@ -293,11 +295,12 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putNumber("Left Encoder", leftMasterDrive.getSelectedSensorPosition(0));
 		SmartDashboard.putNumber("Right Encoder", rightMasterDrive.getSelectedSensorPosition(0));
 		theElevator.getEncoderTicks();
+		myDriveTrain.getEncoderTicks();
 		
 		int speedLeft = leftMasterDrive.getSelectedSensorVelocity(0);
 		int speedRight = rightMasterDrive.getSelectedSensorVelocity(0);
 		
-		System.out.println("Speed: " + speedLeft + " " + speedRight);
+		//System.out.println("Speed: " + speedLeft + " " + speedRight);
 		
 		SmartDashboard.putNumber("Left Speed", speedLeft);
 		SmartDashboard.putNumber("Right Speed", speedRight);
@@ -365,7 +368,9 @@ public class Robot extends IterativeRobot
 		rightMasterDrive.setNeutralMode(NeutralMode.Brake);
 		rightDriveFollower1.setNeutralMode(NeutralMode.Brake);
         rightDriveFollower2.setNeutralMode(NeutralMode.Brake);
-		
+        
+        rightMasterDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 0);
+        leftMasterDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 0);
 		Logger.Log("initTalons Is Sucessful!");
 	}
 	

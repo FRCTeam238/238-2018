@@ -69,7 +69,7 @@ public class Elevator
           
           liftEncoder = Math.abs(liftEncoder);
           
-          Logger.Log("Elevator: Lift Encoder = " + liftEncoder);
+          //Logger.Log("Elevator: Lift Encoder = " + liftEncoder);
           
           SmartDashboard.putNumber("Lift Encoder", liftEncoder);
 

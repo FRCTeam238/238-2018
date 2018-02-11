@@ -97,7 +97,7 @@ public class CrusaderCommon {
 	public static final double ELEVATOR_TOP_SOFT_STOP = 600000;
 	
 	public static final double INTAKE_WRIST_SPEED = 0.7;
-	public static final double INTAKE_SPEED = 0.8;
+	public static final double INTAKE_SPEED = 1;//0.8;
 	
 
 	// Servo power setting
@@ -122,7 +122,7 @@ public class CrusaderCommon {
 
 	// SETERMINE THIS EXACT NUMBER FOR NEW ROBOT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	// //325 = 1 inch 3900 = 1 foot
-	public final static int DRIVE_FORWARD_ENCODER_TICKS_PER_INCH = 1630;//252;//323;// 4983;//3900;
+	public final static int DRIVE_FORWARD_ENCODER_TICKS_PER_INCH = 1750;//252;//323;// 4983;//3900;
 
 	// TURNING AND DRIVING PID VALUES
 	public final static double TURN_P_VALUE = 0.0007;// 0.003;//SmartDashboard.getNumber("Turn
@@ -140,10 +140,10 @@ public class CrusaderCommon {
 															// Max
 															// Error",45);//45;
 
-	public final static double STRAIGHT_P_VALUE = 0.000055;// 0.00003512;
-	public final static double STRAIGHT_I_VALUE = 0.0000095;
+	public final static double STRAIGHT_P_VALUE = 8.5E-6;//0.000055;// 0.00003512;
+	public final static double STRAIGHT_I_VALUE = 0.0000009;
 	public final static double STRAIGHT_DEAD_STOP = 0.1;// 0.05;
-	public final static double STRAIGHT_MAX_ERROR = 15000;// 9966;
+	public final static double STRAIGHT_MAX_ERROR = 40000;//15000;// 9966;
 	public final static double STRAIGHT_MAX_MOTOR_VALUE = 1;// SmartDashboard.getNumber("Turn
 															// Max
 															// Error",45);//45;

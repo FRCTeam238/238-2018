@@ -39,9 +39,10 @@ public class CommandTurnRight extends AbstractCommand {
     double yaw = myNavigation.getYaw();
     double calculatedValue;
     
+    double error = 0; //FIX THIS
     calculatedValue = pidCalc(  CrusaderCommon.TURN_P_VALUE, 
                                 CrusaderCommon.TURN_DEAD_STOP_RIGHT,
-                                targetValue,
+                                error,
                                 CrusaderCommon.TURN_MAX_ERROR,
                                 CrusaderCommon.TURN_MAX_MOTOR_VALUE,
                                 CrusaderCommon.TURN_I_VALUE);
