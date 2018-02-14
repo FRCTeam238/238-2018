@@ -1,6 +1,7 @@
 package org.usfirst.frc.team238.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -18,6 +19,7 @@ public class AutonomousController implements AutonomousState{
 	//Holds all autocommands in order (does not include the automode names)
 	ArrayList<AutonomousState>[] autonomousModeList;
 
+	HashMap<String,ArrayList<AutonomousState>> autonomousPlayBooks;
 	/**
 	 * Allows the JSONHandler to pass it's data to the autonomousController for processing
 	 * @param autonomousModeCommandList
@@ -36,6 +38,18 @@ public class AutonomousController implements AutonomousState{
 		index = 0;
 	}
 	
+	
+	/**
+	 * Sets the array of steps to be processed during AutonomousMode
+	 * @param mode
+	 */
+	public void pickAMode2018(String play){
+		
+		steps = autonomousPlayBooks.get(play);
+		
+		//setState(steps.get(0));
+		//index = 0;
+	}
 	/**
 	 * Sets the current state to the given state parameter
 	 * (Also calls the prepare method of the given state)

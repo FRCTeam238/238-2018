@@ -206,7 +206,7 @@ public class Robot extends IterativeRobot
 		  //RM SmartDashboard.putString("Alliance Color", "Red");
 	}
 
-	/**
+	/*
 	 * This autonomous (along with the chooser code above) shows how to select
 	 * between different autonomous modes using the dashboard. The sendable
 	 * chooser code works with the Java SmartDashboard. If you prefer the
@@ -223,12 +223,48 @@ public class Robot extends IterativeRobot
 		try 
 		{
 			Logger.Log("Robot(): AutononousInit()");
+			StringBuilder autoSelectionKey = new StringBuilder();
 			
-			myDriveTrain.resetEncoders();
+			boolean autoPlaybook = SmartDashboard.getBoolean(CrusaderCommon.AUTO_PLAY_BOOK, true);
+			if(autoPlaybook )
+			{
+				autoSelectionKey.append("Primary_");
+			}
+			else
+			{
+				autoSelectionKey.append("Secondary_");
+			}
+			
+			String robotPosition = SmartDashboard.getString(CrusaderCommon.AUTO_ROBOT_POSITION,  "C");
+			autoSelectionKey.append(robotPosition + "_");
+			
+			String gameData;
+			gameData = DriverStation.getInstance().getGameSpecificMessage();
+	        if(gameData.length() > 0)
+	        {
+			    autoSelectionKey.append(gameData, 0, 2);
+			}
+	        Logger.Log("Robot(): AutonomousInit(): The 2018 chosen One =  " + autoSelectionKey.toString());
+			
+			/*
+			 * AT THIS POINT WE SHOULD HAVE SOMETHING LIKE 
+			 * 
+			 * Primary_L_LL as the lookup key
+	         * 
+	         * where 
+	         * Primary is the Play book
+	         * L is Field Position 
+	         * LL = Field Disposition
+	        */
+			
+	        
+	        
+	        myDriveTrain.resetEncoders();
 			  
 			int automousModeFromDS =  myAutonomousDataHandler.getModeSelectionFromDashboard(); 
 			Logger.Log("Robot(): AutonomousInit(): The chosen One =  " + String.valueOf(automousModeFromDS));
 			theMACP.pickAMode(automousModeFromDS);
+			theMACP.pickAMode2018(autoSelectionKey.toString());
 			
 			myDriveTrain.getEncoderTicks();
 				
