@@ -350,7 +350,10 @@ public class Robot extends IterativeRobot
 			theMCP.joyStickCommandExecution(commandValues);
 			
 			//mjf do we need this?
-			myNavigation.navxValues();
+			//cat Short answer is no ... Everything in navxValues 
+			//  is commented out except for a delay ... so I commented
+			//  out the call.
+			//CYX myNavigation.navxValues();
 		} 
 		catch (Exception e) 
 		{
