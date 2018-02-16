@@ -65,7 +65,7 @@ public class AutonomousPlay {
 				
 				//System.out.println(playGroupName);
 				
-				Set<JSONObject> playsKeysJson = playGroupJson.keySet();
+				Set<JSONObject> playsKeysJson = (Set<JSONObject>)playGroupJson.keySet();
 				
 				Iterator<JSONObject> playsIterator = playsKeysJson.iterator();
 				
@@ -80,7 +80,7 @@ public class AutonomousPlay {
 						Iterator<String> modesIterator = modes.iterator();
 						
 						//System.out.println("  " + playName);
-
+						
 						ArrayList<String> modesAsList = new ArrayList<String>(modes.size());
 						while (modesIterator.hasNext())
 						{
@@ -88,7 +88,7 @@ public class AutonomousPlay {
 							modesAsList.add(mode);
 						}
 						
-						String combinedKeyName = playGroupName + playName;
+						String combinedKeyName = playGroupName + "_" + playName;
 						autonomousPlays.put(combinedKeyName, modesAsList);						
 					}
 				}
@@ -102,5 +102,28 @@ public class AutonomousPlay {
 		
 		return autonomousPlays;
 	}
+    
+//    static AutonomousState CreateAutonomousState(String stateName)
+//    {
+//        AutonomousState retval = null;
+//        
+//        try 
+//        {
+//            
+//            //Use reflection to create state object (Naming it, while also giving it params and the control scheme on initiation)
+//                AutonomousState xxx = (AutonomousState) Class.forName(cmdClass).newInstance();
+//                
+//                //Initiate the state object with the params and control scheme
+//                xxx.init(params, theMCP);
+//                
+//                retval = xxx;
+//            } 
+//        catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) 
+//        {
+//                e.printStackTrace();
+//        }
+//        
+//        return retval;
+//    }
 
 }

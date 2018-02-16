@@ -174,6 +174,7 @@ public class AutonomousDataHandler implements AutonomousState{
             	String name = (String) autoModeX.get("Name");
             	Logger.Log("AutonomousDataHandler(): readJson(): Autonomous Mode Name: " + name);
             	
+            	
             	//Add the name of this mode to the arrayList
             	autonomousModeNames.add(name);
             	

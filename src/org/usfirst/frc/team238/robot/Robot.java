@@ -174,7 +174,9 @@ public class Robot extends IterativeRobot
 	public void initSmartDashboardObjects()
 	{
 		  SmartDashboard.putNumber("Chosen Auto Mode", 0);
-	  
+		  SmartDashboard.putBoolean(CrusaderCommon.AUTO_PLAY_BOOK, true);
+		  SmartDashboard.putString(CrusaderCommon.AUTO_ROBOT_POSITION,  "C");
+          
 		  //RM SmartDashboard.putBoolean("Match Time Flag", false);
 	  
 		  //RM SmartDashboard.putNumber("Select Auto State", 0);
@@ -186,10 +188,10 @@ public class Robot extends IterativeRobot
 	  
 		  //Create a new SendableChooser for the save function
 		  autonomousSaveChooser = new SendableChooser<String>();
-		  autonomousSaveChooser.addDefault("DON'T Save", "0");
-		  autonomousSaveChooser.addObject("Save", "1");
-		  autonomousSaveChooser.addObject("Read", "2");
-		  
+		  autonomousSaveChooser.addDefault("do nothing", "0");
+		  autonomousSaveChooser.addObject("drive ten feet", "1");
+		  autonomousSaveChooser.addObject("drive backward", "2");
+		  SmartDashboard.putData("AutoModes", autonomousSaveChooser);
 		  SmartDashboard.putNumber("TICKS PER INCH", 1627);
 		  
 		  //RM SmartDashboard.putData("Edit State Params", autonomousStateParamsUpdate);
