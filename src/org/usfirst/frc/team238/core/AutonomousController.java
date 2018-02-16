@@ -19,15 +19,18 @@ public class AutonomousController implements AutonomousState{
 	//Holds all autocommands in order (does not include the automode names)
 	ArrayList<AutonomousState>[] autonomousModeList;
 
-	HashMap<String,ArrayList<String> > autonomousPlayBooks;
+	//this what we eventually want 
+	//HashMap<String,ArrayList<AutonomousState>> autonomousPlayBooks;
+	HashMap<String, ArrayList<String> > autonomousPlayBooks;
+	HashMap<String,Integer> autonomousMapping;
 	/**
 	 * Allows the JSONHandler to pass it's data to the autonomousController for processing
 	 * @param autonomousModeCommandList
 	 */
 	public void setAutonomousControllerData(AutonomousDataHandler myJsonHandler){
 		autonomousModeList = myJsonHandler.getAutonomousModeCommandList();
-		
-		autonomousPlayBooks = AutonomousPlay.readJson("/home/lvuser/amode238.txt");
+		autonomousMapping = myJsonHandler.getNameIndex();
+		autonomousPlayBooks = AutonomousPlay.readJson("/home/lvuser/play238.txt");
 	}
 	
 	/**
@@ -47,14 +50,14 @@ public class AutonomousController implements AutonomousState{
 	 */
 	public void pickAMode2018(String play){
 		
-		//steps = autonomousPlayBooks.get(play);
-	    
-//	    ArrayList<String> autonomousStateList = autonomousPlayBooks.get(play);
-//	    String autonomousName = autonomousStateList.get(0);
-	    
+		ArrayList<String> amodeNameList = autonomousPlayBooks.get(play);
+		//for now we only have 1 but could potentially have more in the future
+		String amodeName = amodeNameList.get(0);
+		int amodeIndex = autonomousMapping.get(amodeName);
 		
-		//setState(steps.get(0));
-		//index = 0;
+		steps = autonomousModeList [amodeIndex];
+		setState(steps.get(0));
+		index = 0;
 	}
 	/**
 	 * Sets the current state to the given state parameter

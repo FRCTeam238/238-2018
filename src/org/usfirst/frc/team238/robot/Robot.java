@@ -265,7 +265,7 @@ public class Robot extends IterativeRobot
 			  
 			int automousModeFromDS =  myAutonomousDataHandler.getModeSelectionFromDashboard(); 
 			Logger.Log("Robot(): AutonomousInit(): The chosen One =  " + String.valueOf(automousModeFromDS));
-			theMACP.pickAMode(automousModeFromDS);
+			//theMACP.pickAMode(automousModeFromDS);
 			theMACP.pickAMode2018(autoSelectionKey.toString());
 			
 			myDriveTrain.getEncoderTicks();

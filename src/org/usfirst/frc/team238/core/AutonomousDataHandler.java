@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import java.text.SimpleDateFormat;
@@ -36,6 +37,7 @@ public class AutonomousDataHandler implements AutonomousState{
 	//Holds the names for each autonomousMode
 	ArrayList<String> autonomousModeNames;
 	
+	HashMap<String,Integer> amodeNameToIndex;
 	//Put's out all the autonomousModes for the user to choose from
 	//SendableChooser aModeChooser; 
 	
@@ -47,6 +49,10 @@ public class AutonomousDataHandler implements AutonomousState{
 		return autonomousModeCommandList;
 	}
 	
+	public HashMap<String,Integer> getNameIndex()
+	{
+		return amodeNameToIndex;
+	}
 	public Integer getModeSelectionFromDashboard(){
 	  
 	  int selection;
@@ -162,6 +168,8 @@ public class AutonomousDataHandler implements AutonomousState{
 			
 			//Keeps track of the names of each AutonomousMode
 			autonomousModeNames = new ArrayList<String>(numModes);
+			//creates a map  of auto mode names to indices into the arraylist that holds the automodes
+			amodeNameToIndex = new HashMap<String, Integer>(numModes);
 			
 			//A counter meant for outputing each autonomousMode to the aModeChooser
 			int aModeIndexCounter = 0;
@@ -174,9 +182,10 @@ public class AutonomousDataHandler implements AutonomousState{
             	String name = (String) autoModeX.get("Name");
             	Logger.Log("AutonomousDataHandler(): readJson(): Autonomous Mode Name: " + name);
             	
-            	
             	//Add the name of this mode to the arrayList
             	autonomousModeNames.add(name);
+            	//grab the name of the autonomous  mode and the index into where it lives;
+            	amodeNameToIndex.put(name, aModeIndexCounter);
             	
             	//Start building the list of selectable Amodes on the dashboard
 //            	if(aModeIndexCounter == 1){
