@@ -52,6 +52,10 @@ public class Elevator
         elevatorMasterTalon.set(ControlMode.PercentOutput, 0);
         elevatorMasterTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
         elevatorMasterTalon.setSensorPhase(true);
+        elevatorMasterTalon.config_kP(0, 0.004, 0);
+        //elevatorMasterTalon.config
+      
+       
         
         highSolenoid = new Solenoid(4);
         lowSolenoid = new Solenoid(5);
@@ -95,12 +99,12 @@ public class Elevator
         //get encoder ticks
         int whereAmI = getEncoderTicks();
         
-        if (whereAmI < CrusaderCommon.ELEVATOR_TOP_SOFT_STOP) {
+        //if (whereAmI < CrusaderCommon.ELEVATOR_TOP_SOFT_STOP) {
             elevatorMasterTalon.set(ControlMode.PercentOutput, CrusaderCommon.ELEVATOR_CUBE_SPEED);
-        }else
-        {
-            elevatorMasterTalon.set(ControlMode.PercentOutput, 0.0);
-        }
+      //  }else
+       /// {
+       //     elevatorMasterTalon.set(ControlMode.PercentOutput, 0.0);
+      //  }
     }
     
     /**
@@ -112,12 +116,12 @@ public class Elevator
             //get encoder ticks
             int whereAmI = getEncoderTicks();
             
-            if (whereAmI > CrusaderCommon.ELEVATOR_BOTTOM_SOFT_STOP) {
+           // if (whereAmI > CrusaderCommon.ELEVATOR_BOTTOM_SOFT_STOP) {
                 elevatorMasterTalon.set(ControlMode.PercentOutput, -CrusaderCommon.ELEVATOR_CUBE_SPEED);
-            } else
-            {
-                elevatorMasterTalon.set(ControlMode.PercentOutput, 0.0);
-            }
+           // } else
+           // {
+           //     elevatorMasterTalon.set(ControlMode.PercentOutput, 0.0);
+           // }
            
         }   
        
@@ -137,6 +141,13 @@ public class Elevator
     /**,.
      * Sends the elevator down at the speed used for climbing
      */
+    
+    public void setElevatorHeight(double height) {
+       
+        elevatorMasterTalon.set(ControlMode.Position, height * CrusaderCommon.ELEVATOR_TICK_TO_IN);
+    }
+    
+    
     public void elevatorClimbDown()
     {
      

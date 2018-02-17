@@ -85,10 +85,10 @@ public class TrajectoryIntepreter implements Runnable{
                         double marketStopTime = System.currentTimeMillis();
                         pausedTime+= marketStopTime-markerStartTime;
                     }
-                    System.out.println(m.lVel);
+                    //System.out.println(m.lVel);
                     leftVelocity = m.lVel;
                     rightVelocity = m.rVel;
-                    System.out.println("RIGHT TARGET IS ="+rightVelocity);
+                    //System.out.println("RIGHT TARGET IS ="+rightVelocity);
                     angle = m.angle;
                     double leftAcceleration = (leftVelocity - pastLeftVelocity) / dt;
                     double rightAcceleration = (rightVelocity - pastRightVelocity) / dt;
@@ -96,13 +96,13 @@ public class TrajectoryIntepreter implements Runnable{
                     pastRightVelocity = rightVelocity;
                     double leftAddIn = leftAcceleration * 0.05;
                     double rightAddIn = rightAcceleration * 0.05;
-                    System.out.println("Right Accleration" +rightAcceleration);
+                    //System.out.println("Right Accleration" +rightAcceleration);
                     driveTrain.driveSpeed(leftVelocity ,rightVelocity );
 
                     //delay is (elapsedTime-pausedtime) - timeStamp
                     long delay = (long) ((System.currentTimeMillis() - trajectoryStartTime - pausedTime) - m.timeStamp*1000);
                     try {
-                        Thread.sleep(Math.max(1,delT - delay));
+                        Thread.sleep(Math.max(1,delT));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

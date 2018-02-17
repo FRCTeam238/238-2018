@@ -17,12 +17,17 @@ import org.usfirst.frc.team238.robot.IntakeWrist;
 import RealBot.TrajectoryIntepreter;
 
 import org.usfirst.frc.team238.commands.CommandStopEverything;
+import org.usfirst.frc.team238.lalaPaths.Straight140;
 import org.usfirst.frc.team238.lalaPaths.goStraight;
+import org.usfirst.frc.team238.lalaPaths.leftScale;
 import org.usfirst.frc.team238.lalaPaths.leftSwitch;
+import org.usfirst.frc.team238.lalaPaths.rightSwitch;
 import org.usfirst.frc.team238.commands.CommandRunTrajectoryOLD;
 import org.usfirst.frc.team238.commands.CommandIntakeIn;
 import org.usfirst.frc.team238.commands.CommandIntakeOut;
+import org.usfirst.frc.team238.commands.CommandElevatorBottomHeight;
 import org.usfirst.frc.team238.commands.CommandElevatorDown;
+import org.usfirst.frc.team238.commands.CommandElevatorScaleHeight;
 import org.usfirst.frc.team238.commands.CommandElevatorUp;
 import org.usfirst.frc.team238.commands.CommandExtendWrist;
 import org.usfirst.frc.team238.commands.CommandRetractWrist;
@@ -53,6 +58,10 @@ public class OperatorCmdFactory {
 	
 	CommandElevatorDown commandElevatorDown;
 	
+	CommandElevatorBottomHeight commandElevatorBottomHeight;
+	
+	CommandElevatorScaleHeight commandElevatorScaleHeight;
+	
 	HashMap<Integer, Command> operatorCommands;
 	
 	
@@ -82,19 +91,22 @@ public class OperatorCmdFactory {
 	  
 	  //Create command objects, passing objects into each of them
 	  commandStopEverything = new CommandStopEverything(intake, elevator);     //<-------------------------------- EXAMPLE
-	  commadRunTrajectory = new CommandRunTrajectory(driveTrain, leftSwitch.objects );
+	  commadRunTrajectory = new CommandRunTrajectory(driveTrain, leftScale.objects );
 	  commandShiftClimb = new CommandShiftClimb(elevator);
 	  commandIntakeIn = new CommandIntakeIn(intake);
 	  commandIntakeOut = new CommandIntakeOut(intake);
 	  commandElevatorUp = new CommandElevatorUp(elevator);
 	  commandElevatorDown = new CommandElevatorDown(elevator);
 	  commandExtendWrist = new CommandExtendWrist(intake);
-	  commandRetractWrist = new CommandRetractWrist(intake);
+      commandRetractWrist = new CommandRetractWrist(intake);
+      commandElevatorBottomHeight = new CommandElevatorBottomHeight(elevator);
+      commandElevatorScaleHeight = new CommandElevatorScaleHeight(elevator);
+      
 	  
 	  
 	  //Assigns all command arrays and their specific inputs to the HashMap
 	  operatorCommands.put(CrusaderCommon.stopEverythingInput, commandStopEverything); // <------- EXAMPLE
-	  operatorCommands.put(9, commadRunTrajectory);
+	  //operatorCommands.put(9, commadRunTrajectory);
 	  operatorCommands.put(1, commandShiftClimb);
 	  operatorCommands.put(6, commandIntakeIn);
 	  operatorCommands.put(7, commandIntakeOut);
@@ -102,6 +114,9 @@ public class OperatorCmdFactory {
 	  operatorCommands.put(10, commandElevatorDown);
 	  operatorCommands.put(4, commandExtendWrist);
 	  operatorCommands.put(5, commandRetractWrist);
+	  operatorCommands.put(9, commandElevatorBottomHeight);
+	  operatorCommands.put(8, commandElevatorScaleHeight);
+      
     
     //operatorCommands.put(multiButtonTestInput, twoButtonTestCommandArray); //Test : Command put
 		

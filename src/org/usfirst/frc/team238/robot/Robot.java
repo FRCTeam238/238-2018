@@ -123,7 +123,7 @@ public class Robot extends IterativeRobot
 				myDriveTrain.resetEncoders();
 				theElevator.getEncoderTicks();
 				
-				autoModeUpdateAndRead();
+				//autoModeUpdateAndRead();
 			}
 			
 			count++;
@@ -287,7 +287,7 @@ public class Robot extends IterativeRobot
 		//RM SmartDashboard.putNumber("Left Encoder", leftMasterDrive.getSelectedSensorPosition(0));
 		//RM SmartDashboard.putNumber("Right Encoder", rightFrontDrive.getSelectedSensorPosition(0));
 		
-		try 
+/*		try 
 		{
 			theMACP.process();
 			myNavigation.navxValues();
@@ -299,7 +299,9 @@ public class Robot extends IterativeRobot
 		{
 		  ex.printStackTrace();
 			Logger.Log("Robot(): autonomousPeriodic() Exception: "+ex);
-		}
+		}*/
+	    System.out.println("ELEVATOR TICKS:" +theElevator.getEncoderTicks());
+	    
 	}
 	
 	public void teleopInit() 
@@ -452,7 +454,7 @@ public class Robot extends IterativeRobot
 		
 		//TESTING
 		ArrayList<Trajectory> trajectories = new ArrayList<>();
-		trajectories.add(TrajectoryFactory.getTrajectory(goStraight.objects));
+		trajectories.add(TrajectoryFactory.getTrajectory(leftSwitch.objects));
 		HashMap<String, Runnable> markers = new HashMap<>();
 		theTrajectoryIntepreter = new TrajectoryIntepreter(myDriveTrain, trajectories, markers);
 		theMCP.init(myDriveTrain, myNavigation, myRobot, theTrajectoryIntepreter, theElevator, theIntake);

@@ -216,14 +216,16 @@ public class Drivetrain {
 		  *robot works with the velocity tuning code*/
 	        leftFrontDrive.set(ControlMode.Velocity, (leftSpeed) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH);
 			rightFrontDrive.set(ControlMode.Velocity, (rightSpeed) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH);
-			
+			System.out.println("LEFT WANTED:" + leftSpeed);
+			System.out.println("RIGHT WANTED:" + rightSpeed);
 			 //convert to inches/second
-			Logger.Log("DriveTrain() : driveSpeed() : RIGHT SPEED IS =" + rightFrontDrive.getSelectedSensorVelocity(0)/28.0);
+			Logger.Log("DriveTrain() : driveSpeed() : RIGHT SPEED IS =" + leftFrontDrive.getSelectedSensorVelocity(0)/CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH);
 			Logger.Log("DriveTrain() : driveSpeed() : RIGHT ERROR IS =" + rightFrontDrive.getClosedLoopError(0));
 
 		}
 	
 	
+
 	/**
 	 * A drive backwards function used in Autonomous
 	 * @param leftMotorValue
