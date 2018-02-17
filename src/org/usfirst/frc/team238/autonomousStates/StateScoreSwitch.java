@@ -8,7 +8,7 @@ import org.usfirst.frc.team238.core.Logger;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class StateLeftSwitch implements AutonomousState {
+public class StateScoreSwitch implements AutonomousState {
 
   CommandRunTrajectory leftSwitch;
   CommandRunTrajectory rightSwitch;

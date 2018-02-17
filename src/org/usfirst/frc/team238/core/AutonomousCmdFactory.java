@@ -20,6 +20,7 @@ import org.usfirst.frc.team238.commands.CommandCurlForward;
 import org.usfirst.frc.team238.commands.CommandDelay;
 import org.usfirst.frc.team238.commands.CommandRunTrajectory;
 import org.usfirst.frc.team238.lalaPaths.leftSwitch;
+import org.usfirst.frc.team238.lalaPaths.rightSwitch;
 import org.usfirst.frc.team238.commands.CommandRetractWrist;
 import org.usfirst.frc.team238.commands.CommandShiftClimb;
 import org.usfirst.frc.team238.commands.CommandElevatorUp;
@@ -72,6 +73,9 @@ public class AutonomousCmdFactory {
     
 		cmd = new CommandRunTrajectory(robotDrive, leftSwitch.objects );
         autonomousCommands.put("CommandRunLeftSwitchTrajectory", cmd);
+        
+        cmd = new CommandRunTrajectory(robotDrive, rightSwitch.objects );
+        autonomousCommands.put("CommandRunRightSwitchTrajectory", cmd);
         
         cmd = new CommandExtendWrist(intake);
         autonomousCommands.put("CommandExtendWrist",cmd);
