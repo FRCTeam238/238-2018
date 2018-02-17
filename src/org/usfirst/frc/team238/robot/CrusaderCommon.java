@@ -96,6 +96,7 @@ public class CrusaderCommon {
 	public static final int INTAKE_MASTER_SRX = 4;
 	public final static int INTAKE_SLAVE = 5;
 	public final static int INTAKE_WRIST = 7;
+	public final static int INTAKE_TICK_TO_DEGREE = 700;
 	
 	
 	public static final double ELEVATOR_CUBE_SPEED = 0.8;

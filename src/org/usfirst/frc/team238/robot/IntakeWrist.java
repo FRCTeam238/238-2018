@@ -35,11 +35,21 @@ public class IntakeWrist
         wristTalon.set(ControlMode.PercentOutput, 0);
         intakeMaster.set(ControlMode.PercentOutput, 0);
         intakeSlave.setInverted(true);
+        
+        wristTalon.config_kP(0, 0.005, 0);
     }
     
     /**
      * Extends the wrist out to manipulate cubes
      */
+    
+    //angle is 0 at top (starting configuraition) and then positive as i goes down.
+    public void setWrist(double angle) {
+        wristTalon.set(ControlMode.Position, angle*CrusaderCommon.INTAKE_TICK_TO_DEGREE);
+        
+    }
+    
+    
     public void extendWrist()
     {
         

@@ -287,7 +287,7 @@ public class Robot extends IterativeRobot
 		//RM SmartDashboard.putNumber("Left Encoder", leftMasterDrive.getSelectedSensorPosition(0));
 		//RM SmartDashboard.putNumber("Right Encoder", rightFrontDrive.getSelectedSensorPosition(0));
 		
-/*		try 
+		try 
 		{
 			theMACP.process();
 			myNavigation.navxValues();
@@ -299,8 +299,8 @@ public class Robot extends IterativeRobot
 		{
 		  ex.printStackTrace();
 			Logger.Log("Robot(): autonomousPeriodic() Exception: "+ex);
-		}*/
-	    System.out.println("ELEVATOR TICKS:" +theElevator.getEncoderTicks());
+		}
+	    //System.out.println("ELEVATOR TICKS:" +theElevator.getEncoderTicks());
 	    
 	}
 	
@@ -334,8 +334,8 @@ public class Robot extends IterativeRobot
 		
 		SmartDashboard.putNumber("Left Encoder", leftMasterDrive.getSelectedSensorPosition(0));
 		SmartDashboard.putNumber("Right Encoder", rightMasterDrive.getSelectedSensorPosition(0));
-		theElevator.getEncoderTicks();
-		myDriveTrain.getEncoderTicks();
+		//theElevator.getEncoderTicks();
+		//myDriveTrain.getEncoderTicks();
 		
 		int speedLeft = leftMasterDrive.getSelectedSensorVelocity(0);
 		int speedRight = rightMasterDrive.getSelectedSensorVelocity(0);

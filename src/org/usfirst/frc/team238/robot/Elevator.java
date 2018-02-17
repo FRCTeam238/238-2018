@@ -53,6 +53,8 @@ public class Elevator
         elevatorMasterTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
         elevatorMasterTalon.setSensorPhase(true);
         elevatorMasterTalon.config_kP(0, 0.004, 0);
+        elevatorMasterTalon.setInverted(true);
+        
         //elevatorMasterTalon.config
       
        
@@ -143,8 +145,7 @@ public class Elevator
      */
     
     public void setElevatorHeight(double height) {
-       
-        elevatorMasterTalon.set(ControlMode.Position, height * CrusaderCommon.ELEVATOR_TICK_TO_IN);
+        elevatorMasterTalon.set(ControlMode.Position, height * ((double) CrusaderCommon.ELEVATOR_TICK_TO_IN));
     }
     
     
