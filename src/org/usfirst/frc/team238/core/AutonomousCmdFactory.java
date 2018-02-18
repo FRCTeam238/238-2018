@@ -12,10 +12,12 @@ import RealBot.TrajectoryFactory;
 import RealBot.TrajectoryIntepreter;
 
 import org.usfirst.frc.team238.commands.CommandDriveForward;
+import org.usfirst.frc.team238.commands.CommandElevatorBottomHeight;
 import org.usfirst.frc.team238.commands.CommandDriveBackwards;
 import org.usfirst.frc.team238.commands.CommandTurnLeft;
 import org.usfirst.frc.team238.commands.CommandTurnRight;
 import org.usfirst.frc.team238.lalaPaths.goStraight;
+import org.usfirst.frc.team238.lalaPaths.leftScale;
 import org.usfirst.frc.team238.commands.CommandCurlForward;
 import org.usfirst.frc.team238.commands.CommandDelay;
 import org.usfirst.frc.team238.commands.CommandRunTrajectory;
@@ -25,6 +27,8 @@ import org.usfirst.frc.team238.commands.CommandRetractWrist;
 import org.usfirst.frc.team238.commands.CommandShiftClimb;
 import org.usfirst.frc.team238.commands.CommandElevatorUp;
 import org.usfirst.frc.team238.commands.CommandElevatorDown;
+import org.usfirst.frc.team238.commands.CommandElevatorScaleHeight;
+import org.usfirst.frc.team238.commands.CommandElevatorSwitchHeight;
 import org.usfirst.frc.team238.commands.CommandExtendWrist;
 import org.usfirst.frc.team238.commands.CommandIntakeOut;
 import org.usfirst.frc.team238.commands.CommandIntakeIn;
@@ -97,6 +101,21 @@ public class AutonomousCmdFactory {
         
         cmd = new CommandShiftClimb(elevator);
         autonomousCommands.put("CommandShiftClimb",cmd);
+        
+        cmd = new CommandElevatorScaleHeight(elevator);
+        autonomousCommands.put("CommandElevatorScaleHeight",cmd);
+        
+        cmd = new CommandElevatorSwitchHeight(elevator);
+        autonomousCommands.put("CommandElevatorSwitchHeight",cmd);
+        
+        cmd = new CommandElevatorBottomHeight(elevator);
+        autonomousCommands.put("CommandElevatorBottomHeight",cmd);
+        
+        cmd = new CommandRunTrajectory(robotDrive, leftScale.objects );
+        autonomousCommands.put("CommandRunLeftScaleTrajectory", cmd);
+        
+        //cmd = new CommandRunTrajectory(robotDrive, rightScale.objects );
+        //autonomousCommands.put("CommandRunRightSwitchTrajectory", cmd);
         
 		return autonomousCommands;
 		

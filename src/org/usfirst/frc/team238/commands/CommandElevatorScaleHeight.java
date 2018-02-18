@@ -15,7 +15,7 @@ public class CommandElevatorScaleHeight extends AbstractCommand
     @Override
     public void execute()
     {
-        theElevator.setElevatorHeight(30);
+        theElevator.setSetpoint(84);
         // TODO Auto-generated method stub
     }
 

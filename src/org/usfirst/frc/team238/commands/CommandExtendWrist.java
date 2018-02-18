@@ -38,6 +38,10 @@ public class CommandExtendWrist extends AbstractCommand {
 		// TODO Auto-generated method stub
 
 	}
+	
+	public void stop() {
+	    extend.stop();
+	}
 
 	@Override
 	public boolean done() {

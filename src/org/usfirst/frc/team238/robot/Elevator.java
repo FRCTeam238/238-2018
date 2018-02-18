@@ -8,18 +8,33 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Elevator
 {
     
+    private static final double MAX_OUT = 0.8;
+    private static final double MIN_OUT = -0.8;
+    
+    private static final double MIN_HEIGHT = 3.0;
+    private static final double MAX_HEIGHT = 89;
+    
+    
+  
+    private double setpoint = 0;
+    private double currentError =0;
+    
+    private boolean PIDEnabled = true;
+    
     TalonSRX elevatorMasterTalon;
     TalonSRX elevatorSlaveTalon;
     VictorSPX elevatorSlaveVictor;
     
-    Solenoid highSolenoid;
-    Solenoid lowSolenoid;
+    
+    DoubleSolenoid solenoid;
+    
     int liftEncoder;
     
     public boolean climbMode;
@@ -53,18 +68,35 @@ public class Elevator
         elevatorMasterTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
         elevatorMasterTalon.setSensorPhase(true);
         elevatorMasterTalon.config_kP(0, 0.004, 0);
-        elevatorMasterTalon.setInverted(true);
+        elevatorMasterTalon.setInverted(false);
         
         //elevatorMasterTalon.config
       
        
         
-        highSolenoid = new Solenoid(4);
-        lowSolenoid = new Solenoid(5);
+        solenoid = new DoubleSolenoid(6, 7);
         
         climbMode = false;
         
         resetEncoders();
+        
+        PIDEnabled = true;
+        Runnable loop = ()->{
+            while(true) {
+                mainLoop();
+                try
+                {
+                    Thread.sleep(30);
+                }
+                catch (InterruptedException e)
+                {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                 
+            }
+           };
+        new Thread(loop).start();
     }
     
     public int getEncoderTicks()
@@ -100,13 +132,8 @@ public class Elevator
     {
         //get encoder ticks
         int whereAmI = getEncoderTicks();
-        
-        //if (whereAmI < CrusaderCommon.ELEVATOR_TOP_SOFT_STOP) {
-            elevatorMasterTalon.set(ControlMode.PercentOutput, CrusaderCommon.ELEVATOR_CUBE_SPEED);
-      //  }else
-       /// {
-       //     elevatorMasterTalon.set(ControlMode.PercentOutput, 0.0);
-      //  }
+       elevatorMasterTalon.set(ControlMode.PercentOutput, CrusaderCommon.ELEVATOR_CUBE_SPEED);
+
     }
     
     /**
@@ -117,19 +144,24 @@ public class Elevator
         {
             //get encoder ticks
             int whereAmI = getEncoderTicks();
-            
-           // if (whereAmI > CrusaderCommon.ELEVATOR_BOTTOM_SOFT_STOP) {
-                elevatorMasterTalon.set(ControlMode.PercentOutput, -CrusaderCommon.ELEVATOR_CUBE_SPEED);
-           // } else
-           // {
-           //     elevatorMasterTalon.set(ControlMode.PercentOutput, 0.0);
-           // }
+          elevatorMasterTalon.set(ControlMode.PercentOutput, -CrusaderCommon.ELEVATOR_CUBE_SPEED);
+
            
         }   
        
         
     }
     
+    
+    public void elevatorUpPID() {
+        tilt(0.5);
+    }
+    public void elevatorDownPID() {
+        tilt(-0.5);
+    }
+    
+
+
     /**
      * Sends the elevator up at the speed used for climbing
      */
@@ -145,7 +177,9 @@ public class Elevator
      */
     
     public void setElevatorHeight(double height) {
+        PIDEnabled=true;
         elevatorMasterTalon.set(ControlMode.Position, height * ((double) CrusaderCommon.ELEVATOR_TICK_TO_IN));
+        System.out.println("ELEVATOR ERROR:" + elevatorMasterTalon.getClosedLoopError(0));
     }
     
     
@@ -166,8 +200,7 @@ public class Elevator
      */
     public void elevatorShiftCube()
     {
-        highSolenoid.set(true);
-        lowSolenoid.set(false);
+        solenoid.set(DoubleSolenoid.Value.kForward);
         climbMode = false;
     }
     
@@ -176,8 +209,43 @@ public class Elevator
      */
     public void elevatorShiftClimb()
     {
-        lowSolenoid.set(true);
-        highSolenoid.set(false);
+        solenoid.set(DoubleSolenoid.Value.kReverse);
         climbMode = true;
     }
+    
+    public void enablePID() {
+        PIDEnabled=true;
+    }
+    
+    public void disablePID() {
+        PIDEnabled=false;
+    }
+    
+    //set height of robot
+    public void setSetpoint(double height) {
+        this.setpoint = Math.min(Math.max(MIN_HEIGHT, height), MAX_HEIGHT);;
+    }
+    
+    public void tilt(double heightTilt) {
+        setpoint+=heightTilt;
+        this.setpoint = Math.min(Math.max(MIN_HEIGHT, setpoint), MAX_HEIGHT);;
+    }
+    
+    public void mainLoop() {
+        //nominal voltage <-1,1> outpu for elevator based in P gain
+        if(PIDEnabled) {
+            
+            currentError = setpoint - getHeight();
+            double outputWanted = currentError * CrusaderCommon.ELEVATOR_KP;
+            outputWanted = Math.min(Math.max(MIN_OUT, outputWanted), MAX_OUT);
+            elevatorMasterTalon.set(ControlMode.PercentOutput, outputWanted);
+        }    
+     
+    }
+    
+    public double getHeight() {
+        System.out.println("HEIGHT:" + (-elevatorMasterTalon.getSelectedSensorPosition(0) / CrusaderCommon.ELEVATOR_TICK_TO_IN) + "      SETPOINT" + setpoint + "       ERROR:" + currentError);
+        return -elevatorMasterTalon.getSelectedSensorPosition(0) / CrusaderCommon.ELEVATOR_TICK_TO_IN;
+    }
 }
+

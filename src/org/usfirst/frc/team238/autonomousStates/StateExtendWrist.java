@@ -5,52 +5,69 @@ import org.usfirst.frc.team238.core.CommandController;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team238.commands.CommandIntakeOut;
+import org.usfirst.frc.team238.commands.CommandExtendWrist;
 
 public class StateExtendWrist implements AutonomousState
 {
-    CommandIntakeOut intakeOutCommand;
+    CommandExtendWrist extendWristCommand;
     String parameters[];
+    boolean done = false;
+    
     
     @Override
     public void init()
     {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void prepare()
     {
         // TODO Auto-generated method stub
-        intakeOutCommand.prepare();
-        intakeOutCommand.setParams();
+        extendWristCommand.prepare();
+        extendWristCommand.setParams();
     }
 
     @Override
     public void init(String[] params, CommandController theMcp)
     {
         // TODO Auto-generated method stub
-        intakeOutCommand = (CommandIntakeOut) theMcp.getAutoCmd("CommandIntakeOut");
+        extendWristCommand = (CommandExtendWrist) theMcp.getAutoCmd("CommandExtendWrist");
     }
 
     @Override
     public void process()
     {
-        // TODO Auto-generated method stub
-        intakeOutCommand.execute();
+        Runnable run = () -> {
+            long startTime = System.currentTimeMillis();
+                
+            done = false;
+            while (System.currentTimeMillis() - startTime < 1000)
+            {
+                extendWristCommand.execute();
+                try
+                {
+                    Thread.sleep(25);
+                }
+                catch (InterruptedException e)
+                {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            extendWristCommand.stop();
+            done = true;
+        };
+        new Thread(run).start();
     }
+
+    
 
     @Override
     public boolean done()
     {
-        // TODO Auto-generated method stub
-        if (intakeOutCommand.done()) {
-            
-            return true;
-          }
-
-          return false;
+        return done;
     }
 
     @Override
@@ -68,7 +85,8 @@ public class StateExtendWrist implements AutonomousState
     }
 
     @Override
-    public void updateParams() {
+    public void updateParams()
+    {
         // TODO Auto-generated method stub
         String param1;
         String param2;
@@ -85,18 +103,22 @@ public class StateExtendWrist implements AutonomousState
         param4 = SmartDashboard.getString("Param 4 - ultrasonicTarget", "");
         parameters[3] = param4;
         param5 = SmartDashboard.getString("Param 5 - collisionToggle", "");
-        //parameters[4] = param5;
-      }
+        // parameters[4] = param5;
+    }
 
-      @Override
-      public String getParam(int value) {
+    @Override
+    public String getParam(int value)
+    {
         String output = "";
-        if (parameters == null || parameters.length - 1 < value) {
-          output = "";
-        } else {
-          output = parameters[value];
+        if (parameters == null || parameters.length - 1 < value)
+        {
+            output = "";
+        }
+        else
+        {
+            output = parameters[value];
         }
         return output;
-      }
+    }
 
 }

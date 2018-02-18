@@ -4,25 +4,19 @@ import org.usfirst.frc.team238.core.AbstractCommand;
 import org.usfirst.frc.team238.core.Command;
 import org.usfirst.frc.team238.robot.Elevator;
 
-public class CommandElevatorUp extends AbstractCommand
+public class CommandElevatorSwitchHeight extends AbstractCommand
 {
 
     Elevator theElevator;
-    public CommandElevatorUp(Elevator myElevator) {
+    public CommandElevatorSwitchHeight(Elevator myElevator) {
         this.theElevator = myElevator;
     }
         
     @Override
     public void execute()
     {
+        theElevator.setSetpoint(40);
         // TODO Auto-generated method stub
-        if(theElevator.climbMode) {
-            theElevator.elevatorClimbUp();
-        }
-        else
-        {
-            theElevator.elevatorUpPID();
-        }
     }
 
     @Override
@@ -45,16 +39,11 @@ public class CommandElevatorUp extends AbstractCommand
         // TODO Auto-generated method stub
 
     }
-    
-    public void stop() {
-        theElevator.stop();
-    }
 
     @Override
     public boolean done()
     {
         // TODO Auto-generated method stub
-
         return false;
     }
 

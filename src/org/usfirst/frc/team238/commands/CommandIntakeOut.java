@@ -39,6 +39,10 @@ public class CommandIntakeOut extends AbstractCommand
         // TODO Auto-generated method stub
 
     }
+    
+    public void stop() {
+        theIntake.stop();
+    }
 
     @Override
     public boolean done()

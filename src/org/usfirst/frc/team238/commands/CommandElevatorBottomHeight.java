@@ -15,7 +15,7 @@ public class CommandElevatorBottomHeight extends AbstractCommand
     @Override
     public void execute()
     {
-        theElevator.setElevatorHeight(10);
+        theElevator.setSetpoint(1);
         // TODO Auto-generated method stub
     }
 

@@ -21,7 +21,7 @@ public class CommandElevatorDown extends AbstractCommand
         }
         else
         {
-            theElevator.elevatorDown();
+            theElevator.elevatorDownPID();
         }
 
     }

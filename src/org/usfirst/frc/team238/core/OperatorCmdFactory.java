@@ -25,6 +25,7 @@ import org.usfirst.frc.team238.lalaPaths.rightSwitch;
 import org.usfirst.frc.team238.commands.CommandRunTrajectoryOLD;
 import org.usfirst.frc.team238.commands.CommandIntakeIn;
 import org.usfirst.frc.team238.commands.CommandIntakeOut;
+import org.usfirst.frc.team238.commands.CommandIntakeStraightOutAngle;
 import org.usfirst.frc.team238.commands.CommandElevatorBottomHeight;
 import org.usfirst.frc.team238.commands.CommandElevatorDown;
 import org.usfirst.frc.team238.commands.CommandElevatorScaleHeight;
@@ -61,6 +62,8 @@ public class OperatorCmdFactory {
 	CommandElevatorBottomHeight commandElevatorBottomHeight;
 	
 	CommandElevatorScaleHeight commandElevatorScaleHeight;
+	
+	CommandIntakeStraightOutAngle commandIntakeStraightOutAngle;
 	
 	HashMap<Integer, Command> operatorCommands;
 	
@@ -101,6 +104,8 @@ public class OperatorCmdFactory {
       commandRetractWrist = new CommandRetractWrist(intake);
       commandElevatorBottomHeight = new CommandElevatorBottomHeight(elevator);
       commandElevatorScaleHeight = new CommandElevatorScaleHeight(elevator);
+      commandIntakeStraightOutAngle = new CommandIntakeStraightOutAngle(intake);
+      
       
 	  
 	  
@@ -112,10 +117,11 @@ public class OperatorCmdFactory {
 	  operatorCommands.put(7, commandIntakeOut);
 	  operatorCommands.put(11, commandElevatorUp);
 	  operatorCommands.put(10, commandElevatorDown);
-	  operatorCommands.put(4, commandExtendWrist);
-	  operatorCommands.put(5, commandRetractWrist);
+	  operatorCommands.put(2, commandExtendWrist);
+	  operatorCommands.put(3, commandRetractWrist);
 	  operatorCommands.put(9, commandElevatorBottomHeight);
 	  operatorCommands.put(8, commandElevatorScaleHeight);
+	  // operatorCommands.put(3, commandIntakeStraightOutAngle);
       
     
     //operatorCommands.put(multiButtonTestInput, twoButtonTestCommandArray); //Test : Command put

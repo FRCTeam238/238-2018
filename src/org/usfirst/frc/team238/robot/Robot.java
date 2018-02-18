@@ -123,7 +123,14 @@ public class Robot extends IterativeRobot
 				myDriveTrain.resetEncoders();
 				theElevator.getEncoderTicks();
 				
+				
+				int automousModeFromDS =  myAutonomousDataHandler.getModeSelectionFromDashboard(); 
+	            Logger.Log("Robot(): DisabledPeriodic(): The chosen One =  " + String.valueOf(automousModeFromDS));
+	            theMACP.pickAMode(automousModeFromDS);
+				myAutonomousDataHandler.dump();
 				//autoModeUpdateAndRead();
+				
+				SmartDashboard.putNumber("Robot Auto Mode DisPer", automousModeFromDS);
 			}
 			
 			count++;
@@ -190,7 +197,8 @@ public class Robot extends IterativeRobot
 		  autonomousSaveChooser = new SendableChooser<String>();
 		  autonomousSaveChooser.addDefault("do nothing", "0");
 		  autonomousSaveChooser.addObject("drive ten feet", "1");
-		  autonomousSaveChooser.addObject("drive backward", "2");
+		  autonomousSaveChooser.addObject("Primary", "2");
+		  autonomousSaveChooser.addObject("Switch", "3");
 		  SmartDashboard.putData("AutoModes", autonomousSaveChooser);
 		  SmartDashboard.putNumber("TICKS PER INCH", 1627);
 		  
@@ -222,60 +230,71 @@ public class Robot extends IterativeRobot
 	@Override
 	public void autonomousInit() 
 	{
-		try 
-		{
-			Logger.Log("Robot(): AutononousInit()");
-			StringBuilder autoSelectionKey = new StringBuilder();
-			
-			boolean autoPlaybook = SmartDashboard.getBoolean(CrusaderCommon.AUTO_PLAY_BOOK, true);
-			if(autoPlaybook )
-			{
-				autoSelectionKey.append("Primary_");
-			}
-			else
-			{
-				autoSelectionKey.append("Secondary_");
-			}
-			
-			String robotPosition = SmartDashboard.getString(CrusaderCommon.AUTO_ROBOT_POSITION,  "C");
-			autoSelectionKey.append(robotPosition + "_");
-			
-			String gameData;
-			gameData = DriverStation.getInstance().getGameSpecificMessage();
-	        if(gameData.length() > 0)
+	    try 
+	    {
+	        Logger.Log("Robot(): AutononousInit()");
+
+
+	        StringBuilder autoSelectionKey = new StringBuilder();
+
+	        boolean autoPlaybook = SmartDashboard.getBoolean(CrusaderCommon.AUTO_PLAY_BOOK, true);
+	        if(autoPlaybook )
 	        {
-			    autoSelectionKey.append(gameData, 0, 2);
-			}
+	            autoSelectionKey.append("Primary_");
+	        }
+	        else
+	        {
+	            autoSelectionKey.append("Secondary_");
+	        }
+
+	        String robotPosition = SmartDashboard.getString(CrusaderCommon.AUTO_ROBOT_POSITION,  "C");
+	        autoSelectionKey.append(robotPosition + "_");
+
+	        String gameData;
+	        gameData = DriverStation.getInstance().getGameSpecificMessage();
+	        SmartDashboard.putString("GameData", gameData);
+	        if(gameData != null && gameData.length() > 0)
+	        {
+	            autoSelectionKey.append(gameData, 0, 2);
+	        }
 	        Logger.Log("Robot(): AutonomousInit(): The 2018 chosen One =  " + autoSelectionKey.toString());
-			
-			/*
-			 * AT THIS POINT WE SHOULD HAVE SOMETHING LIKE 
-			 * 
-			 * Primary_L_LL as the lookup key
-	         * 
-	         * where 
-	         * Primary is the Play book
-	         * L is Field Position 
-	         * LL = Field Disposition
-	        */
-			
-	        
-	        
+	    }
+	    catch (Exception ex) 
+	    {
+	        ex.printStackTrace();
+	        Logger.Log("Robot(): AutononousInit() Exception: "+ex);
+	    }
+	    /*
+	     * AT THIS POINT WE SHOULD HAVE SOMETHING LIKE 
+	     * 
+	     * Primary_L_LL as the lookup key
+	     * 
+	     * where 
+	     * Primary is the Play book
+	     * L is Field Position 
+	     * LL = Field Disposition
+	     */
+
+
+	    try { 
 	        myDriveTrain.resetEncoders();
-			  
-			int automousModeFromDS =  myAutonomousDataHandler.getModeSelectionFromDashboard(); 
-			Logger.Log("Robot(): AutonomousInit(): The chosen One =  " + String.valueOf(automousModeFromDS));
-			//theMACP.pickAMode(automousModeFromDS);
-			theMACP.pickAMode2018(autoSelectionKey.toString());
-			
-			myDriveTrain.getEncoderTicks();
-				
-		}
-		catch (Exception ex) 
-		{
-		  ex.printStackTrace();
-			Logger.Log("Robot(): AutononousInit() Exception: "+ex);
-		}
+
+	        int automousModeFromDS =  myAutonomousDataHandler.getModeSelectionFromDashboard(); 
+	        Logger.Log("Robot(): AutonomousInit(): The chosen One =  " + String.valueOf(automousModeFromDS));
+	        theMACP.pickAMode(automousModeFromDS);
+	        //theMACP.pickAMode2018(autoSelectionKey.toString());
+
+	        SmartDashboard.putNumber("Robot Chosen Auto Mode", automousModeFromDS);
+	        myDriveTrain.getEncoderTicks();
+
+	    }
+	    catch (Exception ex) 
+	    {
+	        ex.printStackTrace();
+	        Logger.Log("Robot(): AutononousInit() Exception: "+ex);
+	    }
+	    
+	    myDriveTrain.shiftLow();
 	}
 
 	/**
@@ -332,7 +351,10 @@ public class Robot extends IterativeRobot
 		*/
 		HashMap<Integer,Integer[]> commandValues;
 		
-		SmartDashboard.putNumber("Left Encoder", leftMasterDrive.getSelectedSensorPosition(0));
+		
+		//SmartDashboard.putNumber("Left Encoder", leftMasterDrive.getSelectedSensorPosition(0));
+		SmartDashboard.putNumber("Left Encoder", theElevator.getEncoderTicks());
+        
 		SmartDashboard.putNumber("Right Encoder", rightMasterDrive.getSelectedSensorPosition(0));
 		//theElevator.getEncoderTicks();
 		//myDriveTrain.getEncoderTicks();

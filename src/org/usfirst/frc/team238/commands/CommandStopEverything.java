@@ -22,7 +22,7 @@ public class CommandStopEverything implements Command {
   public void execute() {
     // TODO Auto-generated method stub
     theIntake.stop();
-    theElevator.stop();
+    //theElevator.stop();
     theElevator.elevatorShiftCube();
   }
 

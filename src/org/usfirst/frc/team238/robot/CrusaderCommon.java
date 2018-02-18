@@ -89,6 +89,7 @@ public class CrusaderCommon {
 	public static final int DRIVE_TRAIN_LEFT_SLAVE1 = 14;
 	public static final int DRIVE_TRAIN_LEFT_SLAVE2 = 13;
 	
+	public static final double ELEVATOR_KP = 0.047;
 	public static final int ELEVATOR_TICK_TO_IN = 7414;
 	public static final int ELEVATOR_MASTER = 8;
 	public static final int ELEVAOR_SLAVE_SRX = 11;
@@ -105,7 +106,7 @@ public class CrusaderCommon {
 	public static final double ELEVATOR_TOP_SOFT_STOP = 600000;
 	
 	public static final double INTAKE_WRIST_SPEED = 0.5;
-	public static final double INTAKE_SPEED = 0.75;//0.8;
+	public static final double INTAKE_SPEED = 0.90;//0.8;
 	
 
 	// Servo power setting

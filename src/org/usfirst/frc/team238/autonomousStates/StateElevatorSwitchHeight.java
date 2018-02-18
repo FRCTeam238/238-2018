@@ -5,62 +5,37 @@ import org.usfirst.frc.team238.core.CommandController;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team238.commands.CommandElevatorUp;
+import org.usfirst.frc.team238.commands.CommandElevatorSwitchHeight;
 
-public class StateElevatorUp implements AutonomousState
+
+public class StateElevatorSwitchHeight implements AutonomousState
 {
-    CommandElevatorUp elevatorUpCommand;
+    CommandElevatorSwitchHeight StateElevatorSwitchHeight;
     String parameters[];
     
     boolean done = false;
 
-    @Override
-    public void init()
-    {
-        // TODO Auto-generated method stub
-
-    }
 
     @Override
     public void prepare()
     {
         // TODO Auto-generated method stub
-        elevatorUpCommand.prepare();
-        elevatorUpCommand.setParams();
+        StateElevatorSwitchHeight.prepare();
+        StateElevatorSwitchHeight.setParams();
     }
 
     @Override
     public void init(String[] params, CommandController theMcp)
     {
         // TODO Auto-generated method stub
-        elevatorUpCommand = (CommandElevatorUp) theMcp.getAutoCmd("CommandElevatorUp");
+        StateElevatorSwitchHeight= (CommandElevatorSwitchHeight) theMcp.getAutoCmd("CommandElevatorSwitchHeight");
+        parameters=params;
     }
 
     @Override
     public void process()
     {
-        // TODO Auto-generated method stub
-        Runnable run = () -> {
-            long startTime = System.currentTimeMillis();
-               done = false;
-            while (System.currentTimeMillis() - startTime < 400)
-            {
-                elevatorUpCommand.execute();
-                try
-                {
-                    Thread.sleep(25);
-                }
-                catch (InterruptedException e)
-                {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-            elevatorUpCommand.stop();
-            done = true;
-            
-        };
-        new Thread(run).start();
+        StateElevatorSwitchHeight.execute();
     }
 
     @Override
@@ -68,7 +43,7 @@ public class StateElevatorUp implements AutonomousState
     {
         // TODO Auto-generated method stub
 
-        return done;
+        return true;
     }
 
     @Override
@@ -88,12 +63,11 @@ public class StateElevatorUp implements AutonomousState
     @Override
     public void updateParams()
     {
-        // TODO Auto-generated method stub
+/*        // TODO Auto-generated method stub
         String param1;
         String param2;
         String param3;
         String param4;
-        String param5;
 
         param1 = SmartDashboard.getString("Param 1 - targetValue", "");
         parameters[0] = param1;
@@ -103,7 +77,7 @@ public class StateElevatorUp implements AutonomousState
         parameters[2] = param3;
         param4 = SmartDashboard.getString("Param 4 - ultrasonicTarget", "");
         parameters[3] = param4;
-        param5 = SmartDashboard.getString("Param 5 - collisionToggle", "");
+        param5 = SmartDashboard.getString("Param 5 - collisionToggle", "");*/
         // parameters[4] = param5;
     }
 
@@ -120,6 +94,13 @@ public class StateElevatorUp implements AutonomousState
             output = parameters[value];
         }
         return output;
+    }
+
+    @Override
+    public void init()
+    {
+        // TODO Auto-generated method stub
+        
     }
 
 }

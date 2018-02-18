@@ -10,6 +10,19 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 public class IntakeWrist
 {
 
+    
+    private static final double MAX_OUT = 0.5;
+    private static final double MIN_OUT = -0.5;
+    
+    private static final double MIN_ANGLE = 0;
+    private static final double MAX_ANGLE = 120;
+    
+    
+    private double setpoint = 0;
+    private double currentError =0;
+    
+    private boolean PIDEnabled = true;
+    
     TalonSRX wristTalon;
     TalonSRX intakeMaster;
     VictorSPX intakeSlave;
@@ -49,10 +62,9 @@ public class IntakeWrist
         
     }
     
-    
+    public boolean usingWrist = false;
     public void extendWrist()
     {
-        
         wristTalon.set(ControlMode.PercentOutput, CrusaderCommon.INTAKE_WRIST_SPEED);
         
     }
@@ -73,7 +85,7 @@ public class IntakeWrist
     public void intakeIn()
     {
      
-        intakeMaster.set(ControlMode.PercentOutput, CrusaderCommon.INTAKE_SPEED);
+        intakeMaster.set(ControlMode.PercentOutput, -CrusaderCommon.INTAKE_SPEED);
     }
     
     /**
@@ -82,15 +94,15 @@ public class IntakeWrist
     public void intakeOut()
     {
      
-        intakeMaster.set(ControlMode.PercentOutput, -CrusaderCommon.INTAKE_SPEED);
+        intakeMaster.set(ControlMode.PercentOutput, CrusaderCommon.INTAKE_SPEED);
         
     }
     
     public void stop()
     {
         
-        intakeMaster.set(ControlMode.PercentOutput, 0);
-        wristTalon.set(ControlMode.PercentOutput, 0);
+        intakeMaster.set(ControlMode.PercentOutput, -0.05);
+        wristTalon.set(ControlMode.PercentOutput, -0.05);
         
     }
     

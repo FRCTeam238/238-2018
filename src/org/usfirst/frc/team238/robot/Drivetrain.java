@@ -197,8 +197,8 @@ public class Drivetrain {
 	  *robot works with the velocity tuning code*/
 		leftFrontDrive.set(ControlMode.PercentOutput, -leftMotorValue);
 		rightFrontDrive.set(ControlMode.PercentOutput, -rightMotorValue);
-		Logger.Log("LEFT ENCODER === " + leftFrontDrive.getSelectedSensorPosition(0));
-		Logger.Log("RIGHT ENCODER === " + rightFrontDrive.getSelectedSensorPosition(0));
+		//Logger.Log("LEFT ENCODER === " + leftFrontDrive.getSelectedSensorPosition(0));
+		//Logger.Log("RIGHT ENCODER === " + rightFrontDrive.getSelectedSensorPosition(0));
 		//SmartDashboard.putNumber("ENCODER DISTANCE = ", rightFrontDrive.getSelectedSensorPosition(0));
 	}
 	
