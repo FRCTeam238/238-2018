@@ -74,6 +74,8 @@ public class CrusaderCommon {
 	public final static double TRACKING_MOTOR_VALUE = 1;
 
 	public final static double TALON_F_VALUE_LEFT = 0.00455;//0.0725 old autonomous
+	public final static double TALON_F_VALUE_HIGH = 0.002;//0.0725 old autonomous
+    
 	public final static double TALON_F_VALUE_RIGHT = 0.00455;//0.0735 old autonomous
 	public final static double TALON_P_VALUE = 0;//0.5
 	public final static double TALON_D_VALUE = 0;
@@ -89,7 +91,7 @@ public class CrusaderCommon {
 	public static final int DRIVE_TRAIN_LEFT_SLAVE1 = 14;
 	public static final int DRIVE_TRAIN_LEFT_SLAVE2 = 13;
 	
-	public static final double ELEVATOR_KP = 0.047;
+	public static final double ELEVATOR_KP = 0.067;
 	public static final int ELEVATOR_TICK_TO_IN = 7414;
 	public static final int ELEVATOR_MASTER = 8;
 	public static final int ELEVAOR_SLAVE_SRX = 11;
@@ -97,7 +99,7 @@ public class CrusaderCommon {
 	public static final int INTAKE_MASTER_SRX = 4;
 	public final static int INTAKE_SLAVE = 5;
 	public final static int INTAKE_WRIST = 7;
-	public final static int INTAKE_TICK_TO_DEGREE = 700;
+	public final static int INTAKE_TICK_TO_DEGREE = 10;
 	
 	
 	public static final double ELEVATOR_CUBE_SPEED = 0.8;
@@ -153,7 +155,7 @@ public class CrusaderCommon {
 	public final static double STRAIGHT_I_VALUE = 0.0000009;
 	public final static double STRAIGHT_DEAD_STOP = 0.1;// 0.05;
 	public final static double STRAIGHT_MAX_ERROR = 40000;//15000;// 9966;
-	public final static double STRAIGHT_MAX_MOTOR_VALUE = 1;// SmartDashboard.getNumber("Turn
+	public final static double STRAIGHT_MAX_MOTOR_VALUE = 0.5;// SmartDashboard.getNumber("Turn
 															// Max
 															// Error",45);//45;
 

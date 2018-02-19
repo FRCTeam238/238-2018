@@ -312,7 +312,11 @@ public class CommandController
   			      }
   			      else
   			      {*/
-  			        operatorCommandsForTheButtonPressed.execute(); //why are you null
+  			      if(index == 20) {
+  			          operatorCommandsForTheButtonPressed.execute(20);
+  			      }else {
+  			        operatorCommandsForTheButtonPressed.execute(); //why are you null                       
+  			      }
   			      //}
 			    //}
 			      }

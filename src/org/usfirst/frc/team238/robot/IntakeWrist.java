@@ -50,6 +50,24 @@ public class IntakeWrist
         intakeSlave.setInverted(true);
         
         wristTalon.config_kP(0, 0.005, 0);
+        
+        PIDEnabled = true;
+        Runnable loop = ()->{
+            while(true) {
+                mainLoop();
+                try
+                {
+                    Thread.sleep(30);
+                }
+                catch (InterruptedException e)
+                {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                 
+            }
+           };
+        new Thread(loop).start();
     }
     
     /**
@@ -58,8 +76,7 @@ public class IntakeWrist
     
     //angle is 0 at top (starting configuraition) and then positive as i goes down.
     public void setWrist(double angle) {
-        wristTalon.set(ControlMode.Position, angle*CrusaderCommon.INTAKE_TICK_TO_DEGREE);
-        
+        setpoint = Math.min(Math.max(MIN_ANGLE, angle), MAX_ANGLE);
     }
     
     public boolean usingWrist = false;
@@ -82,6 +99,27 @@ public class IntakeWrist
     /**
      * Suck a cube in
      */
+    public void extendWristPID() {
+        tilt(0.6);
+        
+    }
+    
+    public void retractWristPID() {
+        tilt(-0.6);
+    }
+    
+    public void tilt(double degrees) {
+        setpoint+=degrees;
+    }
+    
+    public void enablePID() {
+        PIDEnabled=true;
+    }
+    
+    public void disablePID() {
+        PIDEnabled=false;
+    }
+    
     public void intakeIn()
     {
      
@@ -101,9 +139,25 @@ public class IntakeWrist
     public void stop()
     {
         
-        intakeMaster.set(ControlMode.PercentOutput, -0.05);
-        wristTalon.set(ControlMode.PercentOutput, -0.05);
+        //intakeMaster.set(ControlMode.PercentOutput, -0.05);
+       // wristTalon.set(ControlMode.PercentOutput, -0.05);
         
     }
+    
+    public void mainLoop() {
+        if(PIDEnabled) {
+            
+            currentError = setpoint - getAngle();
+            double outputWanted = currentError * CrusaderCommon.ELEVATOR_KP;
+            outputWanted = Math.min(Math.max(MIN_OUT, outputWanted), MAX_OUT);
+            intakeMaster.set(ControlMode.PercentOutput, outputWanted);
+        }    
+    }
+    
+    public double getAngle() {
+        return intakeMaster.getSelectedSensorPosition(0)/ CrusaderCommon.INTAKE_TICK_TO_DEGREE;
+    }
+    
+    
     
 }

@@ -2,13 +2,16 @@ package org.usfirst.frc.team238.commands;
 
 import org.usfirst.frc.team238.core.AbstractCommand;
 import org.usfirst.frc.team238.core.Command;
-
+import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.IntakeWrist;
 
-public class CommandExtendWrist extends AbstractCommand {
+public class CommandWristAngle extends AbstractCommand {
 	
+    
 	IntakeWrist extend; 
-	public CommandExtendWrist(IntakeWrist myextend)
+	double angle;
+	
+	public CommandWristAngle(IntakeWrist myextend)
 	{
 		this.extend = myextend;
 	}
@@ -17,14 +20,17 @@ public class CommandExtendWrist extends AbstractCommand {
 	public void execute() {
 		// TODO Auto-generated method stub
 		
-		extend.extendWristPID();
+		extend.setWrist(angle);
 
 	}
 
 	@Override
 	public void execute(int btnPressed) {
 		// TODO Auto-generated method stub
-
+	    if(btnPressed ==1) {
+	        extend.setWrist(90);
+   
+	    }
 	}
 
 	@Override
@@ -33,8 +39,13 @@ public class CommandExtendWrist extends AbstractCommand {
 
 	}
 
-	@Override
-	public void setParams() {
+	
+	public void setParams(String params[]) {
+	    if ((params[0] != null) || (!params[0].isEmpty())) {
+	        angle = Double.parseDouble(params[0]);
+	      } else {
+	        angle = 0;
+	      }
 		// TODO Auto-generated method stub
 
 	}
@@ -46,7 +57,7 @@ public class CommandExtendWrist extends AbstractCommand {
 	@Override
 	public boolean done() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }

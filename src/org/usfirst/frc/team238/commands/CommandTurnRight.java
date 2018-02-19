@@ -40,14 +40,23 @@ public class CommandTurnRight extends AbstractCommand {
     double calculatedValue;
     
     double error = 0; //FIX THIS
-    calculatedValue = pidCalc(  CrusaderCommon.TURN_P_VALUE, 
+    /*calculatedValue = pidCalc(  CrusaderCommon.TURN_P_VALUE, 
                                 CrusaderCommon.TURN_DEAD_STOP_RIGHT,
                                 error,
                                 CrusaderCommon.TURN_MAX_ERROR,
                                 CrusaderCommon.TURN_MAX_MOTOR_VALUE,
                                 CrusaderCommon.TURN_I_VALUE);
+    */
+    
     currentYaw = myNavigation.getYaw();
+    double angleError = (targetValue - currentYaw);
+    if(Math.abs(angleError) > (360.0 - 0.0)/2.0D) {
+        angleError = angleError>0.0D ? angleError- 360.0+ 0.0 : angleError + 360.0 -0.0; 
+    }
+    calculatedValue = 0.018 * angleError ;
+    Math.min(0.8, Math.max(calculatedValue, -0.8));
     myRobotDrive.turnRight(calculatedValue, calculatedValue);
+    System.out.println("CVALUE:" + calculatedValue);
     myNavigation.navxValues();
     
     Logger.Log("CommandTurnRight(): Our yaw = "+yaw);
@@ -84,6 +93,7 @@ public class CommandTurnRight extends AbstractCommand {
 
   public boolean done() {
 
+   
     if (myNavigation.areWeThereYet() == true) {
       myRobotDrive.drive(0, 0);
       return true;

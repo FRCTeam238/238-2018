@@ -3,6 +3,8 @@ package org.usfirst.frc.team238.robot;
 import org.usfirst.frc.team238.core.Logger;
 
 import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Timer;
@@ -30,7 +32,7 @@ public class Navigation {
 	public void init()
 	{
 		
-		ahrs = new AHRS(SerialPort.Port.kMXP);
+		ahrs = new AHRS(SPI.Port.kMXP);
 		currentYaw = ahrs.getYaw();
 	
 		currentRoll = ahrs.getRoll();

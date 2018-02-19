@@ -23,6 +23,8 @@ public class Drivetrain {
 	Solenoid lowShiftSolenoid;
 	DifferentialDrive robotMotors;
 	
+	boolean shiftedhigh =false;
+	
 	ControlBoard theControlBoard;
 	
 	DoubleSolenoid theShiftSolenoid;
@@ -168,6 +170,7 @@ public class Drivetrain {
 	public void shiftHigh()
 	{
 	    //Logger.Log("SHIFTHIGH ");
+	    shiftedhigh = true;
 	    theShiftSolenoid.set(DoubleSolenoid.Value.kReverse);
 		
 	}
@@ -178,6 +181,7 @@ public class Drivetrain {
 	 */
 	public void shiftLow()
 	{
+	    shiftedhigh = false;
 	    //Logger.Log("SHIFTLOW ");
 	    theShiftSolenoid.set(DoubleSolenoid.Value.kForward);
 		
@@ -209,11 +213,21 @@ public class Drivetrain {
         rightFrontDrive.set(ControlMode.MotionMagic, target);
 	    
 	}
-	
+	//low gear real - 6.6ft/s high 17.5 ft/s
 	public void driveSpeed(double leftSpeed, double rightSpeed) {
 		
 		  /*the joystick value is multiplied by a target RPM so the 
 		  *robot works with the velocity tuning code*/
+	        if(shiftedhigh) {
+	            leftFrontDrive.config_kF(0, CrusaderCommon.TALON_F_VALUE_HIGH, 0);
+	            rightFrontDrive.config_kF(0, CrusaderCommon.TALON_F_VALUE_HIGH, 0);
+	        
+	        }else {
+
+	            leftFrontDrive.config_kF(0, CrusaderCommon.TALON_F_VALUE_LEFT, 0);
+	            rightFrontDrive.config_kF(0, CrusaderCommon.TALON_F_VALUE_RIGHT, 0);
+	           
+	        }
 	        leftFrontDrive.set(ControlMode.Velocity, (leftSpeed) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH);
 			rightFrontDrive.set(ControlMode.Velocity, (rightSpeed) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH);
 			System.out.println("LEFT WANTED:" + leftSpeed);
@@ -468,5 +482,20 @@ public class Drivetrain {
 		
 		//Logger.logDouble("Reset", lastBtnPressed);
 	}
+	
+
+    //return distance travelled in inches
+    public double leftDistanceTravelled() {
+        System.out.println("LEFT TICKS: " + leftFrontDrive.getSelectedSensorPosition(0));
+        return leftFrontDrive.getSelectedSensorPosition(0) / CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH;
+    }
+    
+    //return distance travelled in inches
+    public double rightDistanceTravelled() {
+        System.out.println("RIGH TICKS: " + rightFrontDrive.getSelectedSensorPosition(0));
+        return rightFrontDrive.getSelectedSensorPosition(0) / CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH;
+    }
+	
+	
 	
 }

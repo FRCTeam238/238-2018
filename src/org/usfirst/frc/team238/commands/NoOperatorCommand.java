@@ -29,7 +29,7 @@ public class NoOperatorCommand extends AbstractCommand {
   @Override
   public boolean done() {
     // TODO Auto-generated method stub
-    return false;
+    return true;
   }
 
 }

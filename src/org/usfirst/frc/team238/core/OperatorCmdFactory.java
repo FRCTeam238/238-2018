@@ -17,6 +17,7 @@ import org.usfirst.frc.team238.robot.IntakeWrist;
 import RealBot.TrajectoryIntepreter;
 
 import org.usfirst.frc.team238.commands.CommandStopEverything;
+import org.usfirst.frc.team238.commands.CommandWristAngle;
 import org.usfirst.frc.team238.lalaPaths.Straight140;
 import org.usfirst.frc.team238.lalaPaths.goStraight;
 import org.usfirst.frc.team238.lalaPaths.leftScale;
@@ -65,6 +66,8 @@ public class OperatorCmdFactory {
 	
 	CommandIntakeStraightOutAngle commandIntakeStraightOutAngle;
 	
+	CommandWristAngle commandWristAngle;
+	
 	HashMap<Integer, Command> operatorCommands;
 	
 	
@@ -105,7 +108,7 @@ public class OperatorCmdFactory {
       commandElevatorBottomHeight = new CommandElevatorBottomHeight(elevator);
       commandElevatorScaleHeight = new CommandElevatorScaleHeight(elevator);
       commandIntakeStraightOutAngle = new CommandIntakeStraightOutAngle(intake);
-      
+      commandWristAngle = new CommandWristAngle(intake);
       
 	  
 	  
@@ -121,6 +124,7 @@ public class OperatorCmdFactory {
 	  operatorCommands.put(3, commandRetractWrist);
 	  operatorCommands.put(9, commandElevatorBottomHeight);
 	  operatorCommands.put(8, commandElevatorScaleHeight);
+	  operatorCommands.put(20, commandWristAngle);
 	  // operatorCommands.put(3, commandIntakeStraightOutAngle);
       
     

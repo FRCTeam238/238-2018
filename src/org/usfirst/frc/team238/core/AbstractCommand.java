@@ -68,8 +68,12 @@ public class AbstractCommand implements Command
                                                     // SECONDS
         // double currentTime = System.currentTimeMillis() * 1000; // make this
         // seconds
+        boolean intergaretOrnot = error < maxError;
+        Logger.Log("error =" + error);
+        Logger.Log("maxError =" + maxError);
+        Logger.Log("intergate or not =" + intergaretOrnot);
         
-        if (error < maxError)
+        if (intergaretOrnot)
         {
             Logger.Log("AbstractCommand(): pidCalc(): We Are Using motorValue");
             motorValue = (error * pValue) + (iValue * integrate(0, theElapsed) * error);// deadStop;

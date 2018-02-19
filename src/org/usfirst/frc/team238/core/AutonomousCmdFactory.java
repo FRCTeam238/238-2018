@@ -16,8 +16,10 @@ import org.usfirst.frc.team238.commands.CommandElevatorBottomHeight;
 import org.usfirst.frc.team238.commands.CommandDriveBackwards;
 import org.usfirst.frc.team238.commands.CommandTurnLeft;
 import org.usfirst.frc.team238.commands.CommandTurnRight;
+import org.usfirst.frc.team238.commands.CommandWristAngle;
 import org.usfirst.frc.team238.lalaPaths.goStraight;
 import org.usfirst.frc.team238.lalaPaths.leftScale;
+import org.usfirst.frc.team238.commands.CommandAutonLine;
 import org.usfirst.frc.team238.commands.CommandCurlForward;
 import org.usfirst.frc.team238.commands.CommandDelay;
 import org.usfirst.frc.team238.commands.CommandRunTrajectory;
@@ -114,8 +116,14 @@ public class AutonomousCmdFactory {
         cmd = new CommandRunTrajectory(robotDrive, leftScale.objects );
         autonomousCommands.put("CommandRunLeftScaleTrajectory", cmd);
         
-        //cmd = new CommandRunTrajectory(robotDrive, rightScale.objects );
-        //autonomousCommands.put("CommandRunRightSwitchTrajectory", cmd);
+        cmd = new CommandAutonLine(robotDrive, myNavigation);
+        autonomousCommands.put("CommandAutonLine", cmd);
+        
+        cmd = new CommandWristAngle(intake);
+        autonomousCommands.put("CommandWristAngle", cmd);
+        
+        
+        
         
 		return autonomousCommands;
 		

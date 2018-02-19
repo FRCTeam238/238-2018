@@ -230,6 +230,7 @@ public class Robot extends IterativeRobot
 	@Override
 	public void autonomousInit() 
 	{
+	    myDriveTrain.shiftLow();
 	    try 
 	    {
 	        Logger.Log("Robot(): AutononousInit()");
@@ -294,7 +295,7 @@ public class Robot extends IterativeRobot
 	        Logger.Log("Robot(): AutononousInit() Exception: "+ex);
 	    }
 	    
-	    myDriveTrain.shiftLow();
+
 	}
 
 	/**
@@ -343,6 +344,7 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopPeriodic() 
 	{
+	    //System.out.println("ANGLE:" + myNavigation.getYaw());
 		/*
 		leftMasterDrive.set(ControlMode.PercentOutput, -0.5); 
 		leftDriveFollower1.set(ControlMode.PercentOutput, -0.5);; 

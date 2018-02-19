@@ -49,7 +49,7 @@ public class ControlBoard {
 		boolean jsButtonValue = false;
 		int joyStickButtonCount = theJoyStick.getButtonCount();
 		Integer[] buttonsPressed;
-		buttonsPressed = new Integer[joyStickButtonCount];
+		buttonsPressed = new Integer[joyStickButtonCount +5];
 		int arrayIterator = 0;
 		
 		//interator = 11 and buttons do not count from zero
@@ -71,6 +71,11 @@ public class ControlBoard {
 			
 		}
 		
+		if( theJoyStick.getRawAxis(3) > 0.5) {
+		    buttonsPressed[arrayIterator++] = 20;
+		}
+		
+		        
 		return buttonsPressed;
 	}
 	

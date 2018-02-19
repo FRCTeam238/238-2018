@@ -15,14 +15,15 @@ public class CommandElevatorUp extends AbstractCommand
     @Override
     public void execute()
     {
+        theElevator.elevatorUpPID();
         // TODO Auto-generated method stub
-        if(theElevator.climbMode) {
+/*        if(theElevator.climbMode) {
             theElevator.elevatorClimbUp();
         }
         else
         {
-            theElevator.elevatorUpPID();
-        }
+            
+        }*/
     }
 
     @Override

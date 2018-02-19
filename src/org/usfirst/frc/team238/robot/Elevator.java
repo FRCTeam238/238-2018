@@ -18,7 +18,7 @@ public class Elevator
     private static final double MAX_OUT = 0.8;
     private static final double MIN_OUT = -0.8;
     
-    private static final double MIN_HEIGHT = 3.0;
+    private static final double MIN_HEIGHT = -80.0;
     private static final double MAX_HEIGHT = 89;
     
     
@@ -26,6 +26,7 @@ public class Elevator
     private double setpoint = 0;
     private double currentError =0;
     
+    //Really only a P loop
     private boolean PIDEnabled = true;
     
     TalonSRX elevatorMasterTalon;
@@ -131,6 +132,7 @@ public class Elevator
     public void elevatorUp()
     {
         //get encoder ticks
+        PIDEnabled=false;
         int whereAmI = getEncoderTicks();
        elevatorMasterTalon.set(ControlMode.PercentOutput, CrusaderCommon.ELEVATOR_CUBE_SPEED);
 
@@ -142,6 +144,7 @@ public class Elevator
     public void elevatorDown()
     {
         {
+            PIDEnabled=false;
             //get encoder ticks
             int whereAmI = getEncoderTicks();
           elevatorMasterTalon.set(ControlMode.PercentOutput, -CrusaderCommon.ELEVATOR_CUBE_SPEED);
@@ -154,10 +157,12 @@ public class Elevator
     
     
     public void elevatorUpPID() {
-        tilt(0.5);
+        PIDEnabled=true;
+        tilt(1);
     }
     public void elevatorDownPID() {
-        tilt(-0.5);
+        PIDEnabled=true;
+        tilt(-1);
     }
     
 
@@ -179,7 +184,7 @@ public class Elevator
     public void setElevatorHeight(double height) {
         PIDEnabled=true;
         elevatorMasterTalon.set(ControlMode.Position, height * ((double) CrusaderCommon.ELEVATOR_TICK_TO_IN));
-        System.out.println("ELEVATOR ERROR:" + elevatorMasterTalon.getClosedLoopError(0));
+       // System.out.println("ELEVATOR ERROR:" + elevatorMasterTalon.getClosedLoopError(0));
     }
     
     
