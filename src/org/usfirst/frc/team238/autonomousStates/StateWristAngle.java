@@ -48,7 +48,7 @@ public class StateWristAngle implements AutonomousState
     @Override
     public boolean done()
     {
-        return done;
+        return true;
     }
 
     @Override

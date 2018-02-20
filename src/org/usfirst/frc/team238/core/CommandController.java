@@ -312,8 +312,8 @@ public class CommandController
   			      }
   			      else
   			      {*/
-  			      if(index == 20) {
-  			          operatorCommandsForTheButtonPressed.execute(20);
+  			      if(index ==1 || index==2 || index==4) {
+  			          operatorCommandsForTheButtonPressed.execute(index);
   			      }else {
   			        operatorCommandsForTheButtonPressed.execute(); //why are you null                       
   			      }

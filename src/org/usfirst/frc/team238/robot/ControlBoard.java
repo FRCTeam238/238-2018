@@ -49,7 +49,7 @@ public class ControlBoard {
 		boolean jsButtonValue = false;
 		int joyStickButtonCount = theJoyStick.getButtonCount();
 		Integer[] buttonsPressed;
-		buttonsPressed = new Integer[joyStickButtonCount +5];
+		buttonsPressed = new Integer[joyStickButtonCount +7];
 		int arrayIterator = 0;
 		
 		//interator = 11 and buttons do not count from zero
@@ -71,9 +71,45 @@ public class ControlBoard {
 			
 		}
 		
-		if( theJoyStick.getRawAxis(3) > 0.5) {
-		    buttonsPressed[arrayIterator++] = 20;
-		}
+		//elevator 21 is up, 20 is down lefT JS
+		if( theJoyStick.getRawAxis(1) > 0.65) {
+            buttonsPressed[arrayIterator++] = 20;
+        }else if( theJoyStick.getRawAxis(1) < -0.65) {
+            buttonsPressed[arrayIterator++] = 21;
+        }
+        
+        //wrist 23 is up 22 is down right JS
+        if( theJoyStick.getRawAxis(5) > 0.65) {
+            buttonsPressed[arrayIterator++] = 22;
+        }else if( theJoyStick.getRawAxis(5) < -0.65) {
+            buttonsPressed[arrayIterator++] = 23;
+        }
+        
+
+        //elevator shift
+        if( theJoyStick.getRawAxis(2) > 0.65) {
+            buttonsPressed[arrayIterator++] = 27;
+        }
+        
+        //intake out fast
+        if( theJoyStick.getRawAxis(3) > 0.65) {
+            buttonsPressed[arrayIterator++] = 28;
+        }
+        
+        //DPAD 180(down) down 24, 90(to the right) switch 25, 0(up) scale 26
+        
+        if(theJoyStick.getPOV() ==90) {
+            buttonsPressed[arrayIterator++] = 25;     
+        }else if(theJoyStick.getPOV() ==0) {
+            buttonsPressed[arrayIterator++] = 26;     
+                
+        }else if(theJoyStick.getPOV() ==180) {
+            buttonsPressed[arrayIterator++] = 24;     
+                
+        }
+            
+           
+        
 		
 		        
 		return buttonsPressed;

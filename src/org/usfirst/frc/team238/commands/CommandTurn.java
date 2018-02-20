@@ -8,7 +8,7 @@ import org.usfirst.frc.team238.robot.Navigation;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class CommandTurnRight extends AbstractCommand {
+public class CommandTurn extends AbstractCommand {
 
   Drivetrain myRobotDrive;
   Navigation myNavigation;
@@ -16,11 +16,14 @@ public class CommandTurnRight extends AbstractCommand {
   double motorValue;
   double finalMotorValue;
   double targetValue;
-  double newTargetYaw;
   double currentYaw;
   int    count;
-
-  public CommandTurnRight(Drivetrain robotDrive, Navigation myNavigationForTarget) {
+  
+  
+  long startTime ;
+  double runTime;
+  
+  public CommandTurn(Drivetrain robotDrive, Navigation myNavigationForTarget) {
 
     this.myRobotDrive = robotDrive;
     this.myNavigation = myNavigationForTarget;
@@ -29,9 +32,9 @@ public class CommandTurnRight extends AbstractCommand {
 
   public void prepare() {
 
-    myNavigation.zeroYaw();
+    //myNavigation.zeroYaw();
     resetVals();
-
+    startTime = System.currentTimeMillis();
   }
 
   
@@ -93,14 +96,14 @@ public class CommandTurnRight extends AbstractCommand {
     } else {
       motorValue = 1;
     }
-
+    
+    
     if ((params[2] != null) || (!params[2].isEmpty())) {
-      newTargetYaw = Integer.parseInt(params[2]);
+        runTime = Double.parseDouble(params[2]);
+      } else {
+        runTime = 1;
+      }
 
-    } else {
-      newTargetYaw = 0; // Don't turn if there's no input
-
-    }
 
     myNavigation.setTargetValues(targetValue);
 
@@ -109,15 +112,12 @@ public class CommandTurnRight extends AbstractCommand {
   public boolean done() {
 
    
-    if (myNavigation.areWeThereYet() == true) {
-      myRobotDrive.drive(0, 0);
-      return true;
+    if(System.currentTimeMillis() - startTime <runTime) {
+        return false;
+    }else {
+        myRobotDrive.drive(0, 0);
+        return true;
     }
-
-    else {
-      return false;
-    }
-
   }
   
   public double getError()

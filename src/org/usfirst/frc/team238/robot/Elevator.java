@@ -15,11 +15,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Elevator
 {
     
-    private static final double MAX_OUT = 0.8;
-    private static final double MIN_OUT = -0.8;
+    private static final double MAX_OUT = 0.95;
+    private static final double MIN_OUT = -0.95;
     
     private static final double MIN_HEIGHT = -80.0;
-    private static final double MAX_HEIGHT = 89;
+    private static final double MAX_HEIGHT = 86;
     
     
   
@@ -249,7 +249,7 @@ public class Elevator
     }
     
     public double getHeight() {
-        System.out.println("HEIGHT:" + (-elevatorMasterTalon.getSelectedSensorPosition(0) / CrusaderCommon.ELEVATOR_TICK_TO_IN) + "      SETPOINT" + setpoint + "       ERROR:" + currentError);
+       // System.out.println("HEIGHT:" + (-elevatorMasterTalon.getSelectedSensorPosition(0) / CrusaderCommon.ELEVATOR_TICK_TO_IN) + "      SETPOINT" + setpoint + "       ERROR:" + currentError);
         return -elevatorMasterTalon.getSelectedSensorPosition(0) / CrusaderCommon.ELEVATOR_TICK_TO_IN;
     }
 }

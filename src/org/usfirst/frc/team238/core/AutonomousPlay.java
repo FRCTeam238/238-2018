@@ -47,20 +47,39 @@ public class AutonomousPlay {
 			//System.out.println("AutonomousPlay.readJson(): BEGIN");
 			JSONParser parser = new JSONParser();
 			
+			System.out.println("AutonomousPlay: Create FileReader:filepath=" + filepath);
 			FileReader playsFile = new FileReader(filepath);
+			
+			if (playsFile == null)
+			{
+				System.out.println("AutonomousPlay: playsFile is null");
+			}
 	
-			//System.out.println("AutonomousPlay.readJson(): BEGIN: parse");
+			System.out.println("AutonomousPlay: JSON parse");
 			Object obj = parser.parse(playsFile);
-			
+						
 			JSONObject jsonObject = (JSONObject) obj;
+			if (jsonObject == null)
+			{
+				System.out.println("AutonomousPlay: jsonObject is null");
+			}
+			System.out.println("AutonomousPlay: jsonObject=" + jsonObject);
 			
+			System.out.println("AutonomousPlay: get(AutonomousPlays)");
 			JSONArray targetPlays = (JSONArray) jsonObject.get("AutonomousPlays");
-			
+			if (targetPlays == null)
+			{
+				System.out.println("AutonomousPlay: targetPlays is null");
+			}
+			System.out.println("AutonomousPlay: targetPlays=" + targetPlays);
+			System.out.println(String.format("AutonomousPlay: targetPlays.size=%d", targetPlays.size()));
 			Iterator<JSONObject> targetPlaysIterator = targetPlays.iterator();
 			while (targetPlaysIterator.hasNext())
 			{
+				System.out.println("AutonomousPlay: get next;");
 				JSONObject playGroupJson = targetPlaysIterator.next();
 				
+				System.out.println("AutonomousPlay: next=" + playGroupJson.toString());
 				String playGroupName = (String)playGroupJson.get("Name");
 				
 				//System.out.println(playGroupName);
@@ -103,27 +122,23 @@ public class AutonomousPlay {
 		return autonomousPlays;
 	}
     
-//    static AutonomousState CreateAutonomousState(String stateName)
-//    {
-//        AutonomousState retval = null;
-//        
-//        try 
-//        {
-//            
-//            //Use reflection to create state object (Naming it, while also giving it params and the control scheme on initiation)
-//                AutonomousState xxx = (AutonomousState) Class.forName(cmdClass).newInstance();
-//                
-//                //Initiate the state object with the params and control scheme
-//                xxx.init(params, theMCP);
-//                
-//                retval = xxx;
-//            } 
-//        catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) 
-//        {
-//                e.printStackTrace();
-//        }
-//        
-//        return retval;
-//    }
-
+	public static void dump(HashMap<String, ArrayList<String> > plays)
+	{
+	    System.out.println("AutonomousPlay:dump");
+		Iterator<String> playsIterator = plays.keySet().iterator();
+		while (playsIterator.hasNext())
+		{
+			String playKeyname = playsIterator.next();
+			System.out.println(playKeyname);
+			
+			ArrayList<String> modes = plays.get(playKeyname);
+			Iterator<String> modesIterator = modes.iterator();
+			
+			while (modesIterator.hasNext())
+			{
+				String mode = modesIterator.next();
+				System.out.println("    " + mode);
+			}
+		}
+	}
 }

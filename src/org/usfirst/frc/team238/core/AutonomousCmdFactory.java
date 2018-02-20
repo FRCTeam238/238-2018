@@ -17,6 +17,7 @@ import org.usfirst.frc.team238.commands.CommandDriveBackwards;
 import org.usfirst.frc.team238.commands.CommandTurnLeft;
 import org.usfirst.frc.team238.commands.CommandTurnRight;
 import org.usfirst.frc.team238.commands.CommandWristAngle;
+import org.usfirst.frc.team238.lalaPaths.Straight140;
 import org.usfirst.frc.team238.lalaPaths.goStraight;
 import org.usfirst.frc.team238.lalaPaths.leftScale;
 import org.usfirst.frc.team238.commands.CommandAutonLine;
@@ -27,6 +28,9 @@ import org.usfirst.frc.team238.lalaPaths.leftSwitch;
 import org.usfirst.frc.team238.lalaPaths.rightSwitch;
 import org.usfirst.frc.team238.commands.CommandRetractWrist;
 import org.usfirst.frc.team238.commands.CommandShiftClimb;
+import org.usfirst.frc.team238.commands.CommandShiftHigh;
+import org.usfirst.frc.team238.commands.CommandShiftLow;
+import org.usfirst.frc.team238.commands.CommandTurn;
 import org.usfirst.frc.team238.commands.CommandElevatorUp;
 import org.usfirst.frc.team238.commands.CommandElevatorDown;
 import org.usfirst.frc.team238.commands.CommandElevatorScaleHeight;
@@ -113,7 +117,7 @@ public class AutonomousCmdFactory {
         cmd = new CommandElevatorBottomHeight(elevator);
         autonomousCommands.put("CommandElevatorBottomHeight",cmd);
         
-        cmd = new CommandRunTrajectory(robotDrive, leftScale.objects );
+        cmd = new CommandRunTrajectory(robotDrive, Straight140.objects );
         autonomousCommands.put("CommandRunLeftScaleTrajectory", cmd);
         
         cmd = new CommandAutonLine(robotDrive, myNavigation);
@@ -121,6 +125,15 @@ public class AutonomousCmdFactory {
         
         cmd = new CommandWristAngle(intake);
         autonomousCommands.put("CommandWristAngle", cmd);
+
+        cmd = new CommandShiftHigh(robotDrive);
+        autonomousCommands.put("CommandShiftHigh", cmd);
+        
+        cmd = new CommandShiftLow(robotDrive);
+        autonomousCommands.put("CommandShiftLow", cmd);
+       
+        cmd = new CommandTurn(robotDrive, myNavigation);
+        autonomousCommands.put("CommandTurn", cmd);
         
         
         

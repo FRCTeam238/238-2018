@@ -29,6 +29,7 @@ import java.util.HashMap;
 
 import org.usfirst.frc.team238.core.AutonomousController;
 import org.usfirst.frc.team238.core.AutonomousDataHandler;
+import org.usfirst.frc.team238.core.AutonomousPlay;
 import org.usfirst.frc.team238.core.CommandController;
 import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.robot.Navigation;
@@ -128,8 +129,8 @@ public class Robot extends IterativeRobot
 	            Logger.Log("Robot(): DisabledPeriodic(): The chosen One =  " + String.valueOf(automousModeFromDS));
 	            theMACP.pickAMode(automousModeFromDS);
 				myAutonomousDataHandler.dump();
+				theMACP.dumpPlays();
 				//autoModeUpdateAndRead();
-				
 				SmartDashboard.putNumber("Robot Auto Mode DisPer", automousModeFromDS);
 			}
 			
@@ -394,9 +395,17 @@ public class Robot extends IterativeRobot
 	/**
 	 * This function is called periodically during test mode.
 	 */
+	double i=0;
 	@Override
 	public void testPeriodic() 
 	{
+	    myDriveTrain.shiftHigh();
+	    if(i<1) {
+	        i+=0.001;
+	        
+	        myDriveTrain.drive(-i, -i);
+	        System.out.println("VOLTAGE: " + i + "   SPEED:" + myDriveTrain.getLeftVelocity());
+	    }
 		// do nothing
 	}
 	

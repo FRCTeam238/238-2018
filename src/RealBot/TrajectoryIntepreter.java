@@ -94,15 +94,16 @@ public class TrajectoryIntepreter implements Runnable{
                     double rightAcceleration = (rightVelocity - pastRightVelocity) / dt;
                     pastLeftVelocity = leftVelocity;
                     pastRightVelocity = rightVelocity;
-                    double leftAddIn = leftAcceleration * 0.05;
+                    double leftAddIn = leftAcceleration
+                            * 0.05;
                     double rightAddIn = rightAcceleration * 0.05;
                     //System.out.println("Right Accleration" +rightAcceleration);
-                    driveTrain.driveSpeed(leftVelocity ,rightVelocity );
+                    driveTrain.driveSpeedAccel(leftVelocity ,rightVelocity, leftAcceleration, rightAcceleration );
 
                     //delay is (elapsedTime-pausedtime) - timeStamp
-                    long delay = (long) ((System.currentTimeMillis() - trajectoryStartTime - pausedTime) - m.timeStamp*1000);
+                    long delay = (long) ((System.currentTimeMillis() - trajectoryStartTime) - m.timeStamp*1000);
                     try {
-                        Thread.sleep(Math.max(1,delT));
+                        Thread.sleep(Math.max(1,delT -delay));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

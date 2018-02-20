@@ -19,7 +19,7 @@ public class CommandWristAngle extends AbstractCommand {
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
-		
+		System.out.println("YUP");
 		extend.setWrist(angle);
 
 	}
@@ -27,10 +27,15 @@ public class CommandWristAngle extends AbstractCommand {
 	@Override
 	public void execute(int btnPressed) {
 		// TODO Auto-generated method stub
+	    //check button layou
+	    System.out.println("PRESSEDBUTTONDDDDDDDDDDDDDDDDDDDDDDDDDDD:" + btnPressed);
 	    if(btnPressed ==1) {
-	        extend.setWrist(90);
-   
-	    }
+	        extend.setWrist(80);
+	    }else if(btnPressed ==2) {
+            extend.setWrist(25);
+        }else if(btnPressed ==4) {
+            extend.setWrist(3);
+        }
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package org.usfirst.frc.team238.robot;
 import org.usfirst.frc.team238.core.Logger;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
@@ -11,10 +12,10 @@ public class IntakeWrist
 {
 
     
-    private static final double MAX_OUT = 0.5;
-    private static final double MIN_OUT = -0.5;
+    private static final double MAX_OUT = 0.6;
+    private static final double MIN_OUT = -0.6;
     
-    private static final double MIN_ANGLE = 0;
+    private static final double MIN_ANGLE = 3;
     private static final double MAX_ANGLE = 120;
     
     
@@ -49,7 +50,10 @@ public class IntakeWrist
         intakeMaster.set(ControlMode.PercentOutput, 0);
         intakeSlave.setInverted(true);
         
+        wristTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+        wristTalon.setSensorPhase(true);
         wristTalon.config_kP(0, 0.005, 0);
+        resetEncoders();
         
         PIDEnabled = true;
         Runnable loop = ()->{
@@ -100,12 +104,12 @@ public class IntakeWrist
      * Suck a cube in
      */
     public void extendWristPID() {
-        tilt(0.6);
+        tilt(1.0);
         
     }
     
     public void retractWristPID() {
-        tilt(-0.6);
+        tilt(-1.0);
     }
     
     public void tilt(double degrees) {
@@ -134,12 +138,19 @@ public class IntakeWrist
      
         intakeMaster.set(ControlMode.PercentOutput, CrusaderCommon.INTAKE_SPEED);
         
+    }   
+    
+    public void intakeOutFast()
+    {
+     
+        intakeMaster.set(ControlMode.PercentOutput, CrusaderCommon.INTAKE_SPEED_FAST);
+        
     }
     
     public void stop()
     {
         
-        //intakeMaster.set(ControlMode.PercentOutput, -0.05);
+        intakeMaster.set(ControlMode.PercentOutput, 0.0);
        // wristTalon.set(ControlMode.PercentOutput, -0.05);
         
     }
@@ -148,15 +159,27 @@ public class IntakeWrist
         if(PIDEnabled) {
             
             currentError = setpoint - getAngle();
-            double outputWanted = currentError * CrusaderCommon.ELEVATOR_KP;
-            outputWanted = Math.min(Math.max(MIN_OUT, outputWanted), MAX_OUT);
-            intakeMaster.set(ControlMode.PercentOutput, outputWanted);
+            double outputWanted = currentError * CrusaderCommon.INTAKE_KP;
+            outputWanted = Math.min(Math.max(MIN_OUT, outputWanted+0.085), MAX_OUT) ;
+           // System.out.println("outputWaned:" + outputWanted);
+           
+            wristTalon.set(ControlMode.PercentOutput, outputWanted);
+            
         }    
+        
     }
     
     public double getAngle() {
-        return intakeMaster.getSelectedSensorPosition(0)/ CrusaderCommon.INTAKE_TICK_TO_DEGREE;
+      //  System.out.println("INAKE ANGLE:" + (-wristTalon.getSelectedSensorPosition(0) / CrusaderCommon.INTAKE_TICK_TO_DEGREE) + "      SETPOINT" + setpoint + "       ERROR:" + currentError);
+        
+        return -wristTalon.getSelectedSensorPosition(0)/ CrusaderCommon.INTAKE_TICK_TO_DEGREE;
     }
+    
+    public void resetEncoders(){
+        
+        wristTalon.setSelectedSensorPosition(0,0,0);
+      
+      }
     
     
     

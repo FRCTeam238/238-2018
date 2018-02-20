@@ -16,7 +16,7 @@ public class AutonLineRunnable implements Runnable{
     double rotateOutput;
     
     final double acceleration = 100; //  in/sec^2
-    final double ANGLE_KP = 0.01;
+    final double ANGLE_KP = 3;
     
     boolean stop = false;
     
@@ -87,8 +87,9 @@ public class AutonLineRunnable implements Runnable{
             }
  
             double angleVelocityAddend = angleError * ANGLE_KP;
-            angleVelocityAddend = Math.min(0.4, Math.max(angleVelocityAddend, -0.4));
+            angleVelocityAddend = Math.min(50, Math.max(angleVelocityAddend, -50));
 
+            System.out.println("ANGLEADDEND:" + angleVelocityAddend);
             driveTrain.driveSpeed(currentVelocity + angleVelocityAddend, currentVelocity - angleVelocityAddend);
             if(backwards){
                 if(currentVelocity>=0 && lastVelocity<0){

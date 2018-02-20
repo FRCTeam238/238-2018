@@ -30,7 +30,7 @@ public class AutonomousController implements AutonomousState{
 	public void setAutonomousControllerData(AutonomousDataHandler myJsonHandler){
 		autonomousModeList = myJsonHandler.getAutonomousModeCommandList();
 		autonomousMapping = myJsonHandler.getNameIndex();
-		//autonomousPlayBooks = AutonomousPlay.readJson("/home/lvuser/play238.txt");
+		autonomousPlayBooks = AutonomousPlay.readJson("/home/lvuser/play238.txt");
 	}
 	
 	/**
@@ -127,6 +127,9 @@ public class AutonomousController implements AutonomousState{
 		}
 	}
 
+  public void dumpPlays() {
+      AutonomousPlay.dump(autonomousPlayBooks);
+  }
   @Override
   public void reset() {
     // TODO Auto-generated method stub
