@@ -119,6 +119,14 @@ public class Robot extends IterativeRobot
 		{
 			if (count > 150) 
 			{
+
+			    boolean playBook = SmartDashboard.getBoolean("PlayBook", true);
+			    if (playBook == true) {
+			        SmartDashboard.putString("P or S", "Primary");
+			    }
+			    else {
+			        SmartDashboard.putString("P or S", "Secondary");
+			    }
 				count = 0;
 
 				myDriveTrain.resetEncoders();
@@ -131,7 +139,7 @@ public class Robot extends IterativeRobot
 				myAutonomousDataHandler.dump();
 				theMACP.dumpPlays();
 				//autoModeUpdateAndRead();
-				SmartDashboard.putNumber("Robot Auto Mode DisPer", automousModeFromDS);
+				SmartDashboard.putNumber("DisPer Amode", automousModeFromDS);
 			}
 			
 			count++;
@@ -141,6 +149,7 @@ public class Robot extends IterativeRobot
 		  e.printStackTrace();
 		  Logger.Log("Robot(): disabledPeriodic(): disabledPriodic exception: " + e);
 		}
+		
 	}
 	
 	/**
@@ -184,9 +193,10 @@ public class Robot extends IterativeRobot
 		  SmartDashboard.putNumber("Chosen Auto Mode", 0);
 		  SmartDashboard.putBoolean(CrusaderCommon.AUTO_PLAY_BOOK, true);
 		  SmartDashboard.putString(CrusaderCommon.AUTO_ROBOT_POSITION,  "C");
+		  SmartDashboard.putString("P or S", "nothing");
+		  
           
-		  //RM SmartDashboard.putBoolean("Match Time Flag", false);
-	  
+		  
 		  //RM SmartDashboard.putNumber("Select Auto State", 0);
 	  
 		  //Sendable Chooser for the state update function
@@ -204,8 +214,7 @@ public class Robot extends IterativeRobot
 		  SmartDashboard.putNumber("TICKS PER INCH", 1627);
 		  
 		  //RM SmartDashboard.putData("Edit State Params", autonomousStateParamsUpdate);
-		  //RM SmartDashboard.putData("Save Changes", autonomousSaveChooser);
-		  
+		  //RM SmartDashboard.putData("Save Changes", autonomousSaveChooser);	  
 		  //RM SmartDashboard.putBoolean("Update Params", false);
 		  //RM SmartDashboard.putBoolean("Save to Amode238", false);
 		  //RM SmartDashboard.putBoolean("Read Amode238", false);
@@ -260,6 +269,8 @@ public class Robot extends IterativeRobot
 	            autoSelectionKey.append(gameData, 0, 2);
 	        }
 	        Logger.Log("Robot(): AutonomousInit(): The 2018 chosen One =  " + autoSelectionKey.toString());
+	        SmartDashboard.putString("Auto 2018", autoSelectionKey.toString());
+	        
 	    }
 	    catch (Exception ex) 
 	    {
@@ -310,7 +321,7 @@ public class Robot extends IterativeRobot
 		
 		try 
 		{
-			theMACP.process();
+			//theMACP.process();
 			myNavigation.navxValues();
 			
 			int currentYaw = (int) myNavigation.getYaw();			

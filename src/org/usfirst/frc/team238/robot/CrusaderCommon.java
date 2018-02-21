@@ -48,8 +48,8 @@ public class CrusaderCommon {
 	/*
 	 * Auto selection constants
 	 */
-	public static final String AUTO_PLAY_BOOK = "Auto PlayBook Selection";
-	public static final String AUTO_ROBOT_POSITION = "Auto Robot Position";
+	public static final String AUTO_PLAY_BOOK = "PlayBook";
+	public static final String AUTO_ROBOT_POSITION = "Robot Position";
 	
 	/* DO NOT NUKE */
 	// public static final HashMap<Integer, Boolean> DRIVE_TRAIN_CMD_IDX = new
