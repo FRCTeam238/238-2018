@@ -92,7 +92,7 @@ public class Robot extends IterativeRobot
 	SendableChooser<String> autonomousSaveChooser;
 	//SendableChooser<String> targetingStateParamsUpdate;
 	//SendableChooser<String> targetingSaveChooser;
-	//SendableChooser<String> aModeSelector;
+	SendableChooser<String> aModeSelector;
 	SendableChooser<String> autonomousStateParamsUpdate;
 	
 	public void disabledInit() 
@@ -195,7 +195,7 @@ public class Robot extends IterativeRobot
 		  SmartDashboard.putString(CrusaderCommon.AUTO_ROBOT_POSITION,  "C");
 		  SmartDashboard.putString("P or S", "nothing");
 		  
-          
+		  aModeSelector = new SendableChooser<String>();
 		  
 		  //RM SmartDashboard.putNumber("Select Auto State", 0);
 	  
@@ -241,12 +241,12 @@ public class Robot extends IterativeRobot
 	public void autonomousInit() 
 	{
 	    myDriveTrain.shiftLow();
+	    StringBuilder autoSelectionKey = null;
 	    try 
 	    {
 	        Logger.Log("Robot(): AutononousInit()");
 
-
-	        StringBuilder autoSelectionKey = new StringBuilder();
+	        autoSelectionKey = new StringBuilder();
 
 	        boolean autoPlaybook = SmartDashboard.getBoolean(CrusaderCommon.AUTO_PLAY_BOOK, true);
 	        if(autoPlaybook )
@@ -295,7 +295,8 @@ public class Robot extends IterativeRobot
 	        int automousModeFromDS =  myAutonomousDataHandler.getModeSelectionFromDashboard(); 
 	        Logger.Log("Robot(): AutonomousInit(): The chosen One =  " + String.valueOf(automousModeFromDS));
 	        theMACP.pickAMode(automousModeFromDS);
-	        //theMACP.pickAMode2018(autoSelectionKey.toString());
+	        theMACP.pickAMode2018(autoSelectionKey.toString());
+	        theMACP.dumpLoadedStates(aModeSelector);
 
 	        SmartDashboard.putNumber("Robot Chosen Auto Mode", automousModeFromDS);
 	        myDriveTrain.getEncoderTicks();
@@ -321,7 +322,7 @@ public class Robot extends IterativeRobot
 		
 		try 
 		{
-			//theMACP.process();
+			theMACP.process();
 			myNavigation.navxValues();
 			
 			int currentYaw = (int) myNavigation.getYaw();			

@@ -3,6 +3,8 @@ package org.usfirst.frc.team238.core;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutonomousController implements AutonomousState{
@@ -58,6 +60,27 @@ public class AutonomousController implements AutonomousState{
 		steps = autonomousModeList [amodeIndex];
 		setState(steps.get(0));
 		index = 0;
+	}
+	
+	//Gets the selected automode and prints out the states in it
+	public void dumpLoadedStates(SendableChooser<String>aModeSelector )
+	{
+		Iterator<AutonomousState> aModeIterator = steps.iterator();
+		Integer count = 0;
+		
+		
+		//Iterates through the mode's states until it finds the selected state
+		while(aModeIterator.hasNext()){
+			
+			AutonomousState thisState = aModeIterator.next();
+			
+			Logger.Log("AutonomousController(): Dump Loaded States():" + thisState.getClass().getName());
+			
+			aModeSelector.addObject(thisState.getClass().getName(), count.toString());
+			count++;	  
+		}
+		
+		SmartDashboard.putData("Sel Auto States", aModeSelector);
 	}
 	/**
 	 * Sets the current state to the given state parameter
