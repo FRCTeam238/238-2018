@@ -251,11 +251,11 @@ public class Robot extends IterativeRobot
 	        boolean autoPlaybook = SmartDashboard.getBoolean(CrusaderCommon.AUTO_PLAY_BOOK, true);
 	        if(autoPlaybook )
 	        {
-	            autoSelectionKey.append("Primary_");
+	            autoSelectionKey.append("primary_");
 	        }
 	        else
 	        {
-	            autoSelectionKey.append("Secondary_");
+	            autoSelectionKey.append("secondary_");
 	        }
 
 	        String robotPosition = SmartDashboard.getString(CrusaderCommon.AUTO_ROBOT_POSITION,  "C");
@@ -294,9 +294,10 @@ public class Robot extends IterativeRobot
 
 	        int automousModeFromDS =  myAutonomousDataHandler.getModeSelectionFromDashboard(); 
 	        Logger.Log("Robot(): AutonomousInit(): The chosen One =  " + String.valueOf(automousModeFromDS));
-	        theMACP.pickAMode(automousModeFromDS);
+	        Logger.Log("Robot(): AutonomousInit(): The 2018 chosen One =  " + autoSelectionKey.toString());
+	       // theMACP.pickAMode(automousModeFromDS);
 	        theMACP.pickAMode2018(autoSelectionKey.toString());
-	        theMACP.dumpLoadedStates(aModeSelector);
+	       // theMACP.dumpLoadedStates(aModeSelector);
 
 	        SmartDashboard.putNumber("Robot Chosen Auto Mode", automousModeFromDS);
 	        myDriveTrain.getEncoderTicks();

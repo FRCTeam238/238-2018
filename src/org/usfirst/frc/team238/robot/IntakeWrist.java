@@ -161,7 +161,7 @@ public class IntakeWrist
             currentError = setpoint - getAngle();
             double outputWanted = currentError * CrusaderCommon.INTAKE_KP;
             outputWanted = Math.min(Math.max(MIN_OUT, outputWanted+0.085), MAX_OUT) ;
-           // System.out.println("outputWaned:" + outputWanted);
+            //System.out.println("outputWanted:" + outputWanted);
            
             wristTalon.set(ControlMode.PercentOutput, outputWanted);
             
@@ -170,7 +170,7 @@ public class IntakeWrist
     }
     
     public double getAngle() {
-      //  System.out.println("INAKE ANGLE:" + (-wristTalon.getSelectedSensorPosition(0) / CrusaderCommon.INTAKE_TICK_TO_DEGREE) + "      SETPOINT" + setpoint + "       ERROR:" + currentError);
+        //System.out.println("INAKE ANGLE:" + (-wristTalon.getSelectedSensorPosition(0) / CrusaderCommon.INTAKE_TICK_TO_DEGREE) + "      SETPOINT" + setpoint + "       ERROR:" + currentError);
         
         return -wristTalon.getSelectedSensorPosition(0)/ CrusaderCommon.INTAKE_TICK_TO_DEGREE;
     }

@@ -27,7 +27,7 @@ public class StateWristAngle implements AutonomousState
     {
         // TODO Auto-generated method stub
         extendWristCommand.prepare();
-        extendWristCommand.setParams();
+        extendWristCommand.setParams(parameters);
     }
 
     @Override
@@ -35,6 +35,7 @@ public class StateWristAngle implements AutonomousState
     {
         // TODO Auto-generated method stub
         extendWristCommand = (CommandWristAngle) theMcp.getAutoCmd("CommandWristAngle");
+        parameters=params;
     }
 
     @Override

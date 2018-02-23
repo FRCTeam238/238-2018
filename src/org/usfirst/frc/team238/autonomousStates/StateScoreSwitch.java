@@ -28,16 +28,19 @@ public class StateScoreSwitch implements AutonomousState {
 
   public void process() {
       
+      Logger.Log("StateScoreSwitch.Process()");
+      
 	  if(rightside)
 	  {
 		  rightSwitch.execute();  
 	  }
 	  else
 	  {
-		  leftSwitch.execute();
+	      Logger.Log("StateScoreSwitch.Process()LeftSide");
+	      leftSwitch.execute();
 	  }
 	  
-      Logger.Log("StateTrajectory.Process()");
+      
   }
 
   public boolean done() {
