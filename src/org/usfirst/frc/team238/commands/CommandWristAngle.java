@@ -24,6 +24,12 @@ public class CommandWristAngle extends AbstractCommand {
 
 	}
 
+	public void execute(boolean auto) {
+        // TODO Auto-generated method stub
+        System.out.println("YUP = " + angle);
+        extend.setWrist(angle, auto);
+
+    }
 	@Override
 	public void execute(int btnPressed) {
 		// TODO Auto-generated method stub

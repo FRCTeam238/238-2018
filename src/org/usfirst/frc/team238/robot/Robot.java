@@ -133,13 +133,16 @@ public class Robot extends IterativeRobot
 				theElevator.getEncoderTicks();
 				
 				
-				int automousModeFromDS =  myAutonomousDataHandler.getModeSelectionFromDashboard(); 
-	            Logger.Log("Robot(): DisabledPeriodic(): The chosen One =  " + String.valueOf(automousModeFromDS));
-	            theMACP.pickAMode(automousModeFromDS);
-				myAutonomousDataHandler.dump();
+				//int automousModeFromDS =  myAutonomousDataHandler.getModeSelectionFromDashboard(); 
+	            //Logger.Log("Robot(): DisabledPeriodic(): The chosen One =  " + String.valueOf(automousModeFromDS));
+	            //theMACP.pickAMode(automousModeFromDS);
+				//myAutonomousDataHandler.dump();
 				theMACP.dumpPlays();
 				//autoModeUpdateAndRead();
-				SmartDashboard.putNumber("DisPer Amode", automousModeFromDS);
+				//SmartDashboard.putNumber("DisPer Amode", automousModeFromDS);
+				
+				 String robotPosition = SmartDashboard.getString(CrusaderCommon.AUTO_ROBOT_POSITION,  "X");
+		         Logger.Log("AUtoMOde Selection: = "+ robotPosition);
 			}
 			
 			count++;
@@ -295,7 +298,7 @@ public class Robot extends IterativeRobot
 	        int automousModeFromDS =  myAutonomousDataHandler.getModeSelectionFromDashboard(); 
 	        Logger.Log("Robot(): AutonomousInit(): The chosen One =  " + String.valueOf(automousModeFromDS));
 	        Logger.Log("Robot(): AutonomousInit(): The 2018 chosen One =  " + autoSelectionKey.toString());
-	       // theMACP.pickAMode(automousModeFromDS);
+	        //theMACP.pickAMode(automousModeFromDS);
 	        theMACP.pickAMode2018(autoSelectionKey.toString());
 	       // theMACP.dumpLoadedStates(aModeSelector);
 

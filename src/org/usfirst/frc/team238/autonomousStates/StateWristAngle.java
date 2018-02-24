@@ -41,7 +41,7 @@ public class StateWristAngle implements AutonomousState
     @Override
     public void process()
     {
-        extendWristCommand.execute();
+        extendWristCommand.execute(true);
     }
 
     

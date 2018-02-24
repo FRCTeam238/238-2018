@@ -15,6 +15,9 @@ public class IntakeWrist
     private static final double MAX_OUT = 0.6;
     private static final double MIN_OUT = -0.6;
     
+    private static final double AUTO_MAX_OUT = 0.3;
+    private static final double AUTO_MIN_OUT = -0.3;
+    
     private static final double MIN_ANGLE = 3;
     private static final double MAX_ANGLE = 120;
     
@@ -23,6 +26,7 @@ public class IntakeWrist
     private double currentError =0;
     
     private boolean PIDEnabled = true;
+    private boolean inAutonomous = false;
     
     TalonSRX wristTalon;
     TalonSRX intakeMaster;
@@ -81,6 +85,11 @@ public class IntakeWrist
     //angle is 0 at top (starting configuraition) and then positive as i goes down.
     public void setWrist(double angle) {
         setpoint = Math.min(Math.max(MIN_ANGLE, angle), MAX_ANGLE);
+    }
+    
+    public void setWrist(double angle, boolean auto) {
+        setpoint = Math.min(Math.max(MIN_ANGLE, angle), MAX_ANGLE);
+        inAutonomous = auto;
     }
     
     public boolean usingWrist = false;
@@ -160,7 +169,15 @@ public class IntakeWrist
             
             currentError = setpoint - getAngle();
             double outputWanted = currentError * CrusaderCommon.INTAKE_KP;
-            outputWanted = Math.min(Math.max(MIN_OUT, outputWanted+0.085), MAX_OUT) ;
+           
+            if(inAutonomous) {
+                outputWanted = Math.min(Math.max(AUTO_MIN_OUT, outputWanted+0.085), AUTO_MAX_OUT) ;
+            }
+            else
+            {
+                outputWanted = Math.min(Math.max(MIN_OUT, outputWanted+0.085), MAX_OUT) ;
+            }
+            
             //System.out.println("outputWanted:" + outputWanted);
            
             wristTalon.set(ControlMode.PercentOutput, outputWanted);
