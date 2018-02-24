@@ -21,7 +21,7 @@ public class StateElevatorSwitchHeight implements AutonomousState
     {
         // TODO Auto-generated method stub
         StateElevatorSwitchHeight.prepare();
-        StateElevatorSwitchHeight.setParams();
+        StateElevatorSwitchHeight.setParams(parameters);
     }
 
     @Override

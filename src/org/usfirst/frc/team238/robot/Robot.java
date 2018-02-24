@@ -190,43 +190,44 @@ public class Robot extends IterativeRobot
 			Logger.Log("Robot(): robotInit() Exception : "+ex);
 		}
 	}
-	
+	public void initOldStyleAutoModeDashboard() {
+	    SmartDashboard.putNumber("Chosen Auto Mode", 0);
+	  //Create a new SendableChooser for the save function
+        autonomousSaveChooser = new SendableChooser<String>();
+        autonomousSaveChooser.addDefault("do nothing", "0");
+        autonomousSaveChooser.addObject("drive ten feet", "1");
+        autonomousSaveChooser.addObject("Primary", "2");
+        autonomousSaveChooser.addObject("Switch", "3");
+        SmartDashboard.putData("AutoModes", autonomousSaveChooser);
+	    
+      //RM SmartDashboard.putData("Edit State Params", autonomousStateParamsUpdate);
+        //RM SmartDashboard.putData("Save Changes", autonomousSaveChooser);     
+        //RM SmartDashboard.putBoolean("Update Params", false);
+        //RM SmartDashboard.putBoolean("Save to Amode238", false);
+        //RM SmartDashboard.putBoolean("Read Amode238", false);
+        
+        SmartDashboard.putNumber("TICKS PER INCH", 1627);
+
+        //Sendable Chooser for the state update function
+        autonomousStateParamsUpdate = new SendableChooser<String>();
+        autonomousStateParamsUpdate.addDefault("As Received", "0");
+        autonomousStateParamsUpdate.addObject("UPDATE", "1");
+    
+	}
 	public void initSmartDashboardObjects()
 	{
-		  SmartDashboard.putNumber("Chosen Auto Mode", 0);
+		  
 		  SmartDashboard.putBoolean(CrusaderCommon.AUTO_PLAY_BOOK, true);
 		  SmartDashboard.putString(CrusaderCommon.AUTO_ROBOT_POSITION,  "C");
 		  SmartDashboard.putString("P or S", "nothing");
 		  
 		  aModeSelector = new SendableChooser<String>();
-		  
-		  //RM SmartDashboard.putNumber("Select Auto State", 0);
-	  
+	
 		  //Sendable Chooser for the state update function
 		  autonomousStateParamsUpdate = new SendableChooser<String>();
 		  autonomousStateParamsUpdate.addDefault("As Received", "0");
 		  autonomousStateParamsUpdate.addObject("UPDATE", "1");
 	  
-		  //Create a new SendableChooser for the save function
-		  autonomousSaveChooser = new SendableChooser<String>();
-		  autonomousSaveChooser.addDefault("do nothing", "0");
-		  autonomousSaveChooser.addObject("drive ten feet", "1");
-		  autonomousSaveChooser.addObject("Primary", "2");
-		  autonomousSaveChooser.addObject("Switch", "3");
-		  SmartDashboard.putData("AutoModes", autonomousSaveChooser);
-		  SmartDashboard.putNumber("TICKS PER INCH", 1627);
-		  
-		  //RM SmartDashboard.putData("Edit State Params", autonomousStateParamsUpdate);
-		  //RM SmartDashboard.putData("Save Changes", autonomousSaveChooser);	  
-		  //RM SmartDashboard.putBoolean("Update Params", false);
-		  //RM SmartDashboard.putBoolean("Save to Amode238", false);
-		  //RM SmartDashboard.putBoolean("Read Amode238", false);
-	
-		  //RM SmartDashboard.putBoolean("CLIMBDEBUG", false);
-		    
-		  //RM SmartDashboard.putNumber("Curl Turn Value", 0.5);
-	
-		  //RM SmartDashboard.putString("Alliance Color", "Red");
 	}
 
 	/*
@@ -272,7 +273,18 @@ public class Robot extends IterativeRobot
 	            autoSelectionKey.append(gameData, 0, 2);
 	        }
 	        Logger.Log("Robot(): AutonomousInit(): The 2018 chosen One =  " + autoSelectionKey.toString());
+	        
 	        SmartDashboard.putString("Auto 2018", autoSelectionKey.toString());
+	        /*
+	         * AT THIS POINT WE SHOULD HAVE SOMETHING LIKE 
+	         * 
+	         * Primary_L_LL as the lookup key
+	         * 
+	         * where 
+	         * Primary is the Play book
+	         * L is Field Position 
+	         * LL = Field Disposition
+	         */
 	        
 	    }
 	    catch (Exception ex) 
@@ -280,31 +292,23 @@ public class Robot extends IterativeRobot
 	        ex.printStackTrace();
 	        Logger.Log("Robot(): AutononousInit() Exception: "+ex);
 	    }
-	    /*
-	     * AT THIS POINT WE SHOULD HAVE SOMETHING LIKE 
-	     * 
-	     * Primary_L_LL as the lookup key
-	     * 
-	     * where 
-	     * Primary is the Play book
-	     * L is Field Position 
-	     * LL = Field Disposition
-	     */
+	    
 
 
 	    try { 
+	        
 	        myDriveTrain.resetEncoders();
-
-	        int automousModeFromDS =  myAutonomousDataHandler.getModeSelectionFromDashboard(); 
-	        Logger.Log("Robot(): AutonomousInit(): The chosen One =  " + String.valueOf(automousModeFromDS));
-	        Logger.Log("Robot(): AutonomousInit(): The 2018 chosen One =  " + autoSelectionKey.toString());
-	        //theMACP.pickAMode(automousModeFromDS);
+	        
 	        theMACP.pickAMode2018(autoSelectionKey.toString());
 	       // theMACP.dumpLoadedStates(aModeSelector);
 
-	        SmartDashboard.putNumber("Robot Chosen Auto Mode", automousModeFromDS);
 	        myDriveTrain.getEncoderTicks();
-
+	        
+	        //old style auto chooser
+	        //int automousModeFromDS =  myAutonomousDataHandler.getModeSelectionFromDashboard(); 
+            //Logger.Log("Robot(): AutonomousInit(): The chosen One =  " + String.valueOf(automousModeFromDS));
+            //theMACP.pickAMode(automousModeFromDS);
+            
 	    }
 	    catch (Exception ex) 
 	    {
@@ -321,23 +325,24 @@ public class Robot extends IterativeRobot
 	@Override
 	public void autonomousPeriodic() 
 	{
-		//RM SmartDashboard.putNumber("Left Encoder", leftMasterDrive.getSelectedSensorPosition(0));
-		//RM SmartDashboard.putNumber("Right Encoder", rightFrontDrive.getSelectedSensorPosition(0));
-		
+			
 		try 
 		{
 			theMACP.process();
 			myNavigation.navxValues();
-			
-			int currentYaw = (int) myNavigation.getYaw();			
-			//RM SmartDashboard.putNumber("AutonomousPeriodic: The CurrentYaw ", currentYaw);	
+
 		} 
 		catch (Exception ex) 
 		{
 		  ex.printStackTrace();
 			Logger.Log("Robot(): autonomousPeriodic() Exception: "+ex);
 		}
+		
+		//RM SmartDashboard.putNumber("Left Encoder", leftMasterDrive.getSelectedSensorPosition(0));
+        //RM SmartDashboard.putNumber("Right Encoder", rightFrontDrive.getSelectedSensorPosition(0));   
 	    //System.out.println("ELEVATOR TICKS:" +theElevator.getEncoderTicks());
+		//int currentYaw = (int) myNavigation.getYaw();           
+        //RM SmartDashboard.putNumber("AutonomousPeriodic: The CurrentYaw ", currentYaw);   
 	    
 	}
 	
@@ -346,7 +351,7 @@ public class Robot extends IterativeRobot
 		try 
 		{
 			Logger.Log("Robot(): TeleopInit()");
-			myControlBoard.checkXboxController();
+		
 		} 
 		catch (Exception e) 
 		{
@@ -361,28 +366,15 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopPeriodic() 
 	{
-	    //System.out.println("ANGLE:" + myNavigation.getYaw());
-		/*
-		leftMasterDrive.set(ControlMode.PercentOutput, -0.5); 
-		leftDriveFollower1.set(ControlMode.PercentOutput, -0.5);; 
-		rightMasterDrive.set(ControlMode.PercentOutput, -0.5);; 
-		rightDriveFollower1.set(ControlMode.PercentOutput, -0.5);; 
-		*/
-		HashMap<Integer,Integer[]> commandValues;
+	    
+		HashMap<Integer,Integer[]> commandValues;	
 		
-		
-		//SmartDashboard.putNumber("Left Encoder", leftMasterDrive.getSelectedSensorPosition(0));
-		SmartDashboard.putNumber("Left Encoder", theElevator.getEncoderTicks());
-        
+		SmartDashboard.putNumber("Left Encoder", theElevator.getEncoderTicks());        
 		SmartDashboard.putNumber("Right Encoder", rightMasterDrive.getSelectedSensorPosition(0));
-		//theElevator.getEncoderTicks();
-		//myDriveTrain.getEncoderTicks();
 		
 		int speedLeft = leftMasterDrive.getSelectedSensorVelocity(0);
 		int speedRight = rightMasterDrive.getSelectedSensorVelocity(0);
-		
-		//System.out.println("Speed: " + speedLeft + " " + speedRight);
-		
+				
 		SmartDashboard.putNumber("Left Speed", speedLeft);
 		SmartDashboard.putNumber("Right Speed", speedRight);
 		
@@ -393,18 +385,26 @@ public class Robot extends IterativeRobot
 			
 			//pass the buttonsPressed into the commandController for command execution
 			theMCP.joyStickCommandExecution(commandValues);
-			
-			//mjf do we need this?
-			//cat Short answer is no ... Everything in navxValues 
-			//  is commented out except for a delay ... so I commented
-			//  out the call.
-			//CYX myNavigation.navxValues();
+
 		} 
 		catch (Exception e) 
 		{
 		  e.printStackTrace();
 			Logger.Log("Robot(): teleopPeriodic() Exception: "+ e);
 		}
+		
+		//System.out.println("ANGLE:" + myNavigation.getYaw());
+        /*
+        leftMasterDrive.set(ControlMode.PercentOutput, -0.5); 
+        leftDriveFollower1.set(ControlMode.PercentOutput, -0.5);; 
+        rightMasterDrive.set(ControlMode.PercentOutput, -0.5);; 
+        rightDriveFollower1.set(ControlMode.PercentOutput, -0.5);; 
+        */
+		//SmartDashboard.putNumber("Left Encoder", leftMasterDrive.getSelectedSensorPosition(0));
+        //theElevator.getEncoderTicks();
+        //myDriveTrain.getEncoderTicks();
+        //System.out.println("Speed: " + speedLeft + " " + speedRight);
+
 			
 	}
 
@@ -422,7 +422,7 @@ public class Robot extends IterativeRobot
 	        myDriveTrain.drive(-i, -i);
 	        System.out.println("VOLTAGE: " + i + "   SPEED:" + myDriveTrain.getLeftVelocity());
 	    }
-		// do nothing
+		
 	}
 	
 	/**
@@ -439,8 +439,8 @@ public class Robot extends IterativeRobot
         leftDriveFollower2.setInverted(true);
 		
 		
-		leftDriveFollower1.follow(leftMasterDrive);  // .set(ControlMode.Follower,CrusaderCommon.DRIVE_TRAIN_LEFT_MASTER);
-        leftDriveFollower2.follow(leftMasterDrive); //set(ControlMode.Follower,CrusaderCommon.DRIVE_TRAIN_LEFT_MASTER);       
+		leftDriveFollower1.follow(leftMasterDrive); 
+        leftDriveFollower2.follow(leftMasterDrive);        
        
         leftMasterDrive.setNeutralMode(NeutralMode.Brake);
         leftDriveFollower1.setNeutralMode(NeutralMode.Brake);
@@ -450,12 +450,8 @@ public class Robot extends IterativeRobot
 		rightDriveFollower1 = new VictorSPX(1);
 		rightDriveFollower2 = new VictorSPX(2);		
 		
-		//rightMasterDrive.setInverted(true);
-		//rightDriveFollower1.setInverted(true);
-		//rightDriveFollower2.setInverted(true);
-		
-		rightDriveFollower1.follow(rightMasterDrive); //set(ControlMode.Follower, CrusaderCommon.DRIVE_TRAIN_RIGHT_MASTER);
-		rightDriveFollower2.follow(rightMasterDrive); //set(ControlMode.Follower, CrusaderCommon.DRIVE_TRAIN_RIGHT_MASTER);
+		rightDriveFollower1.follow(rightMasterDrive); 
+		rightDriveFollower2.follow(rightMasterDrive); 
 		
 		rightMasterDrive.setNeutralMode(NeutralMode.Brake);
 		rightDriveFollower1.setNeutralMode(NeutralMode.Brake);
@@ -499,9 +495,6 @@ public class Robot extends IterativeRobot
 		myLogger = new Logger();
 		theMCP = new CommandController();
 		
-		
-		
-		//TESTING
 		ArrayList<Trajectory> trajectories = new ArrayList<>();
 		trajectories.add(TrajectoryFactory.getTrajectory(leftSwitch.objects));
 		HashMap<String, Runnable> markers = new HashMap<>();

@@ -8,6 +8,8 @@ public class CommandElevatorScaleHeight extends AbstractCommand
 {
 
     Elevator theElevator;
+    double height = 84;
+    
     public CommandElevatorScaleHeight(Elevator myElevator) {
         this.theElevator = myElevator;
     }
@@ -15,8 +17,7 @@ public class CommandElevatorScaleHeight extends AbstractCommand
     @Override
     public void execute()
     {
-        theElevator.setSetpoint(84);
-        // TODO Auto-generated method stub
+        theElevator.setSetpoint(height);
     }
 
     @Override
@@ -33,10 +34,13 @@ public class CommandElevatorScaleHeight extends AbstractCommand
 
     }
 
-    @Override
-    public void setParams()
+    public void setParams(String params[])
     {
-        // TODO Auto-generated method stub
+        if ((params[0] != null) || (!params[0].isEmpty())) {
+            height = Double.parseDouble(params[0]);
+          } else {
+            height = 84;
+          }
 
     }
 

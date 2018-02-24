@@ -27,7 +27,7 @@ public class StateElevatorScaleHeight implements AutonomousState
     {
         // TODO Auto-generated method stub
         elevatorScaleHeightCmd.prepare();
-        elevatorScaleHeightCmd.setParams();
+        elevatorScaleHeightCmd.setParams(parameters);
     }
 
     @Override
@@ -35,6 +35,7 @@ public class StateElevatorScaleHeight implements AutonomousState
     {
         // TODO Auto-generated method stub
         elevatorScaleHeightCmd = (CommandElevatorScaleHeight) theMcp.getAutoCmd("CommandElevatorScaleHeight");
+        parameters=params;
     }
 
     @Override

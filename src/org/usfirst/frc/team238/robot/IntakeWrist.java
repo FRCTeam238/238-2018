@@ -85,6 +85,7 @@ public class IntakeWrist
     //angle is 0 at top (starting configuraition) and then positive as i goes down.
     public void setWrist(double angle) {
         setpoint = Math.min(Math.max(MIN_ANGLE, angle), MAX_ANGLE);
+        inAutonomous = false;
     }
     
     public void setWrist(double angle, boolean auto) {
@@ -159,8 +160,7 @@ public class IntakeWrist
     public void stop()
     {
         
-        intakeMaster.set(ControlMode.PercentOutput, 0.0);
-       // wristTalon.set(ControlMode.PercentOutput, -0.05);
+        intakeMaster.set(ControlMode.PercentOutput, 0.0);       
         
     }
     
@@ -172,13 +172,13 @@ public class IntakeWrist
            
             if(inAutonomous) {
                 outputWanted = Math.min(Math.max(AUTO_MIN_OUT, outputWanted+0.085), AUTO_MAX_OUT) ;
+                Logger.Log("Wrist Output Auto = " + outputWanted );
             }
             else
             {
                 outputWanted = Math.min(Math.max(MIN_OUT, outputWanted+0.085), MAX_OUT) ;
+                Logger.Log("Wrist Output  Tele = " + outputWanted );
             }
-            
-            //System.out.println("outputWanted:" + outputWanted);
            
             wristTalon.set(ControlMode.PercentOutput, outputWanted);
             
@@ -187,7 +187,7 @@ public class IntakeWrist
     }
     
     public double getAngle() {
-        //System.out.println("INAKE ANGLE:" + (-wristTalon.getSelectedSensorPosition(0) / CrusaderCommon.INTAKE_TICK_TO_DEGREE) + "      SETPOINT" + setpoint + "       ERROR:" + currentError);
+        //System.out.println("INTAKE ANGLE:" + (-wristTalon.getSelectedSensorPosition(0) / CrusaderCommon.INTAKE_TICK_TO_DEGREE) + "      SETPOINT" + setpoint + "       ERROR:" + currentError);
         
         return -wristTalon.getSelectedSensorPosition(0)/ CrusaderCommon.INTAKE_TICK_TO_DEGREE;
     }

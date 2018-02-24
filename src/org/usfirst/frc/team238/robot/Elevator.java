@@ -102,16 +102,11 @@ public class Elevator
     
     public int getEncoderTicks()
     {
-
-          
           liftEncoder = elevatorMasterTalon.getSelectedSensorPosition(0);
           
           liftEncoder = Math.abs(liftEncoder);
           
-          //Logger.Log("Elevator: Lift Encoder = " + liftEncoder);
-          
           SmartDashboard.putNumber("Lift Encoder", liftEncoder);
-
           
           return liftEncoder;
     }
@@ -147,11 +142,8 @@ public class Elevator
             PIDEnabled=false;
             //get encoder ticks
             int whereAmI = getEncoderTicks();
-          elevatorMasterTalon.set(ControlMode.PercentOutput, -CrusaderCommon.ELEVATOR_CUBE_SPEED);
-
-           
+            elevatorMasterTalon.set(ControlMode.PercentOutput, -CrusaderCommon.ELEVATOR_CUBE_SPEED);
         }   
-       
         
     }
     
@@ -160,13 +152,12 @@ public class Elevator
         PIDEnabled=true;
         tilt(1);
     }
+    
     public void elevatorDownPID() {
         PIDEnabled=true;
         tilt(-1);
     }
     
-
-
     /**
      * Sends the elevator up at the speed used for climbing
      */
