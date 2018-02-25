@@ -38,7 +38,7 @@ public class CommandTurn extends AbstractCommand {
   }
 
   
-  public final double TURN_KP = 0.028;
+  public final double TURN_KP = 0.033;
   public final double TURN_KD = 0.0033;
   
   private double pastError =0;
@@ -67,12 +67,12 @@ public class CommandTurn extends AbstractCommand {
     
     pastError = angleError;
     if(calculatedValue>0) {
-        calculatedValue+=0.05;
+        calculatedValue+=0.09;
     }else {
-        calculatedValue-=0.05;
+        calculatedValue-=0.09;
     }
     
-    Math.min(0.7, Math.max(calculatedValue, -0.7));
+    calculatedValue = Math.min(motorValue, Math.max(calculatedValue, -motorValue));
     myRobotDrive.turnRight(calculatedValue, calculatedValue);
     System.out.println("CVALUE:" + calculatedValue);
     myNavigation.navxValues();

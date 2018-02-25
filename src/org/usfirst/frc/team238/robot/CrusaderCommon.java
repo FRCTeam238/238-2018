@@ -77,7 +77,7 @@ public class CrusaderCommon {
 	public final static double TALON_F_VALUE_HIGH = 0.002;//0.0725 old autonomous
     
 	public final static double TALON_F_VALUE_RIGHT = 0.00455;//0.0735 old autonomous
-	public final static double TALON_P_VALUE = 0.000;//0.5
+	public final static double TALON_P_VALUE = 0.5;//0.5
 	public final static double TALON_D_VALUE = 0;
 	public final static int TALON_NO_VALUE = 0;
 

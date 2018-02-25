@@ -244,6 +244,7 @@ public class Robot extends IterativeRobot
 	@Override
 	public void autonomousInit() 
 	{
+	    myNavigation.resetNAVX();
 	    myDriveTrain.shiftLow();
 	    StringBuilder autoSelectionKey = null;
 	    try 

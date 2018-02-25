@@ -172,12 +172,12 @@ public class IntakeWrist
            
             if(inAutonomous) {
                 outputWanted = Math.min(Math.max(AUTO_MIN_OUT, outputWanted+0.085), AUTO_MAX_OUT) ;
-                Logger.Log("Wrist Output Auto = " + outputWanted );
+               // Logger.Log("Wrist Output Auto = " + outputWanted );
             }
             else
             {
                 outputWanted = Math.min(Math.max(MIN_OUT, outputWanted+0.085), MAX_OUT) ;
-                Logger.Log("Wrist Output  Tele = " + outputWanted );
+               // Logger.Log("Wrist Output  Tele = " + outputWanted );
             }
            
             wristTalon.set(ControlMode.PercentOutput, outputWanted);

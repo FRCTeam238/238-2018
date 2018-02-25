@@ -245,7 +245,7 @@ public class Drivetrain
 
     //HIGH GEAR VALUES
     final double kV = 0.00434;// 0.00455
-    public final double kA = 00;
+    public final double kA = 00.00434*0.15;
     public final double vSetpoint = 0.078;//0.078
 
     public void driveSpeedAccel(double leftSpeed, double rightSpeed, double leftAccel, double rightAccel)
@@ -291,8 +291,8 @@ public class Drivetrain
         else
         {
 
-            leftFrontDrive.config_kF(0, CrusaderCommon.TALON_F_VALUE_LEFT , 0);
-            rightFrontDrive.config_kF(0, CrusaderCommon.TALON_F_VALUE_RIGHT, 0);
+            leftFrontDrive.config_kF(0, CrusaderCommon.TALON_F_VALUE_LEFT*10.0 , 0);
+            rightFrontDrive.config_kF(0, CrusaderCommon.TALON_F_VALUE_RIGHT*10.0, 0);
             
 
         }
@@ -572,14 +572,14 @@ public class Drivetrain
     public double leftDistanceTravelled()
     {
         System.out.println("LEFT TICKS: " + leftFrontDrive.getSelectedSensorPosition(0));
-        return leftFrontDrive.getSelectedSensorPosition(0) *10.0 / CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH;
+        return leftFrontDrive.getSelectedSensorPosition(0)  / CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH;
     }
 
     // return distance travelled in inches
     public double rightDistanceTravelled()
     {
         System.out.println("RIGH TICKS: " + rightFrontDrive.getSelectedSensorPosition(0));
-        return rightFrontDrive.getSelectedSensorPosition(0) * 10.0 / CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH;
+        return rightFrontDrive.getSelectedSensorPosition(0) / CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH;
     }
 
 }
