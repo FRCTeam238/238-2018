@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.usfirst.frc.team238.core.AbstractCommand;
 import org.usfirst.frc.team238.robot.Drivetrain;
+import org.usfirst.frc.team238.robot.Navigation;
 
 import RealBot.Trajectory;
 import RealBot.TrajectoryFactory;
@@ -15,14 +16,14 @@ public class CommandRunTrajectory extends AbstractCommand
     
     TrajectoryIntepreter trajectoryInterpreter;
     
-    public CommandRunTrajectory(Drivetrain myDriveTrain,  Object[][] moments)
+    public CommandRunTrajectory(Drivetrain myDriveTrain, Navigation navigation, Object[][] moments)
     {
        
         ArrayList<Trajectory> trajectories = new ArrayList<>();
         trajectories.add(TrajectoryFactory.getTrajectory(moments));
         
         HashMap<String, Runnable> markers = new HashMap<>();
-        this.trajectoryInterpreter = new TrajectoryIntepreter(myDriveTrain, trajectories, markers);
+        this.trajectoryInterpreter = new TrajectoryIntepreter(myDriveTrain, navigation, trajectories, markers);
   
        
     }

@@ -22,6 +22,7 @@ public class CommandIntakeOut extends AbstractCommand
     @Override
     public void execute(int btnPressed)
     {
+        theIntake.intakeOut();
         // TODO Auto-generated method stub
 
     }

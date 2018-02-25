@@ -79,13 +79,13 @@ public class AutonomousCmdFactory {
 		cmd = new CommandCurlForward(robotDrive, myNavigation, myRobot);		
 		autonomousCommands.put("CommandCurlForward", cmd);
     
-		cmd = new CommandRunTrajectory(robotDrive, goStraight.objects );
+		cmd = new CommandRunTrajectory(robotDrive, myNavigation, goStraight.objects );
 		autonomousCommands.put("CommandRunGoStraightTrajectory", cmd);
     
-		cmd = new CommandRunTrajectory(robotDrive, leftSwitch.objects );
+		cmd = new CommandRunTrajectory(robotDrive,  myNavigation,leftSwitch.objects );
         autonomousCommands.put("CommandRunLeftSwitchTrajectory", cmd);
         
-        cmd = new CommandRunTrajectory(robotDrive, rightSwitch.objects );
+        cmd = new CommandRunTrajectory(robotDrive,  myNavigation,rightSwitch.objects );
         autonomousCommands.put("CommandRunRightSwitchTrajectory", cmd);
         
         cmd = new CommandExtendWrist(intake);
@@ -118,7 +118,7 @@ public class AutonomousCmdFactory {
         cmd = new CommandElevatorBottomHeight(elevator);
         autonomousCommands.put("CommandElevatorBottomHeight",cmd);
         
-        cmd = new CommandRunTrajectory(robotDrive, SCalibration.objects );
+        cmd = new CommandRunTrajectory(robotDrive, myNavigation, leftScale.objects );
         autonomousCommands.put("CommandRunLeftScaleTrajectory", cmd);
         
         cmd = new CommandAutonLine(robotDrive, myNavigation);

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.usfirst.frc.team238.robot.Drivetrain;
+import org.usfirst.frc.team238.robot.Navigation;
 
 /**
  * Created by raque on 9/7/2017.
@@ -23,18 +24,20 @@ public class TrajectoryIntepreter implements Runnable{
     private Runnable loop;
     private Drivetrain driveTrain;
     private HashMap<String, Runnable> markerPoints;
+    private Navigation navx;
 
     /*private double P,I,D;
     private RPID leftPID, rightPID, anglePID;
 */
     private boolean playing = false;
 
-    public TrajectoryIntepreter(Drivetrain driveTrain, ArrayList<Trajectory> trajectories, HashMap<String, Runnable> markerPoints) {
+    public TrajectoryIntepreter(Drivetrain driveTrain, Navigation navx,  ArrayList<Trajectory> trajectories, HashMap<String, Runnable> markerPoints) {
         this.trajectories = trajectories;
 /*        this.leftVelocitySupplier=leftVelocitySupplier;
         this.rightVelocitySupplier=rightVelocitySupplier;*/
         this.driveTrain=driveTrain;
         this.markerPoints=markerPoints;
+        this.navx=navx;
         createLoop();
     }
 
@@ -52,6 +55,7 @@ public class TrajectoryIntepreter implements Runnable{
     }
 
 
+    final double ANGLE_KP=2.0;
 
     private void createLoop(){
         loop = () ->{
@@ -98,7 +102,19 @@ public class TrajectoryIntepreter implements Runnable{
                             * 0.05;
                     double rightAddIn = rightAcceleration * 0.05;
                     //System.out.println("Right Accleration" +rightAcceleration);
-                    driveTrain.driveSpeedAccel(leftVelocity ,rightVelocity, leftAcceleration, rightAcceleration );
+                    
+                    double angleError = angle - navx.getYaw() ;
+                    if(Math.abs(angleError) > (360.0 - 0.0)/2.0D) {
+                        angleError = angleError>0.0D ? angleError- 360.0+ 0.0 : angleError + 360.0 -0.0; 
+                    }
+         
+                    double angleVelocityAddend = angleError * ANGLE_KP;
+                    angleVelocityAddend = Math.min(50, Math.max(angleVelocityAddend, -50));
+
+                    System.out.println("ANGLEADDEND:" + angleVelocityAddend);
+
+                    
+                    driveTrain.driveSpeedAccel(leftVelocity + angleVelocityAddend ,rightVelocity - angleVelocityAddend, leftAcceleration, rightAcceleration );
                     //driveTrain.driveSpeed(leftVelocity + leftAddIn,rightVelocity + rightAddIn);
 
                     //delay is (elapsedTime-pausedtime) - timeStamp
@@ -110,9 +126,10 @@ public class TrajectoryIntepreter implements Runnable{
                     }
                     index++;
                 }
-
+                
 
             }
+            driveTrain.drive(0, 0);
             playing = false;
         };
     }

@@ -499,7 +499,7 @@ public class Robot extends IterativeRobot
 		ArrayList<Trajectory> trajectories = new ArrayList<>();
 		trajectories.add(TrajectoryFactory.getTrajectory(leftSwitch.objects));
 		HashMap<String, Runnable> markers = new HashMap<>();
-		theTrajectoryIntepreter = new TrajectoryIntepreter(myDriveTrain, trajectories, markers);
+		theTrajectoryIntepreter = new TrajectoryIntepreter(myDriveTrain, myNavigation, trajectories, markers);
 		theMCP.init(myDriveTrain, myNavigation, myRobot, theTrajectoryIntepreter, theElevator, theIntake);
 		
 		

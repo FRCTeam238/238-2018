@@ -15,7 +15,7 @@ public class AutonLineRunnable implements Runnable{
     double angle, topSpeed, distance;
     double rotateOutput;
     
-    final double acceleration = 80; //  in/sec^2
+    final double acceleration = 150; //  in/sec^2
     final double ANGLE_KP = 3;
     
     boolean stop = false;
@@ -46,7 +46,7 @@ public class AutonLineRunnable implements Runnable{
     public static final double delT = 50.0;
     public void run(){
 
-        double timeToStop = Math.abs(topSpeed/acceleration);
+
         
         
         boolean deAccelerate = false;   
@@ -60,7 +60,8 @@ public class AutonLineRunnable implements Runnable{
         double currentVelocity = 0;
         double lastVelocity =0;
         while(!stop && DriverStation.getInstance().isAutonomous() && DriverStation.getInstance().isEnabled()){
-  
+            long startProcessingTime = System.currentTimeMillis();
+            double timeToStop = Math.abs(currentVelocity/acceleration);
             double distanceNeededToStop = (Math.abs(currentVelocity)/2) * timeToStop;
             
             distanceTravelled=Math.abs(driveTrain.leftDistanceTravelled() - initialPosL + 
@@ -71,10 +72,13 @@ public class AutonLineRunnable implements Runnable{
                 deAccelerate=true;
             }
 
+            double currentAccel;
             if(deAccelerate? !backwards:backwards){
                 currentVelocity-= (delT/1000) * acceleration;
+                currentAccel = -acceleration;
             }else{
                 currentVelocity += (delT/1000) * acceleration;
+                currentAccel=acceleration;
             }
             currentVelocity = Math.max(Math.min(topSpeed, currentVelocity), -topSpeed);
            // System.out.println("currentV:" + currentVelocity);
@@ -90,7 +94,12 @@ public class AutonLineRunnable implements Runnable{
             angleVelocityAddend = Math.min(50, Math.max(angleVelocityAddend, -50));
 
             System.out.println("ANGLEADDEND:" + angleVelocityAddend);
-            driveTrain.driveSpeedAccel(currentVelocity + angleVelocityAddend, currentVelocity - angleVelocityAddend,0,0);
+            if(Math.abs(topSpeed - Math.abs(currentVelocity))<0.5) {
+                currentAccel=0;
+            }
+            System.out.println("TIME:" + System.currentTimeMillis());
+            driveTrain.driveSpeedAccel(currentVelocity + angleVelocityAddend, currentVelocity - angleVelocityAddend,currentAccel,currentAccel);
+            
             if(backwards){
                 if(currentVelocity>=0 && lastVelocity<0){
                     stop=true;
@@ -101,9 +110,12 @@ public class AutonLineRunnable implements Runnable{
                 }
             }
             lastVelocity = currentVelocity;
+            
             try
             {
-                Thread.sleep((long) delT);
+                long endProcessingTime = System.currentTimeMillis();
+                Thread.sleep((long) delT - (endProcessingTime - startProcessingTime));
+                
             }
             catch (InterruptedException e)
             {

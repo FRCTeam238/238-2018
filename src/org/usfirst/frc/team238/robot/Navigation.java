@@ -101,7 +101,8 @@ public class Navigation {
 	}
 	public double getYaw()
 	{
-		currentYaw = ahrs.getYaw();
+	    
+		currentYaw = ((ahrs.getYaw() % 360) + 360) % 360;
 		
 		return currentYaw;
 	}

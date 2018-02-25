@@ -306,7 +306,7 @@ public class Drivetrain
       //  Logger.Log("DriveTrain() : driveSpeed() : RIGHT ERROR IS =" + rightFrontDrive.getClosedLoopError(0));
 
     }
-
+    
     /**
      * A drive backwards function used in Autonomous
      * 

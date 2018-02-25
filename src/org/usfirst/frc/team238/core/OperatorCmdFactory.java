@@ -103,7 +103,7 @@ public class OperatorCmdFactory {
 	  
 	  //Create command objects, passing objects into each of them
 	  commandStopEverything = new CommandStopEverything(intake, elevator);     //<-------------------------------- EXAMPLE
-	  commadRunTrajectory = new CommandRunTrajectory(driveTrain, leftScale.objects );
+	  //commadRunTrajectory = new CommandRunTrajectory(driveTrain, leftScale.objects );
 	  commandShiftClimb = new CommandShiftClimb(elevator);
 	  commandIntakeIn = new CommandIntakeIn(intake);
 	  commandIntakeOut = new CommandIntakeOut(intake);
