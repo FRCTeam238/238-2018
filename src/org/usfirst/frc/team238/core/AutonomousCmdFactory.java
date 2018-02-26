@@ -18,7 +18,10 @@ import org.usfirst.frc.team238.commands.CommandTurnLeft;
 import org.usfirst.frc.team238.commands.CommandTurnRight;
 import org.usfirst.frc.team238.commands.CommandWristAngle;
 import org.usfirst.frc.team238.lalaPaths.SCalibration;
+import org.usfirst.frc.team238.lalaPaths.ScaleLeftOppositeSide;
 import org.usfirst.frc.team238.lalaPaths.Straight140;
+import org.usfirst.frc.team238.lalaPaths.SwitchEndLeft;
+import org.usfirst.frc.team238.lalaPaths.SwitchEndRight;
 import org.usfirst.frc.team238.lalaPaths.goStraight;
 import org.usfirst.frc.team238.lalaPaths.leftScale;
 import org.usfirst.frc.team238.commands.CommandAutonLine;
@@ -39,6 +42,7 @@ import org.usfirst.frc.team238.commands.CommandElevatorSwitchHeight;
 import org.usfirst.frc.team238.commands.CommandExtendWrist;
 import org.usfirst.frc.team238.commands.CommandIntakeOut;
 import org.usfirst.frc.team238.commands.CommandIntakeIn;
+import org.usfirst.frc.team238.commands.CommandIntakeInAdv;
 
 public class AutonomousCmdFactory {
 	
@@ -103,6 +107,9 @@ public class AutonomousCmdFactory {
         cmd = new CommandIntakeIn(intake);
         autonomousCommands.put("CommandIntakeIn",cmd);
         
+        cmd = new CommandIntakeInAdv(intake);
+        autonomousCommands.put("CommandIntakeInAdv",cmd);
+        
         cmd = new CommandIntakeOut(intake);
         autonomousCommands.put("CommandIntakeOut",cmd);
         
@@ -118,8 +125,15 @@ public class AutonomousCmdFactory {
         cmd = new CommandElevatorBottomHeight(elevator);
         autonomousCommands.put("CommandElevatorBottomHeight",cmd);
         
-        cmd = new CommandRunTrajectory(robotDrive, myNavigation, leftScale.objects );
+        cmd = new CommandRunTrajectory(robotDrive, myNavigation, ScaleLeftOppositeSide.objects );
         autonomousCommands.put("CommandRunLeftScaleTrajectory", cmd);
+        
+        cmd = new CommandRunTrajectory(robotDrive, myNavigation, ScaleLeftOppositeSide.objects );
+        autonomousCommands.put("CommandRunScaleLeftOppositeSideTrajectory", cmd);
+   
+        //change objects to right lalaprofile
+        cmd = new CommandRunTrajectory(robotDrive, myNavigation, ScaleLeftOppositeSide.objects );
+        autonomousCommands.put("CommandRunScaleRightOppositeSideTrajectory", cmd);
         
         cmd = new CommandAutonLine(robotDrive, myNavigation);
         autonomousCommands.put("CommandAutonLine", cmd);
@@ -136,7 +150,11 @@ public class AutonomousCmdFactory {
         cmd = new CommandTurn(robotDrive, myNavigation);
         autonomousCommands.put("CommandTurn", cmd);
         
+        cmd = new CommandRunTrajectory(robotDrive,  myNavigation,SwitchEndLeft.objects );
+        autonomousCommands.put("CommandRunSwitchEndLeftTrajectory", cmd);
         
+        cmd = new CommandRunTrajectory(robotDrive,  myNavigation,SwitchEndRight.objects );
+        autonomousCommands.put("CommandRunSwitchEndRightTrajectory", cmd);
         
         
 		return autonomousCommands;

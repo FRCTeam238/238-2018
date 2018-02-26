@@ -31,7 +31,7 @@ public class CommandTurnLeft extends AbstractCommand {
 
   public void prepare() {
   
-    myNavigation.zeroYaw();
+    //myNavigation.zeroYaw();
     resetVals();
 
   }

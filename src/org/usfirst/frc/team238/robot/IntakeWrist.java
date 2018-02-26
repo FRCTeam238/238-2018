@@ -36,6 +36,7 @@ public class IntakeWrist
     {
         
     }
+   
     
     public void init()
     {
@@ -96,6 +97,7 @@ public class IntakeWrist
     public boolean usingWrist = false;
     public void extendWrist()
     {
+        
         wristTalon.set(ControlMode.PercentOutput, CrusaderCommon.INTAKE_WRIST_SPEED);
         
     }
@@ -171,7 +173,7 @@ public class IntakeWrist
             double outputWanted = currentError * CrusaderCommon.INTAKE_KP;
            
             if(inAutonomous) {
-                outputWanted = Math.min(Math.max(AUTO_MIN_OUT, outputWanted+0.085), AUTO_MAX_OUT) ;
+                outputWanted = Math.min(Math.max(AUTO_MIN_OUT, outputWanted-0.085), AUTO_MAX_OUT) ;
                // Logger.Log("Wrist Output Auto = " + outputWanted );
             }
             else
@@ -187,7 +189,7 @@ public class IntakeWrist
     }
     
     public double getAngle() {
-        //System.out.println("INTAKE ANGLE:" + (-wristTalon.getSelectedSensorPosition(0) / CrusaderCommon.INTAKE_TICK_TO_DEGREE) + "      SETPOINT" + setpoint + "       ERROR:" + currentError);
+       //System.out.println("INTAKE ANGLE:" + (-wristTalon.getSelectedSensorPosition(0) / CrusaderCommon.INTAKE_TICK_TO_DEGREE) + "      SETPOINT" + setpoint + "       ERROR:" + currentError);
         
         return -wristTalon.getSelectedSensorPosition(0)/ CrusaderCommon.INTAKE_TICK_TO_DEGREE;
     }

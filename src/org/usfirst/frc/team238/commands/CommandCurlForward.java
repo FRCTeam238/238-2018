@@ -126,7 +126,7 @@ public class CommandCurlForward extends AbstractCommand
     yawErrorTotal = 0;
     
     //myNavigation.resetNAVX();
-    myNavigation.zeroYaw();
+   // myNavigation.zeroYaw();
     myRobotDrive.resetEncoders();
     yawValue = myNavigation.getYaw();
     stage = CrusaderCommon.CURL_START;

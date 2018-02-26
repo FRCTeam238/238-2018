@@ -245,7 +245,7 @@ public class Drivetrain
 
     //HIGH GEAR VALUES
     final double kV = 0.00434;// 0.00455
-    public final double kA = 00.00434*0.15;
+    public final double kA = 00.00434 * 0.15;
     public final double vSetpoint = 0.078;//0.078
 
     public void driveSpeedAccel(double leftSpeed, double rightSpeed, double leftAccel, double rightAccel)

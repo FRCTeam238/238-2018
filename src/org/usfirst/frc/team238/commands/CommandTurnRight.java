@@ -29,7 +29,7 @@ public class CommandTurnRight extends AbstractCommand {
 
   public void prepare() {
 
-    myNavigation.zeroYaw();
+   // myNavigation.zeroYaw();
     resetVals();
 
   }

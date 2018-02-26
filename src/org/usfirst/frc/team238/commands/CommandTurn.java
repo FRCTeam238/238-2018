@@ -86,7 +86,7 @@ public class CommandTurn extends AbstractCommand {
   public void setParams(String params[]) {
 
     if ((params[0] != null) || (!params[0].isEmpty())) {
-      targetValue = Double.parseDouble(params[0]);
+      targetValue = ((Double.parseDouble(params[0]) % 360) + 360) % 360;
     } else {
       targetValue = 0;
     }

@@ -4,6 +4,8 @@ import org.usfirst.frc.team238.core.Logger;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
@@ -67,6 +69,8 @@ public class Elevator
         
         elevatorMasterTalon.set(ControlMode.PercentOutput, 0);
         elevatorMasterTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+        //elevatorMasterTalon.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
+        
         elevatorMasterTalon.setSensorPhase(true);
         elevatorMasterTalon.config_kP(0, 0.004, 0);
         elevatorMasterTalon.setInverted(false);
@@ -230,7 +234,6 @@ public class Elevator
     public void mainLoop() {
         //nominal voltage <-1,1> outpu for elevator based in P gain
         if(PIDEnabled) {
-            
             currentError = setpoint - getHeight();
             double outputWanted = currentError * CrusaderCommon.ELEVATOR_KP;
             outputWanted = Math.min(Math.max(MIN_OUT, outputWanted), MAX_OUT);

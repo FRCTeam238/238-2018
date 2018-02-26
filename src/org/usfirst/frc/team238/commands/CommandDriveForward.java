@@ -50,7 +50,7 @@ public class CommandDriveForward extends AbstractCommand {
   public void prepare() {
 
     yawErrorTotal = 0;
-    myNavigation.zeroYaw();
+  //  myNavigation.zeroYaw();
     myRobotDrive.resetEncoders();
     yawValue = myNavigation.getYaw();
     previousEncoderTicks = 0;

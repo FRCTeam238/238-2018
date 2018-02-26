@@ -40,7 +40,7 @@ public class CommandDelay extends AbstractCommand {
   public void execute() {
     
     myRobotdrive.resetEncoders();
-    myNavigation.zeroYaw();
+   // myNavigation.zeroYaw();
     //This if else is used to have this delay work in time rather than iterations
     if(count == 0)
     {
@@ -69,7 +69,7 @@ public class CommandDelay extends AbstractCommand {
   public void prepare() {
     // TODO Auto-generated method stub
     myRobotdrive.resetEncoders();
-    myNavigation.zeroYaw();
+   // myNavigation.zeroYaw();
     count = 0;
   }
 

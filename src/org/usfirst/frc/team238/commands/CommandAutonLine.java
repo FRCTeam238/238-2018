@@ -38,8 +38,8 @@ public class CommandAutonLine extends AbstractCommand {
   }
 
   public void prepare() {
-      myNavigation.zeroYaw();
-      run = new AutonLineRunnable(myRobotDrive, myNavigation, distance, topSpeed, 0);
+     // myNavigation.zeroYaw();
+      run = new AutonLineRunnable(myRobotDrive, myNavigation, distance, topSpeed, myNavigation.getYaw());
      started=false;
       myRobotDrive.shiftHigh();
     //Logger.Log("CommandDriveForward.prepare");
