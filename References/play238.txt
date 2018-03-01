@@ -1,0 +1,82 @@
+{
+  "AutonomousPlays": [
+    {
+      "Name": "primary",
+      "L_LL": [
+        "ScaleLeftSafe"
+      ],
+      "C_LL": [
+        "Switch"
+      ],
+      "R_LL": [
+        "ScaleRightOpposite"
+      ],
+      "L_LR": [
+        "SwitchEnd"
+      ],
+      "C_LR": [
+        "Switch"
+      ],
+      "R_LR": [
+        "ScaleRight"
+      ],
+      "L_RR": [
+        "ScaleLeftOpposite"
+      ],
+      "C_RR": [
+        "Switch"
+      ],
+      "R_RR": [
+        "ScaleRight"
+      ],
+      "L_RL": [
+        "Overline"
+      ],
+      "C_RL": [
+        "Switch"
+      ],
+      "R_RL": [
+        "SwitchEnd"
+      ]
+    },
+    {
+      "Name": "secondary'",
+      "L_LL": [
+        "TurnLeftTest"
+      ],
+      "C_LL": [
+        "NOOP"
+      ],
+      "R_LL": [
+        "NOOP"
+      ],
+      "L_LR": [
+        "TurnRightTest"
+      ],
+      "C_LR": [
+        "NOOP"
+      ],
+      "R_LR": [
+        "NOOP"
+      ],
+      "L_RR": [
+        "Switch"
+      ],
+      "C_RR": [
+        "NOOP"
+      ],
+      "R_RR": [
+        "NOOP"
+      ],
+      "L_RL": [
+        "Scale"
+      ],
+      "C_RL": [
+        "NOOP"
+      ],
+      "R_RL": [
+        "NOOP"
+      ]
+    }
+  ]
+}

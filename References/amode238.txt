@@ -1,0 +1,737 @@
+{
+  "AutonomousModes": [
+    {
+      "Commands": [
+        {
+          "Name": "Finished",
+          "Parameters": []
+        }
+      ],
+      "Name": "NOOP"
+    },
+    {
+      "Commands": [
+        {
+          "Name": "ShiftHigh",
+          "Parameters": []
+        },
+        {
+          "Name": "Turn",
+          "Parameters": [
+            "-90",
+            "0.8",
+            "1500"
+          ]
+        },
+        {
+          "Name": "Finished",
+          "Parameters": []
+        }
+      ],
+      "Name": "TurnLeftTest"
+    },
+    {
+      "Commands": [
+        {
+          "Name": "ShiftHigh",
+          "Parameters": []
+        },
+        {
+          "Name": "Turn",
+          "Parameters": [
+            "90",
+            "0.8",
+            "1500"
+          ]
+        },
+        {
+          "Name": "Finished",
+          "Parameters": []
+        }
+      ],
+      "Name": "TurnRightTest"
+    },
+    {
+      "Commands": [
+        {
+          "Name": "DriveForward",
+          "Parameters": [
+            "130",
+            ".75",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "Name": "Finished",
+          "Parameters": []
+        }
+      ],
+      "Name": "Overline"
+    },
+    {
+      "Commands": [
+        {
+          "Name": "WristAngle",
+          "Parameters": [
+            "90"
+          ]
+        },
+        {
+          "Name": "Delay",
+          "Parameters": [
+            "2000"
+          ]
+        },
+        {
+          "Name": "ElevatorSwitchHeight",
+          "Parameters": [
+            "40"
+          ]
+        },
+        {
+          "Name": "IntakeInAdv",
+          "Parameters": [
+            "500",
+            "0.5",
+            "2000"
+          ]
+        },
+        {
+          "Name": "ScoreSwitch",
+          "Parameters": []
+        },
+        {
+          "Name": "IntakeOut",
+          "Parameters": []
+        },
+        {
+          "Name": "Finished",
+          "Parameters": []
+        }
+      ],
+      "Name": "Switch"
+    },
+    {
+      "Commands": [
+        {
+          "Name": "ShiftHigh",
+          "Parameters": []
+        },
+        {
+          "Name": "NewDriveForward",
+          "Parameters": [
+            "295",
+            "150"
+          ]
+        },
+        {
+          "Name": "ElevatorScaleHeight",
+          "Parameters": [
+            "80"
+          ]
+        },
+        {
+          "Name": "WristAngle",
+          "Parameters": [
+            "45"
+          ]
+        },
+        {
+          "Name": "Turn",
+          "Parameters": [
+            "95",
+            "0.6",
+            "2000"
+          ]
+        },
+        {
+          "Name": "Delay",
+          "Parameters": [
+            "100"
+          ]
+        },
+        {
+          "Name": "IntakeOut",
+          "Parameters": []
+        },
+        {
+          "Name": "Delay",
+          "Parameters": [
+            "1000"
+          ]
+        },
+        {
+          "Name": "ElevatorBottomHeight",
+          "Parameters": []
+        },
+        {
+          "Name": "Turn",
+          "Parameters": [
+            "159",
+            "0.6",
+            "1500"
+          ]
+        },
+        {
+          "Name": "WristAngle",
+          "Parameters": [
+            "95"
+          ]
+        },
+        {
+          "Name": "IntakeInAdv",
+          "Parameters": [
+            "300",
+            "0.5",
+            "3500"
+          ]
+        },
+        {
+          "Name": "NewDriveForward",
+          "Parameters": [
+            "98",
+            "80"
+          ]
+        },
+        {
+          "Name": "ElevatorSwitchHeight",
+          "Parameters": [
+            "40"
+          ]
+        },
+        {
+          "Name": "WristAngle",
+          "Parameters": [
+            "95"
+          ]
+        },
+        {
+          "Name": "Delay",
+          "Parameters": [
+            "1500"
+          ]
+        },
+        {
+          "Name": "NewDriveForward",
+          "Parameters": [
+            "8",
+            "100"
+          ]
+        },
+        {
+          "Name": "IntakeOut",
+          "Parameters": []
+        },
+        {
+          "Name": "Finished",
+          "Parameters": []
+        }
+      ],
+      "Name": "ScaleLeft"
+    },
+    {
+      "Commands": [
+        {
+          "Name": "ShiftHigh",
+          "Parameters": []
+        },
+        {
+          "Name": "NewDriveForward",
+          "Parameters": [
+            "295",
+            "150"
+          ]
+        },
+        {
+          "Name": "IntakeInAdv",
+          "Parameters": [
+            "0",
+            "0.5",
+            "2000"
+          ]
+        },
+        {
+          "Name": "Turn",
+          "Parameters": [
+            "95",
+            "0.6",
+            "2000"
+          ]
+        },
+        {
+          "Name": "NewDriveForward",
+          "Parameters": [
+            "-15",
+            "75"
+          ]
+        },
+        {
+          "Name": "ElevatorScaleHeight",
+          "Parameters": [
+            "80"
+          ]
+        },
+        {
+          "Name": "WristAngle",
+          "Parameters": [
+            "45"
+          ]
+        },
+        {
+          "Name": "NewDriveForward",
+          "Parameters": [
+            "5",
+            "5"
+          ]
+        },
+        {
+          "Name": "Delay",
+          "Parameters": [
+            "1250"
+          ]
+        },
+        {
+          "Name": "IntakeOut",
+          "Parameters": []
+        },
+        {
+          "Name": "Delay",
+          "Parameters": [
+            "1000"
+          ]
+        },
+        {
+          "Name": "ElevatorBottomHeight",
+          "Parameters": []
+        },
+        {
+          "Name": "Turn",
+          "Parameters": [
+            "150",
+            "0.6",
+            "1500"
+          ]
+        },
+        {
+          "Name": "Finished",
+          "Parameters": []
+        },
+        {
+          "Name": "WristAngle",
+          "Parameters": [
+            "95"
+          ]
+        },
+        {
+          "Name": "IntakeInAdv",
+          "Parameters": [
+            "300",
+            "0.5",
+            "3500"
+          ]
+        },
+        {
+          "Name": "NewDriveForward",
+          "Parameters": [
+            "98",
+            "80"
+          ]
+        },
+        {
+          "Name": "ElevatorSwitchHeight",
+          "Parameters": [
+            "40"
+          ]
+        },
+        {
+          "Name": "WristAngle",
+          "Parameters": [
+            "95"
+          ]
+        },
+        {
+          "Name": "Delay",
+          "Parameters": [
+            "1500"
+          ]
+        },
+        {
+          "Name": "NewDriveForward",
+          "Parameters": [
+            "8",
+            "100"
+          ]
+        },
+        {
+          "Name": "IntakeOut",
+          "Parameters": []
+        }
+      ],
+      "Name": "ScaleLeftSafe"
+    },
+    {
+      "Commands": [
+        {
+          "Name": "IntakeInAdv",
+          "Parameters": [
+            "1000",
+            "0.5",
+            "2000"
+          ]
+        },
+        {
+          "Name": "Finished",
+          "Parameters": []
+        }
+      ],
+      "Name": "Intalke"
+    },
+    {
+      "Commands": [
+        {
+          "Name": "ShiftHigh",
+          "Parameters": []
+        },
+        {
+          "Name": "NewDriveForward",
+          "Parameters": [
+            "290",
+            "150"
+          ]
+        },
+        {
+          "Name": "ElevatorScaleHeight",
+          "Parameters": [
+            ""
+          ]
+        },
+        {
+          "Name": "WristAngle",
+          "Parameters": [
+            "45"
+          ]
+        },
+        {
+          "Name": "Turn",
+          "Parameters": [
+            "-90",
+            "0.6",
+            "2500"
+          ]
+        },
+        {
+          "Name": "Delay",
+          "Parameters": [
+            "100"
+          ]
+        },
+        {
+          "Name": "IntakeOut",
+          "Parameters": []
+        },
+        {
+          "Name": "Delay",
+          "Parameters": [
+            "1000"
+          ]
+        },
+        {
+          "Name": "ElevatorBottomHeight",
+          "Parameters": []
+        },
+        {
+          "Name": "Turn",
+          "Parameters": [
+            "-156",
+            "0.6",
+            "1500"
+          ]
+        },
+        {
+          "Name": "IntakeInAdv",
+          "Parameters": [
+            "500",
+            "0.5",
+            "1500"
+          ]
+        },
+        {
+          "Name": "NewDriveForward",
+          "Parameters": [
+            "80",
+            "80"
+          ]
+        },
+        {
+          "Name": "Finished",
+          "Parameters": []
+        }
+      ],
+      "Name": "ScaleRight"
+    },
+    {
+      "Commands": [
+        {
+          "Name": "NewDriveForward",
+          "Parameters": [
+            "140",
+            "150"
+          ]
+        },
+        {
+          "Name": "Finished",
+          "Parameters": []
+        }
+      ],
+      "Name": "testAutonLine"
+    },
+    {
+      "Commands": [
+        {
+          "Name": "WristAngle",
+          "Parameters": [
+            "100"
+          ]
+        },
+        {
+          "Name": "ElevatorSwitchHeight",
+          "Parameters": [
+            ""
+          ]
+        },
+        {
+          "Name": "ScoreSwitchEnd",
+          "Parameters": []
+        },
+        {
+          "Name": "IntakeOut",
+          "Parameters": []
+        },
+        {
+          "Name": "Finished",
+          "Parameters": []
+        }
+      ],
+      "Name": "SwitchEnd"
+    },
+    {
+      "Commands": [
+        {
+          "Name": "ShiftHigh",
+          "Parameters": []
+        },
+        {
+          "Name": "ScoreScale",
+          "Parameters": []
+        },
+        {
+          "Name": "Finished",
+          "Parameters": []
+        }
+      ],
+      "Name": "Scale"
+    },
+    {
+      "Commands": [
+        {
+          "Name": "NewDriveForward",
+          "Parameters": [
+            "215",
+            "130"
+          ]
+        },
+        {
+          "Name": "Turn",
+          "Parameters": [
+            "90",
+            "0.6",
+            "2000"
+          ]
+        },
+        {
+          "Name": "NewDriveForward",
+          "Parameters": [
+            "190",
+            "150"
+          ]
+        },
+        {
+          "Name": "Turn",
+          "Parameters": [
+            "0",
+            "0.6",
+            "2000"
+          ]
+        },
+        {
+          "Name": "WristAngle",
+          "Parameters": [
+            "45"
+          ]
+        },
+        {
+          "Name": "ElevatorScaleHeight",
+          "Parameters": [
+            "80"
+          ]
+        },
+        {
+          "Name": "Delay",
+          "Parameters": [
+            "1000"
+          ]
+        },
+        {
+          "Name": "NewDriveForward",
+          "Parameters": [
+            "12",
+            "80"
+          ]
+        },
+        {
+          "Name": "IntakeOut",
+          "Parameters": []
+        },
+        {
+          "Name": "Finished",
+          "Parameters": []
+        },
+        {
+          "Name": "Turn",
+          "Parameters": [
+            "165",
+            "0.6",
+            "2000"
+          ]
+        },
+        {
+          "Name": "NewDriveForward",
+          "Parameters": [
+            "40",
+            "100"
+          ]
+        }
+      ],
+      "Name": "ScaleLeftOpposite"
+    },
+    {
+      "Commands": [
+        {
+          "Name": "NewDriveForward",
+          "Parameters": [
+            "215",
+            "130"
+          ]
+        },
+        {
+          "Name": "Turn",
+          "Parameters": [
+            "-90",
+            "0.6",
+            "2000"
+          ]
+        },
+        {
+          "Name": "NewDriveForward",
+          "Parameters": [
+            "180",
+            "150"
+          ]
+        },
+        {
+          "Name": "WristAngle",
+          "Parameters": [
+            "45"
+          ]
+        },
+        {
+          "Name": "ElevatorScaleHeight",
+          "Parameters": [
+            ""
+          ]
+        },
+        {
+          "Name": "Turn",
+          "Parameters": [
+            "0",
+            "0.6",
+            "2000"
+          ]
+        },
+        {
+          "Name": "NewDriveForward",
+          "Parameters": [
+            "20",
+            "80"
+          ]
+        },
+        {
+          "Name": "IntakeOut",
+          "Parameters": []
+        },
+        {
+          "Name": "Finished",
+          "Parameters": []
+        },
+        {
+          "Name": "Turn",
+          "Parameters": [
+            "165",
+            "0.6",
+            "2000"
+          ]
+        },
+        {
+          "Name": "NewDriveForward",
+          "Parameters": [
+            "40",
+            "100"
+          ]
+        }
+      ],
+      "Name": "ScaleRightOpposite"
+    },
+    {
+      "Commands": [
+        {
+          "Name": "ExtendWrist",
+          "Parameters": []
+        },
+        {
+          "Name": "Finished",
+          "Parameters": []
+        }
+      ],
+      "Name": "Test Wrist"
+    },
+    {
+      "Commands": [
+        {
+          "Name": "IntakeOut",
+          "Parameters": []
+        },
+        {
+          "Name": "Finished",
+          "Parameters": []
+        }
+      ],
+      "Name": "Test Intake"
+    },
+    {
+      "Commands": [
+        {
+          "Name": "ElevatorSwitchHeight",
+          "Parameters": [
+            ""
+          ]
+        },
+        {
+          "Name": "Finished",
+          "Parameters": []
+        }
+      ],
+      "Name": "Test Elevator"
+    }
+  ]
+}
