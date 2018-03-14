@@ -7,13 +7,13 @@ import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Drivetrain;
 import org.usfirst.frc.team238.robot.Navigation;
 
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CommandAutonLine extends AbstractCommand {
 
   Drivetrain myRobotDrive;
-  PowerDistributionPanel myPowerDistributionPanel;
+ // PowerDistributionPanel myPowerDistributionPanel;
 
   Navigation myNavigation;
   
@@ -31,7 +31,7 @@ public class CommandAutonLine extends AbstractCommand {
     
     // this.debug = SmartDashboard.getBoolean("Debug");
     this.myRobotDrive = robotDrive;
-    this.myPowerDistributionPanel = new PowerDistributionPanel();
+    //this.myPowerDistributionPanel = new PowerDistributionPanel();
     myNavigation = navigation;
     
 

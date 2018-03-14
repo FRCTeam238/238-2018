@@ -331,6 +331,15 @@ public class Robot extends IterativeRobot
 		{
 			theMACP.process();
 			myNavigation.navxValues();
+			
+			SmartDashboard.putNumber("Left Encoder", leftMasterDrive.getSelectedSensorPosition(0));        
+	        SmartDashboard.putNumber("Right Encoder", rightMasterDrive.getSelectedSensorPosition(0));
+	        
+	        int speedLeft = leftMasterDrive.getSelectedSensorVelocity(0);
+	        int speedRight = rightMasterDrive.getSelectedSensorVelocity(0);
+	                
+	        SmartDashboard.putNumber("Left Speed", speedLeft);
+	        SmartDashboard.putNumber("Right Speed", speedRight);
 
 		} 
 		catch (Exception ex) 
@@ -370,7 +379,8 @@ public class Robot extends IterativeRobot
 	    
 		HashMap<Integer,Integer[]> commandValues;	
 		
-		SmartDashboard.putNumber("Left Encoder", theElevator.getEncoderTicks());        
+		SmartDashboard.putNumber("Elevator", theElevator.getEncoderTicks());
+		SmartDashboard.putNumber("Left Encoder", leftMasterDrive.getSelectedSensorPosition(0));
 		SmartDashboard.putNumber("Right Encoder", rightMasterDrive.getSelectedSensorPosition(0));
 		
 		int speedLeft = leftMasterDrive.getSelectedSensorVelocity(0);
