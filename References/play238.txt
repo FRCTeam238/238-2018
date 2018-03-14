@@ -3,7 +3,7 @@
     {
       "Name": "primary",
       "L_LL": [
-        "ScaleLeftSafe"
+        "SwitchEnd"
       ],
       "C_LL": [
         "Switch"
@@ -18,7 +18,46 @@
         "Switch"
       ],
       "R_LR": [
-        "ScaleRight"
+        "ScaleRightSafe"
+      ],
+      "L_RR": [
+        "ScaleLeftOpposite"
+      ],
+      "C_RR": [
+        "SwitchTwoCube"
+      ],
+      "R_RR": [
+        "SwitchEnd"
+      ],
+      "L_RL": [
+        "ScaleLeftSafe"
+      ],
+      "C_RL": [
+        "Switch"
+      ],
+      "R_RL": [
+        "SwitchEnd"
+      ]
+    },
+    {
+      "Name": "secondary",
+      "L_LL": [
+        "ScaleLeft"
+      ],
+      "C_LL": [
+        "Switch"
+      ],
+      "R_LL": [
+        "ScaleRightOpposite"
+      ],
+      "L_LR": [
+        "ScaleLeftOpposite"
+      ],
+      "C_LR": [
+        "Switch"
+      ],
+      "R_LR": [
+        "ScaleRightSafe"
       ],
       "L_RR": [
         "ScaleLeftOpposite"
@@ -30,52 +69,13 @@
         "ScaleRight"
       ],
       "L_RL": [
-        "Overline"
+        "ScaleLeftSafe"
       ],
       "C_RL": [
         "Switch"
       ],
       "R_RL": [
-        "SwitchEnd"
-      ]
-    },
-    {
-      "Name": "secondary'",
-      "L_LL": [
-        "TurnLeftTest"
-      ],
-      "C_LL": [
-        "NOOP"
-      ],
-      "R_LL": [
-        "NOOP"
-      ],
-      "L_LR": [
-        "TurnRightTest"
-      ],
-      "C_LR": [
-        "NOOP"
-      ],
-      "R_LR": [
-        "NOOP"
-      ],
-      "L_RR": [
-        "Switch"
-      ],
-      "C_RR": [
-        "NOOP"
-      ],
-      "R_RR": [
-        "NOOP"
-      ],
-      "L_RL": [
-        "Scale"
-      ],
-      "C_RL": [
-        "NOOP"
-      ],
-      "R_RL": [
-        "NOOP"
+        "ScaleRightOpposite"
       ]
     }
   ]
