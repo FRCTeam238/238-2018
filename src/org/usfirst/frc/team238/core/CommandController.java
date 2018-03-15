@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Drivetrain;
 import org.usfirst.frc.team238.robot.Navigation;
+import org.usfirst.frc.team238.robot.Ramp;
 import org.usfirst.frc.team238.robot.Robot;
 import RealBot.TrajectoryIntepreter;
 
@@ -40,10 +41,10 @@ public class CommandController
 	 */
 	public void  init(Drivetrain driveTrain,
 	    Navigation myNavigation, Robot myRobot,
-	    TrajectoryIntepreter theIntepreter, Elevator elevator, IntakeWrist intake)
+	    TrajectoryIntepreter theIntepreter, Elevator elevator, IntakeWrist intake, Ramp  ramp)
 	{
 
-		setupOperatorCommands(myNavigation, driveTrain,myRobot,theIntepreter, elevator, intake);
+		setupOperatorCommands(myNavigation, driveTrain,myRobot,theIntepreter, elevator, intake, ramp);
 		setupDriverCommands(driveTrain, myNavigation);
 		setupAutonomousCommands(driveTrain, myNavigation, myRobot,elevator,intake);
 		
@@ -122,13 +123,13 @@ public class CommandController
 	 * @param myRobot
 	 */
 	private void setupOperatorCommands(Navigation myNavigation, Drivetrain driveTrain, 
-			 Robot myRobot, TrajectoryIntepreter theIntepreter, Elevator elevator, IntakeWrist intake)
+			 Robot myRobot, TrajectoryIntepreter theIntepreter, Elevator elevator, IntakeWrist intake, Ramp ramp)
 	{
 		theOperatorCmdFactory = new OperatorCmdFactory();
 		theOperatorCmdFactory.init();
 		
 		operatorCmdList = theOperatorCmdFactory.createOperatorCommands(driveTrain, 
-		        myNavigation,myRobot, theIntepreter,elevator,intake);
+		        myNavigation,myRobot, theIntepreter,elevator,intake, ramp);
 	}
 
 	/*

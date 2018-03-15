@@ -6,13 +6,12 @@ import java.util.HashMap;
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Drivetrain;
 import org.usfirst.frc.team238.robot.Navigation;
+import org.usfirst.frc.team238.robot.Ramp;
 import org.usfirst.frc.team238.robot.Robot;
 import org.usfirst.frc.team238.robot.Elevator;
 import org.usfirst.frc.team238.robot.IntakeWrist;
 
 
-import org.usfirst.frc.team238.robot.Elevator;
-import org.usfirst.frc.team238.robot.IntakeWrist;
 
 import RealBot.TrajectoryIntepreter;
 
@@ -28,6 +27,7 @@ import org.usfirst.frc.team238.commands.CommandIntakeIn;
 import org.usfirst.frc.team238.commands.CommandIntakeOut;
 import org.usfirst.frc.team238.commands.CommandIntakeOutFast;
 import org.usfirst.frc.team238.commands.CommandIntakeStraightOutAngle;
+import org.usfirst.frc.team238.commands.CommandRamp;
 import org.usfirst.frc.team238.commands.CommandElevatorBottomHeight;
 import org.usfirst.frc.team238.commands.CommandElevatorDown;
 import org.usfirst.frc.team238.commands.CommandElevatorScaleHeight;
@@ -74,6 +74,8 @@ public class OperatorCmdFactory {
 	
 	CommandWristAngle commandWristAngle;
 	
+	CommandRamp commandRamp;
+	
 	HashMap<Integer, Command> operatorCommands;
 	
 	
@@ -96,7 +98,7 @@ public class OperatorCmdFactory {
 	 */
 	public HashMap<Integer, Command> createOperatorCommands(Drivetrain driveTrain,
 	    Navigation theNavigation, Robot theRobot,
-	    TrajectoryIntepreter theIntepreter, Elevator elevator, IntakeWrist intake)
+	    TrajectoryIntepreter theIntepreter, Elevator elevator, IntakeWrist intake, Ramp ramp)
 	{
 	  //Inputs get defined in CrusaderCommon
 	  Integer[] multiButtonTestInput = {1,2,3,4,5}; //Test : Button input
@@ -118,7 +120,7 @@ public class OperatorCmdFactory {
       commandIntakeStraightOutAngle = new CommandIntakeStraightOutAngle(intake);
       commandWristAngle = new CommandWristAngle(intake);
       commandIntakeOutFast = new CommandIntakeOutFast(intake);
-      
+      commandRamp = new CommandRamp(ramp);
 	  
 	  
 	  //Assigns all command arrays and their specific inputs to the HashMap
@@ -141,6 +143,7 @@ public class OperatorCmdFactory {
 	  operatorCommands.put(2, commandWristAngle);
 	  operatorCommands.put(4, commandWristAngle);
 	  
+	  operatorCommands.put(3, commandRamp);
 	  // operatorCommands.put(3, commandIntakeStraightOutAngle);
       
     

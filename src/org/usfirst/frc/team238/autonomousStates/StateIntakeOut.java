@@ -26,7 +26,7 @@ public class StateIntakeOut implements AutonomousState
     {
         // TODO Auto-generated method stub
         intakeOutCommand.prepare();
-        intakeOutCommand.setParams();
+        intakeOutCommand.setParams(parameters);
     }
 
     @Override
@@ -34,6 +34,7 @@ public class StateIntakeOut implements AutonomousState
     {
         // TODO Auto-generated method stub
         intakeOutCommand = (CommandIntakeOut) theMcp.getAutoCmd("CommandIntakeOut");
+        parameters = params;
     }
 
     @Override

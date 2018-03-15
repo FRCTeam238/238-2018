@@ -112,6 +112,7 @@ public class CrusaderCommon {
 	public static final double INTAKE_WRIST_SPEED = 0.5;
 	public static final double INTAKE_SPEED = 0.5;//0.8;
 	public static final double INTAKE_SPEED_FAST = 0.95;
+	public static final double INTAKE_SPEED_SLOW = 0.3;
 	
 
 	// Servo power setting
@@ -171,5 +172,9 @@ public class CrusaderCommon {
 	public final static int CURL_FINISH_TURN = 3;
 
 	public final static int COLLISION_DELAY_IN_MILLIS = 375;
+	
+	public final static int RAMP_SOL_1 = 2;
+	public final static int RAMP_SOL_2 = 3;
+	
 
 }

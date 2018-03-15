@@ -2,11 +2,13 @@ package org.usfirst.frc.team238.commands;
 
 import org.usfirst.frc.team238.core.AbstractCommand;
 import org.usfirst.frc.team238.core.Command;
+import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.IntakeWrist;
 
 public class CommandIntakeOut extends AbstractCommand
 {
     IntakeWrist theIntake;
+    double targetValue;
     
     public CommandIntakeOut(IntakeWrist myIntake)
     {
@@ -16,7 +18,13 @@ public class CommandIntakeOut extends AbstractCommand
     @Override
     public void execute()
     {
-        theIntake.intakeOut();
+        if(targetValue == 1){
+        	theIntake.intakeOutSlow();
+        }
+        else
+        {
+        	theIntake.intakeOut();
+        }
     }
 
     @Override
@@ -34,10 +42,14 @@ public class CommandIntakeOut extends AbstractCommand
 
     }
 
-    @Override
-    public void setParams()
+    
+    public void setParams(String params[])
     {
-        // TODO Auto-generated method stub
+    	if ((params[0] != null) || (!params[0].isEmpty())) {
+    	      targetValue = Double.parseDouble(params[0]) ;
+    	    } else {
+    	      targetValue = 0;
+    	    }
 
     }
     
