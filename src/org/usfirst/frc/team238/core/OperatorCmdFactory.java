@@ -28,6 +28,7 @@ import org.usfirst.frc.team238.commands.CommandIntakeOut;
 import org.usfirst.frc.team238.commands.CommandIntakeOutFast;
 import org.usfirst.frc.team238.commands.CommandIntakeStraightOutAngle;
 import org.usfirst.frc.team238.commands.CommandRamp;
+import org.usfirst.frc.team238.commands.CommandRampUndeploy;
 import org.usfirst.frc.team238.commands.CommandElevatorBottomHeight;
 import org.usfirst.frc.team238.commands.CommandElevatorDown;
 import org.usfirst.frc.team238.commands.CommandElevatorScaleHeight;
@@ -76,6 +77,8 @@ public class OperatorCmdFactory {
 	
 	CommandRamp commandRamp;
 	
+	CommandRampUndeploy commandRampUndeploy;
+	
 	HashMap<Integer, Command> operatorCommands;
 	
 	
@@ -121,6 +124,7 @@ public class OperatorCmdFactory {
       commandWristAngle = new CommandWristAngle(intake);
       commandIntakeOutFast = new CommandIntakeOutFast(intake);
       commandRamp = new CommandRamp(ramp);
+      commandRampUndeploy = new CommandRampUndeploy(ramp);
 	  
 	  
 	  //Assigns all command arrays and their specific inputs to the HashMap
@@ -143,8 +147,8 @@ public class OperatorCmdFactory {
 	  operatorCommands.put(2, commandWristAngle);
 	  operatorCommands.put(4, commandWristAngle);
 	  
-	  operatorCommands.put(3, commandRamp);
-	  // operatorCommands.put(3, commandIntakeStraightOutAngle);
+	  operatorCommands.put(9, commandRamp);
+	  operatorCommands.put(10, commandRampUndeploy);
       
     
     //operatorCommands.put(multiButtonTestInput, twoButtonTestCommandArray); //Test : Command put
