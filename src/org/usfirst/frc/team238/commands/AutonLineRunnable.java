@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class AutonLineRunnable implements Runnable{
+public class AutonLineRunnable implements Runnable {
     
     double angle, topSpeed, distance;
     double rotateOutput;
@@ -19,6 +19,7 @@ public class AutonLineRunnable implements Runnable{
     final double ANGLE_KP = 3;
     
     boolean stop = false;
+   
     
     Navigation navigation;
     Drivetrain driveTrain;
@@ -84,6 +85,16 @@ public class AutonLineRunnable implements Runnable{
            // System.out.println("currentV:" + currentVelocity);
             System.out.println(deAccelerate);
             //System.out.println(backwards);
+            
+            // Matt's code, caution
+            
+           //stop = navigation.getLineSensor();
+           
+           
+            
+           //Matt's code
+                
+                
 
             double angleError = angle - navigation.getYaw() ;
             if(Math.abs(angleError) > (360.0 - 0.0)/2.0D) {

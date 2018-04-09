@@ -116,12 +116,27 @@ public class IntakeWrist
      * Suck a cube in
      */
     public void extendWristPID() {
-        tilt(1.0);
+        if(PIDEnabled) {
+            tilt(1.0);
+                
+        }else {
+            wristTalon.set(ControlMode.PercentOutput, 0.75);
+        }
         
     }
     
+    public void manualOverride(boolean val) {
+        PIDEnabled = val;
+    }
+    
     public void retractWristPID() {
-        tilt(-1.0);
+        
+        if(PIDEnabled) {
+            tilt(-1.0);
+                
+        }else {
+            wristTalon.set(ControlMode.PercentOutput, -0.75);
+        }
     }
     
     public void tilt(double degrees) {
@@ -190,7 +205,8 @@ public class IntakeWrist
            
             wristTalon.set(ControlMode.PercentOutput, outputWanted);
             
-        }    
+        }  
+        
         
     }
     

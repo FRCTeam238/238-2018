@@ -135,7 +135,7 @@ public class CrusaderCommon {
 	public final static double DRIVE_FORWARD_I_VALUE = 0;
 	public final static double DRIVE_FORWARD_MAX_YAW_PERCENT = 0.1;
 
-	// SETERMINE THIS EXACT NUMBER FOR NEW ROBOT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	// DETERMINE THIS EXACT NUMBER FOR NEW ROBOT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	// //325 = 1 inch 3900 = 1 foot
 	public final static double DRIVE_FORWARD_ENCODER_TICKS_PER_INCH = 1626.0;//252;//323;// 4983;//3900//1750;
 
@@ -176,5 +176,7 @@ public class CrusaderCommon {
 	public final static int RAMP_SOL_1 = 2;
 	public final static int RAMP_SOL_2 = 3;
 	
+
+	public static final int LINE_SENSOR = 0;
 
 }

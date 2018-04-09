@@ -17,6 +17,7 @@ import RealBot.TrajectoryIntepreter;
 
 import org.usfirst.frc.team238.commands.CommandStopEverything;
 import org.usfirst.frc.team238.commands.CommandWristAngle;
+import org.usfirst.frc.team238.commands.CommandWristManualOverride;
 import org.usfirst.frc.team238.lalaPaths.Straight140;
 import org.usfirst.frc.team238.lalaPaths.goStraight;
 import org.usfirst.frc.team238.lalaPaths.leftScale;
@@ -60,6 +61,8 @@ public class OperatorCmdFactory {
 	CommandIntakeOut commandIntakeOut;
 	
 	CommandElevatorUp commandElevatorUp;
+	
+	CommandWristManualOverride commandWristManualOverride;
 	
 	CommandElevatorDown commandElevatorDown;
 	
@@ -120,6 +123,7 @@ public class OperatorCmdFactory {
       commandElevatorScaleHeight = new CommandElevatorScaleHeight(elevator);
       commandElevatorSwitchHeight = new CommandElevatorSwitchHeight(elevator);
       
+      commandWristManualOverride = new CommandWristManualOverride(intake);
       commandIntakeStraightOutAngle = new CommandIntakeStraightOutAngle(intake);
       commandWristAngle = new CommandWristAngle(intake);
       commandIntakeOutFast = new CommandIntakeOutFast(intake);
@@ -149,6 +153,7 @@ public class OperatorCmdFactory {
 	  
 	  operatorCommands.put(9, commandRamp);
 	  operatorCommands.put(10, commandRampUndeploy);
+	  //operatorCommands.put(7, commandWristManualOverride);
       
     
     //operatorCommands.put(multiButtonTestInput, twoButtonTestCommandArray); //Test : Command put

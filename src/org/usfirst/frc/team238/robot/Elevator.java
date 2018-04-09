@@ -29,7 +29,7 @@ public class Elevator
     private double currentError =0;
     
     //Really only a P loop
-    private boolean PIDEnabled = true;
+    public boolean PIDEnabled = true;
     
     TalonSRX elevatorMasterTalon;
     TalonSRX elevatorSlaveTalon;

@@ -4,11 +4,13 @@ import org.usfirst.frc.team238.core.Logger;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Ultrasonic;
+
 
 public class Navigation {
 	
@@ -17,6 +19,7 @@ public class Navigation {
 	double currentRoll;
 	double targetYaw;
 	double ultrasonicDistance;
+	DigitalInput lineSensorInput;
 	
 	//Ultrasonic myUltrasonic;
 	
@@ -31,7 +34,9 @@ public class Navigation {
 	
 	public void init()
 	{
+		lineSensorInput = new DigitalInput(CrusaderCommon.LINE_SENSOR);
 		
+	    
 		ahrs = new AHRS(SPI.Port.kMXP);
 		currentYaw = ahrs.getYaw();
 	
@@ -46,7 +51,18 @@ public class Navigation {
 		elapsed = 0;
 	}
 	
-	public void test()
+	
+	
+	public boolean getLineSensor()
+	{
+	    return lineSensorInput.get();
+	}
+    
+        
+   
+
+
+    public void test()
 	{
 	  
 	  if(!weAreConntected())

@@ -113,10 +113,19 @@ public class CommandTurn extends AbstractCommand {
 
    
     if(System.currentTimeMillis() - startTime <runTime) {
+        
         return false;
     }else {
-        myRobotDrive.drive(0, 0);
-        return true;
+        
+        if(Math.abs(pastError) > 20.0)
+        {
+            return false;
+        }
+        else {
+            myRobotDrive.drive(0, 0);
+            return true;
+        }
+        
     }
   }
   
