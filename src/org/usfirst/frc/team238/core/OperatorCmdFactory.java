@@ -88,7 +88,7 @@ public class OperatorCmdFactory {
 	public void init()
 	{
 	
-	  operatorCommands = new HashMap<Integer, Command>(16);
+	  operatorCommands = new HashMap<Integer, Command>(50);
 	
 	}
 	
@@ -153,7 +153,8 @@ public class OperatorCmdFactory {
 	  
 	  operatorCommands.put(9, commandRamp);
 	  operatorCommands.put(10, commandRampUndeploy);
-	  //operatorCommands.put(7, commandWristManualOverride);
+	  operatorCommands.put(7, commandWristManualOverride);
+	  operatorCommands.put(8, commandWristManualOverride);
       
     
     //operatorCommands.put(multiButtonTestInput, twoButtonTestCommandArray); //Test : Command put

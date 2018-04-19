@@ -8,6 +8,8 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class IntakeWrist
 {
 
@@ -61,6 +63,8 @@ public class IntakeWrist
         resetEncoders();
         
         PIDEnabled = true;
+        SmartDashboard.putBoolean("PidEnabled", PIDEnabled);
+        
         Runnable loop = ()->{
             while(true) {
                 mainLoop();
@@ -118,24 +122,61 @@ public class IntakeWrist
     public void extendWristPID() {
         if(PIDEnabled) {
             tilt(1.0);
-                
+            System.out.println("extendPidenabled"); 
         }else {
-            wristTalon.set(ControlMode.PercentOutput, 0.75);
+            double wristValue = ControlBoard.getOperatorRightJs().getRawAxis(5);
+            double staticWristValue = 0.0;
+            
+            if (wristValue > 0.65)
+            {
+                staticWristValue = 0.3;
+            }
+//            else
+//            {
+//                staticWristValue = 0.0;
+//            }
+
+            wristTalon.set(ControlMode.PercentOutput, wristValue); 
+           
+            SmartDashboard.putNumber("Extending", wristValue);
+            SmartDashboard.putNumber("ExtendingStatic", staticWristValue);
+           
+            //System.out.println("extendPidNOTenabled"); 
+            
         }
         
     }
     
     public void manualOverride(boolean val) {
         PIDEnabled = val;
+        SmartDashboard.putBoolean("PidEnabled", PIDEnabled);
+       
+        Logger.Log("PidEnabled = ", String.valueOf(PIDEnabled));
+        System.out.println("manualOverride"); 
     }
     
     public void retractWristPID() {
         
         if(PIDEnabled) {
             tilt(-1.0);
-                
+            System.out.println("RetractPidenabled"); 
         }else {
-            wristTalon.set(ControlMode.PercentOutput, -0.75);
+           double wristValue = ControlBoard.getOperatorRightJs().getRawAxis(5);
+           double staticWristValue = 0.0;
+           
+            if (wristValue < -0.65)
+            {
+                staticWristValue = -0.3;
+            }
+//            else
+//            {
+//                staticWristValue = 0.0;
+//            }
+            wristTalon.set(ControlMode.PercentOutput, wristValue); 
+            SmartDashboard.putNumber("Retracting", wristValue);
+            SmartDashboard.putNumber("RetractingStatic", staticWristValue);
+            
+            //System.out.println("RetractPidNOTenabled"); 
         }
     }
     
@@ -183,7 +224,15 @@ public class IntakeWrist
     public void stop()
     {
         
-        intakeMaster.set(ControlMode.PercentOutput, 0.0);       
+        intakeMaster.set(ControlMode.PercentOutput, 0.0);    
+        
+        if(!PIDEnabled) {
+            wristTalon.set(ControlMode.PercentOutput, 0.0);
+            SmartDashboard.putNumber("Retracting", 0.0);
+            SmartDashboard.putNumber("RetractingStatic", 0.0);
+            SmartDashboard.putNumber("Extending", 0.0);
+            SmartDashboard.putNumber("ExtendingStatic", 0.0);
+        }
         
     }
     
@@ -193,15 +242,7 @@ public class IntakeWrist
             currentError = setpoint - getAngle();
             double outputWanted = currentError * CrusaderCommon.INTAKE_KP;
            
-//            if(inAutonomous) {
-//                outputWanted = Math.min(Math.max(AUTO_MIN_OUT, outputWanted-0.085), AUTO_MAX_OUT) ;
-//               // Logger.Log("Wrist Output Auto = " + outputWanted );
-//            }
-//            else
-//            {
-                outputWanted = Math.min(Math.max(MIN_OUT, outputWanted+0.085), MAX_OUT) ;
-               // Logger.Log("Wrist Output  Tele = " + outputWanted );
-           // }
+            outputWanted = Math.min(Math.max(MIN_OUT, outputWanted+0.085), MAX_OUT) ;
            
             wristTalon.set(ControlMode.PercentOutput, outputWanted);
             
