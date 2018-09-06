@@ -313,10 +313,13 @@ public class CommandController
   			      }
   			      else
   			      {*/
-  			      if(index ==1 || index==2 || index==4) {
+  			      if(index ==1 || index==2 || index==4 || index==7 || index==8) {
   			          operatorCommandsForTheButtonPressed.execute(index);
+  			        //System.out.println(operatorCommandsForTheButtonPressed.getClass().getName());
+  			      
   			      }else {
-  			        operatorCommandsForTheButtonPressed.execute(); //why are you null                       
+  			        operatorCommandsForTheButtonPressed.execute(); //why are you null 
+  			      //System.out.println("execute()");
   			      }
   			      //}
 			    //}

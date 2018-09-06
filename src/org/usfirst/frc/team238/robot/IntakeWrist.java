@@ -129,7 +129,7 @@ public class IntakeWrist
             
             if (wristValue > 0.65)
             {
-                staticWristValue = 0.3;
+                staticWristValue = 0.1;
             }
 //            else
 //            {
@@ -166,7 +166,7 @@ public class IntakeWrist
            
             if (wristValue < -0.65)
             {
-                staticWristValue = -0.3;
+                staticWristValue = -0.1;
             }
 //            else
 //            {

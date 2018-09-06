@@ -62,6 +62,14 @@ public class AutonomousController implements AutonomousState{
 		index = 0;
 	}
 	
+	public void pickAModeFaileSafe() {
+	    int amodeIndex = autonomousMapping.get("Overline");
+        
+        steps = autonomousModeList [amodeIndex];
+        setState(steps.get(0));
+        index = 0;
+	}
+	
 	//Gets the selected automode and prints out the states in it
 	public void dumpLoadedStates(SendableChooser<String>aModeSelector )
 	{

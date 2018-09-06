@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import sun.rmi.runtime.Log;
 
 public class Elevator
 {
@@ -21,10 +22,10 @@ public class Elevator
     private static final double MIN_OUT = -0.95;
     
     private static final double MIN_HEIGHT = -80.0;
-    private static final double MAX_HEIGHT = 100; //86;
+    private static final double MAX_HEIGHT = 83; //86;
     
     
-  
+    private double zeroHeight =0;
     private double setpoint = 0;
     private double currentError =0;
     
@@ -72,6 +73,7 @@ public class Elevator
         //elevatorMasterTalon.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
         
         elevatorMasterTalon.setSensorPhase(true);
+        elevatorMasterTalon.configOpenloopRamp(0.2, 0);
         elevatorMasterTalon.config_kP(0, 0.004, 0);
         elevatorMasterTalon.setInverted(false);
         
@@ -231,20 +233,37 @@ public class Elevator
         this.setpoint = Math.min(Math.max(MIN_HEIGHT, setpoint), MAX_HEIGHT);;
     }
     
+    
+    private double prevError;
     public void mainLoop() {
         //nominal voltage <-1,1> outpu for elevator based in P gain
         if(PIDEnabled) {
-            currentError = setpoint - getHeight();
-            double outputWanted = currentError * CrusaderCommon.ELEVATOR_KP;
+            
+            double height   = getHeight();     
+           if(elevatorMasterTalon.getSensorCollection().isRevLimitSwitchClosed() &&setpoint<3) {
+                zeroHeight+=height;
+              }
+   
+            currentError = setpoint - height;
+            double dVal = (currentError-prevError) * CrusaderCommon.ELEVATOR_KD;
+            double outputWanted = currentError * CrusaderCommon.ELEVATOR_KP + dVal + CrusaderCommon.ELEVATOR_FEED_FORWARD;
             outputWanted = Math.min(Math.max(MIN_OUT, outputWanted), MAX_OUT);
-            elevatorMasterTalon.set(ControlMode.PercentOutput, outputWanted);
+            if(height<15  && setpoint<4) {
+                elevatorMasterTalon.set(ControlMode.PercentOutput, outputWanted*0.35);             
+            }else {
+                elevatorMasterTalon.set(ControlMode.PercentOutput, outputWanted);        
+            }
+            
+            
+            prevError = currentError;
+           // System.out.println("setPoint = " + setpoint  +  "  Height = " + height +   "output wanted = " + outputWanted);
         }    
      
     }
     
     public double getHeight() {
        // System.out.println("HEIGHT:" + (-elevatorMasterTalon.getSelectedSensorPosition(0) / CrusaderCommon.ELEVATOR_TICK_TO_IN) + "      SETPOINT" + setpoint + "       ERROR:" + currentError);
-        return -elevatorMasterTalon.getSelectedSensorPosition(0) / CrusaderCommon.ELEVATOR_TICK_TO_IN;
+        return -elevatorMasterTalon.getSelectedSensorPosition(0) / CrusaderCommon.ELEVATOR_TICK_TO_IN - zeroHeight;
     }
 }
 

@@ -163,6 +163,7 @@ public class Robot extends IterativeRobot
 	@Override
 	public void robotInit() 
 	{
+	  
 		try 
 		{
 			System.out.println("RobotInit()");
@@ -248,6 +249,8 @@ public class Robot extends IterativeRobot
 	    myNavigation.resetNAVX();
 	    myDriveTrain.shiftLow();
 	    StringBuilder autoSelectionKey = null;
+	    boolean failSafe = false;
+	    
 	    try 
 	    {
 	        Logger.Log("Robot(): AutononousInit()");
@@ -273,6 +276,10 @@ public class Robot extends IterativeRobot
 	        if(gameData != null && gameData.length() > 0)
 	        {
 	            autoSelectionKey.append(gameData, 0, 2);
+	        }
+	        else
+	        {
+	            failSafe = true;
 	        }
 	        Logger.Log("Robot(): AutonomousInit(): The 2018 chosen One =  " + autoSelectionKey.toString());
 	        
@@ -301,7 +308,12 @@ public class Robot extends IterativeRobot
 	        
 	        myDriveTrain.resetEncoders();
 	        
-	        theMACP.pickAMode2018(autoSelectionKey.toString());
+	        if(!failSafe) {
+	            theMACP.pickAMode2018(autoSelectionKey.toString());
+	        }
+	        else {
+	            theMACP.pickAModeFaileSafe(); 
+	        }
 	       // theMACP.dumpLoadedStates(aModeSelector);
 
 	        myDriveTrain.getEncoderTicks();
