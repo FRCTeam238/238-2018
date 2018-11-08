@@ -65,8 +65,8 @@ public class AutonLineRunnable implements Runnable {
             double timeToStop = Math.abs(currentVelocity/acceleration);
             double distanceNeededToStop = (Math.abs(currentVelocity)/2) * timeToStop;
             
-            distanceTravelled=Math.abs(driveTrain.leftDistanceTravelled() - initialPosL + 
-                    driveTrain.rightDistanceTravelled() - initialPosR) / 2;
+            distanceTravelled=Math.abs(driveTrain.leftDistanceTravelled() - initialPosL); 
+            //+         driveTrain.rightDistanceTravelled() - initialPosR) / 2;
             System.out.println("DISTANCETRAVELLED:" + distanceTravelled);
             //remainingdistance
             if(Math.abs(distance) - distanceTravelled<=distanceNeededToStop){
@@ -74,8 +74,8 @@ public class AutonLineRunnable implements Runnable {
             }
 
             double currentAccel;
-            if(deAccelerate? !backwards:backwards){
-                currentVelocity-= (delT/1000) * acceleration;
+            if(deAccelerate ? !backwards : backwards){
+                currentVelocity -= (delT/1000) * acceleration;
                 currentAccel = -acceleration;
             }else{
                 currentVelocity += (delT/1000) * acceleration;
@@ -86,16 +86,6 @@ public class AutonLineRunnable implements Runnable {
             System.out.println(deAccelerate);
             //System.out.println(backwards);
             
-            // Matt's code, caution
-            
-           //stop = navigation.getLineSensor();
-           
-           
-            
-           //Matt's code
-                
-                
-
             double angleError = angle - navigation.getYaw() ;
             if(Math.abs(angleError) > (360.0 - 0.0)/2.0D) {
                 angleError = angleError>0.0D ? angleError- 360.0+ 0.0 : angleError + 360.0 -0.0; 

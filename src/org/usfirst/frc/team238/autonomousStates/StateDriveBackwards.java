@@ -1,6 +1,6 @@
 package org.usfirst.frc.team238.autonomousStates;
 
-import org.usfirst.frc.team238.commands.CommandDriveBackwards;
+import org.usfirst.frc.team238.commands.CommandTimeDriveFwd;
 import org.usfirst.frc.team238.core.AutonomousState;
 import org.usfirst.frc.team238.core.CommandController;
 import org.usfirst.frc.team238.core.Logger;
@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class StateDriveBackwards implements AutonomousState {
 
-  CommandDriveBackwards driveBackwards;
+	CommandTimeDriveFwd driveForAWhile;
   int                   count = 0;
   /* PURGE */
   double howfar = 1.0; // This is probably not right, lol
@@ -17,15 +17,15 @@ public class StateDriveBackwards implements AutonomousState {
 
   @Override
   public void prepare() {
-    driveBackwards.setParams(parameters);
-    driveBackwards.prepare();
+	  driveForAWhile.setParams(parameters);
+	  driveForAWhile.prepare();
 
   }
 
   @Override
   public void init(String params[], CommandController theMcp) {
 
-    driveBackwards = (CommandDriveBackwards) theMcp.getAutoCmd("CommandDriveBackwards");
+	driveForAWhile = (CommandTimeDriveFwd) theMcp.getAutoCmd("CommandTimeDriveFwd");
     parameters = params;
 
   }
@@ -34,12 +34,12 @@ public class StateDriveBackwards implements AutonomousState {
   public void process() {
     Logger.Log("StateDriveBackwards.Process()  "+ count);
     count++;
-    driveBackwards.execute();
+    driveForAWhile.execute();
   }
 
   @Override
   public boolean done() {
-    if (driveBackwards.done()) {
+    if (driveForAWhile.done()) {
       count = 0;
       return true;
     }
